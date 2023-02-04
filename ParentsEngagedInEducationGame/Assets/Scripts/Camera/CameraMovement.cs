@@ -47,4 +47,9 @@ public class CameraMovement : MonoBehaviour
             cameraVel = new Vector3(vel, 0, 0);
         }
     }
+
+    public void ResetCamPos()
+    {
+        transform.position = new Vector3(leftCamBoundary, transform.position.y, transform.position.z);
+    }
 }

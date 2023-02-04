@@ -10,23 +10,23 @@ using UnityEditor;
 public class QuestionScriptableObject : ScriptableObject
 {
     [Header("Base Variables")]
-    public int _grade;
-    public Subjects _subject;
-    public QuestionTypes _questionType;
-    public string _question;
-    public string _learningTip;
+    public int grade;
+    public Subjects subject;
+    //public QuestionTypes questionType;
+    public string question;
+    public string learningTip;
 
     [Header("Multiple Choice Variables")]
-    [HideInInspector] public string[] _mcAnswers = new string[4];
+    /*[HideInInspector] */public string[] mcAnswers = new string[4];
     [Range(0, 3)]
-    [HideInInspector] public int _mcCorrectAnswerIndex = 0;
+    /*[HideInInspector]*/ public int mcCorrectAnswerIndex = 0;
 
-    [Header("True or False Variables")]
-    [HideInInspector] public bool _trueFalseAnswer;
+    //[Header("True or False Variables")]
+    //[HideInInspector] public bool _trueFalseAnswer;
 
-    [Header("Select All The Apply Variables")]
-    [HideInInspector] public string[] _selectAllAnswers = new string[4];
-    [HideInInspector] public List<int> _selectAllCorrectIndices = new List<int>();
+    //[Header("Select All The Apply Variables")]
+    //[HideInInspector] public string[] _selectAllAnswers = new string[4];
+    //[HideInInspector] public List<int> _selectAllCorrectIndices = new List<int>();
 }
 
 public enum Subjects
