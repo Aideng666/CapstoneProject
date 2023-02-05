@@ -1973,7 +1973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 943765142}
   fillableBar: {fileID: 456242859}
-  time: 6
+  time: 5
 --- !u!4 &2011846507
 Transform:
   m_ObjectHideFlags: 0
