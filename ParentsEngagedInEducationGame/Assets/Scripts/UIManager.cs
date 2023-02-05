@@ -80,6 +80,7 @@ public class UIManager : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
+            namePanel.SetActive(false);
             sceneManagement.canProceed = true;
             sceneManagement.FadeToScene();
         }
