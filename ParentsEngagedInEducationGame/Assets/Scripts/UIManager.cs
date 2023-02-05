@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class UIManager : MonoBehaviour
     public RectTransform rectTransform;
 
     public List<GameObject> items = new List<GameObject>();
+
+    public TMP_InputField inputField;
+    public TMP_Text nameText;
+    string username = "";
+    bool hasEnteredName = false;
     
     public void PanelFadeIn()
     {
@@ -40,5 +46,17 @@ public class UIManager : MonoBehaviour
             item.transform.DOScale(1f, fadeTime).SetEase(Ease.OutBounce);
             yield return new WaitForSeconds(0.25f);
         }
+    }
+
+    public void UpdateName()
+    {
+        if (!hasEnteredName)
+        {
+
+        }
+
+        username = inputField.text;
+        nameText.text = username;
+        PlayerPrefs.SetString("username", username);
     }
 }
