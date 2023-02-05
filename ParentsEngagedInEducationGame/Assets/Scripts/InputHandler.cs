@@ -9,47 +9,50 @@ public class InputHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.touches.Length == 1)
+        if (GameManager.Instance.currentGamestate == GameStates.Hallway)
         {
-            Touch touch = Input.touches[0];
-
-            //Detects tapping on a door to enter the selected grade
-            if (touch.phase == TouchPhase.Began)
+            if (Input.touches.Length == 1)
             {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                Touch touch = Input.touches[0];
 
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                //Detects tapping on a door to enter the selected grade
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (hit.collider.CompareTag("Door"))
+                    Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+                    if (Physics.Raycast(ray, out RaycastHit hit))
                     {
-                        hit.collider.GetComponent<Door>().EnterGrade();
+                        if (hit.collider.CompareTag("Door"))
+                        {
+                            hit.collider.GetComponent<Door>().EnterGrade();
+                        }
                     }
                 }
             }
-        }
 
-        foreach (Touch touch in Input.touches)
-        {
-            //Detects dragging finger side to side for camera movement
-            if (touch.phase == TouchPhase.Moved)
+            foreach (Touch touch in Input.touches)
             {
-                Vector3 touchWorldPos = Camera.main.ScreenToWorldPoint(touch.position);
-
-                float velocity = Vector3.Distance(touchWorldPos, Camera.main.ScreenToWorldPoint(touch.position - touch.deltaPosition)) / touch.deltaTime;
-
-                if (touch.deltaPosition.x > 0)
+                //Detects dragging finger side to side for camera movement
+                if (touch.phase == TouchPhase.Moved)
                 {
-                    mainCam.SetVelocity(velocity / 2, 0);
-                }
-                if (touch.deltaPosition.x < 0)
-                {
-                    mainCam.SetVelocity(velocity / 2, 1);
+                    Vector3 touchWorldPos = Camera.main.ScreenToWorldPoint(touch.position);
+
+                    float velocity = Vector3.Distance(touchWorldPos, Camera.main.ScreenToWorldPoint(touch.position - touch.deltaPosition)) / touch.deltaTime;
+
+                    if (touch.deltaPosition.x > 0)
+                    {
+                        mainCam.SetVelocity(velocity / 2, 0);
+                    }
+                    if (touch.deltaPosition.x < 0)
+                    {
+                        mainCam.SetVelocity(velocity / 2, 1);
+                    }
                 }
             }
         }

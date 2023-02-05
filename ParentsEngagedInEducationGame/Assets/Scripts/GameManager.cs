@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject hallwayEnvironment;
-    [SerializeField] GameObject classroomEnvironment;
+    [SerializeField] Classroom classroomEnvironment;
+
+    public GameStates currentGamestate { get; private set; } = GameStates.Hallway;
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -32,6 +34,34 @@ public class GameManager : MonoBehaviour
     public void EnterClassroom(int grade)
     {
         hallwayEnvironment.SetActive(false);
-        classroomEnvironment.SetActive(true);
+        classroomEnvironment.gameObject.SetActive(true);
+        classroomEnvironment.InitClassroom(grade);
+
+        currentGamestate = GameStates.Classroom;
     }
+
+    public void ReplayLevel(int grade)
+    {
+        classroomEnvironment.gameObject.SetActive(false);
+        classroomEnvironment.gameObject.SetActive(true);
+        classroomEnvironment.InitClassroom(grade);
+
+        currentGamestate = GameStates.Classroom;
+    }
+
+    public void Continue()
+    {
+        classroomEnvironment.gameObject.SetActive(false);
+        hallwayEnvironment.SetActive(true);
+        Camera.main.GetComponent<CameraMovement>().ResetCamPos();
+
+        currentGamestate = GameStates.Hallway;
+    }
+}
+
+public enum GameStates
+{
+    Menu,
+    Hallway,
+    Classroom
 }

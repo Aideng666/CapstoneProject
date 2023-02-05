@@ -34,28 +34,28 @@ public class QuestionEditor : Editor
 
         QuestionScriptableObject script = (QuestionScriptableObject)target;
 
-        switch (script._questionType)
-        {
-            case QuestionTypes.MultipleChoice:
+        //switch (script.questionType)
+        //{
+        //    case QuestionTypes.MultipleChoice:
 
-                EditorGUILayout.PropertyField(_mcAnswersProp, new GUIContent("List of Answers"), true);
-                EditorGUILayout.PropertyField(_mcCorrectIndexProp, new GUIContent("Correct Answer Index"));
+        //        EditorGUILayout.PropertyField(_mcAnswersProp, new GUIContent("List of Answers"), true);
+        //        EditorGUILayout.PropertyField(_mcCorrectIndexProp, new GUIContent("Correct Answer Index"));
 
-                break;
+        //        break;
 
-            case QuestionTypes.TrueOrFalse:
+        //    case QuestionTypes.TrueOrFalse:
 
-                EditorGUILayout.PropertyField(_tfAnswerProp, new GUIContent("Answer"));
+        //        EditorGUILayout.PropertyField(_tfAnswerProp, new GUIContent("Answer"));
 
-                break;
+        //        break;
 
-            case QuestionTypes.SelectAllThatApply:
+        //    case QuestionTypes.SelectAllThatApply:
 
-                EditorGUILayout.PropertyField(_selectAllAnswersProp, new GUIContent("List of Answers"), true);
-                EditorGUILayout.PropertyField(_selectAllCorrectIndicesProp, new GUIContent("Correct Answer Indices"), true);
+        //        EditorGUILayout.PropertyField(_selectAllAnswersProp, new GUIContent("List of Answers"), true);
+        //        EditorGUILayout.PropertyField(_selectAllCorrectIndicesProp, new GUIContent("Correct Answer Indices"), true);
 
-                break;
-        }
+        //        break;
+        //}
 
         serializedObject.ApplyModifiedProperties();
     }
