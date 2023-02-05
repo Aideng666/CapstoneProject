@@ -11,6 +11,7 @@ public class Classroom : MonoBehaviour
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
     [SerializeField] TextMeshProUGUI literacyMarkText;
+    [SerializeField] TextMeshProUGUI letterGradeText;
 
     [Header("Question Panel")]
     [SerializeField] GameObject questionPanel;
@@ -51,61 +52,9 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        if (gradeComplete && !reportCardPanel.activeInHierarchy)
         {
-            questionPanel.SetActive(false);
-            reportCardPanel.SetActive(true);
-
-            Dictionary<QuestionScriptableObject, bool> mathQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
-            Dictionary<QuestionScriptableObject, bool> scienceQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
-            Dictionary<QuestionScriptableObject, bool> literacyQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
-
-            int mathQuestionsCorrect = 0;
-            int scienceQuestionsCorrect = 0;
-            int literacyQuestionsCorrect = 0;
-
-            foreach (KeyValuePair<QuestionScriptableObject, bool> questionAnswered in answeredQuestions)
-            {
-                switch (questionAnswered.Key.subject)
-                {
-                    case Subjects.Math:
-
-                        mathQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
-
-                        if (questionAnswered.Value)
-                        {
-                            mathQuestionsCorrect++;
-                        }
-
-                        break;
-
-                    case Subjects.Science:
-
-                        scienceQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
-
-                        if (questionAnswered.Value)
-                        {
-                            scienceQuestionsCorrect++;
-                        }
-
-                        break;
-
-                    case Subjects.Literacy:
-
-                        literacyQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
-
-                        if (questionAnswered.Value)
-                        {
-                            literacyQuestionsCorrect++;
-                        }
-
-                        break;
-                }
-            }
-
-            mathMarkText.text = $"Math:    {mathQuestionsCorrect}  /  {mathQuestionsAnswered.Count}";
-            scienceMarkText.text = $"Science:    {scienceQuestionsCorrect}  /  {scienceQuestionsAnswered.Count}";
-            literacyMarkText.text = $"Literacy:    {literacyQuestionsCorrect}  /  {literacyQuestionsAnswered.Count}";
+            ShowReportCard();
         }
 
         if (beginGrade && !gradeComplete)
@@ -113,6 +62,8 @@ public class Classroom : MonoBehaviour
             if (currentQuestionIndex >= questionsToAsk.Length)
             {
                 gradeComplete = true;
+
+                return;
             }
 
             QuestionScriptableObject currentQuestion = questionsToAsk[currentQuestionIndex];
@@ -166,6 +117,160 @@ public class Classroom : MonoBehaviour
         }
     }
 
+    public void ShowReportCard()
+    {
+        questionPanel.SetActive(false);
+        reportCardPanel.SetActive(true);
+
+        Dictionary<QuestionScriptableObject, bool> mathQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
+        Dictionary<QuestionScriptableObject, bool> scienceQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
+        Dictionary<QuestionScriptableObject, bool> literacyQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
+
+        int mathQuestionsCorrect = 0;
+        int scienceQuestionsCorrect = 0;
+        int literacyQuestionsCorrect = 0;
+
+        foreach (KeyValuePair<QuestionScriptableObject, bool> questionAnswered in answeredQuestions)
+        {
+            switch (questionAnswered.Key.subject)
+            {
+                case Subjects.Math:
+
+                    mathQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
+
+                    if (questionAnswered.Value)
+                    {
+                        mathQuestionsCorrect++;
+                    }
+
+                    break;
+
+                case Subjects.Science:
+
+                    scienceQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
+
+                    if (questionAnswered.Value)
+                    {
+                        scienceQuestionsCorrect++;
+                    }
+
+                    break;
+
+                case Subjects.Literacy:
+
+                    literacyQuestionsAnswered.Add(questionAnswered.Key, questionAnswered.Value);
+
+                    if (questionAnswered.Value)
+                    {
+                        literacyQuestionsCorrect++;
+                    }
+
+                    break;
+            }
+        }
+
+        mathMarkText.text = $"Math:    {mathQuestionsCorrect}  /  {mathQuestionsAnswered.Count}";
+        scienceMarkText.text = $"Science:    {scienceQuestionsCorrect}  /  {scienceQuestionsAnswered.Count}";
+        literacyMarkText.text = $"Literacy:    {literacyQuestionsCorrect}  /  {literacyQuestionsAnswered.Count}";
+
+        CalculateGrade();
+    }
+
+    void CalculateGrade()
+    {
+        int questionsCorrect = 0;
+
+        foreach (KeyValuePair<QuestionScriptableObject, bool> questionAnswered in answeredQuestions)
+        {
+            if (questionAnswered.Value)
+            {
+                questionsCorrect++;
+            }
+        }
+
+        float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
+
+        if (percentage >= 0.5f)
+        {
+            Hallway.Instance.UnlockNextGrade();
+        }
+
+        switch (percentage)
+        {
+            case >= 0.9f:
+
+                letterGradeText.text = "A+";
+
+                break;
+
+            case >= 0.85f:
+
+                letterGradeText.text = "A";
+
+                break;
+
+            case >= 0.8f:
+
+                letterGradeText.text = "A-";
+
+                break;
+
+            case >= 0.77f:
+
+                letterGradeText.text = "B+";
+
+                break;
+
+            case >= 0.74f:
+
+                letterGradeText.text = "B";
+
+                break;
+
+            case >= 0.7f:
+
+                letterGradeText.text = "B-";
+
+                break;
+
+            case >= 0.67f:
+
+                letterGradeText.text = "C+";
+
+                break;
+
+            case >= 0.64f:
+
+                letterGradeText.text = "C";
+
+                break;
+
+            case >= 0.6f:
+
+                letterGradeText.text = "C-";
+
+                break;
+
+            case >= 0.57f:
+
+                letterGradeText.text = "D+";
+
+                break;
+
+            case >= 0.54f:
+
+                letterGradeText.text = "D";
+
+                break;
+
+            case >= 0.5f:
+
+                letterGradeText.text = "D-";
+
+                break;
+        }
+    }
+
     public void ReplayLevel()
     {
         //reportCardPanel.SetActive(false);
@@ -185,6 +290,7 @@ public class Classroom : MonoBehaviour
         currentQuestionIndex = 0;
         beginGrade = false;
         selectedGrade = grade;
+        letterGradeText.text = "";
 
         switch (grade)
         {
