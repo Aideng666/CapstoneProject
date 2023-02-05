@@ -34,4 +34,9 @@ public class SceneManagement : MonoBehaviour
             FadeToScene();
         }
     }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(2);
+    }
 }
