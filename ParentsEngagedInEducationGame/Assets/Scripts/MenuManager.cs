@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] SceneManagement sceneManager;
     [SerializeField] Image fillableBar;
     [SerializeField] float time = 10f;
     bool isBarFilled = false;
@@ -31,6 +32,7 @@ public class MenuManager : MonoBehaviour
 
         if (isBarFilled)
         {
+            sceneManager.FadeToScene();
             SceneManager.LoadScene(2);
             isBarFilled = false;
         }
