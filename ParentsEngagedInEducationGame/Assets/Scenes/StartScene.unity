@@ -442,6 +442,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spacing: {x: -200, y: 0}
+  rotationDuration: 0.3
+  rotationEase: 1
+  expandDuration: 0.3
+  collapseDuration: 0.4
+  expandEase: 27
+  collapseEase: 26
+  expandFadeDuration: 0.3
+  collapseFadeDuration: 0.6
 --- !u!1 &500594344
 GameObject:
   m_ObjectHideFlags: 0

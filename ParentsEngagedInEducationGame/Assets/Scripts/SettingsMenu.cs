@@ -1,10 +1,28 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SettingsMenu : MonoBehaviour
 {
     [Header("Space between menu items")]
     [SerializeField] Vector2 spacing;
+
+    [Space]
+    [Header("Main button rotation")]
+    [SerializeField] float rotationDuration;
+    [SerializeField] Ease rotationEase;
+
+    [Space]
+    [Header("Animation")]
+    [SerializeField] float expandDuration;
+    [SerializeField] float collapseDuration;
+    [SerializeField] Ease expandEase;
+    [SerializeField] Ease collapseEase;
+
+    [Space]
+    [Header("Fading")]
+    [SerializeField] float expandFadeDuration;
+    [SerializeField] float collapseFadeDuration;
 
     Button mainButton;
     SettingsMenuItem[] menuItems;
@@ -50,16 +68,21 @@ public class SettingsMenu : MonoBehaviour
         {
             for (int i = 0; i < itemsCount; ++i)
             {
-                menuItems[i].trans.position = mainButtonPos + spacing * (i + 1); // +1 to avoid *0 
+                menuItems[i].trans.DOMove(mainButtonPos + spacing * (i + 1), expandDuration).SetEase(expandEase);
+                menuItems[i].img.DOFade(1f, expandFadeDuration).From(0f);
             }
         }
         else
         {
             for (int i = 0; i < itemsCount; ++i)
             {
-                menuItems[i].trans.position = mainButtonPos;
+                menuItems[i].trans.DOMove(mainButtonPos, collapseDuration).SetEase(collapseEase);
+                menuItems[i].img.DOFade(0f, collapseFadeDuration).From(1f);
             }
         }
+
+        // Rotate menu button
+        mainButton.transform.DORotate(Vector3.forward * 180f, rotationDuration).From(Vector3.zero).SetEase(rotationEase);
     }
 
     private void OnDestroy()
