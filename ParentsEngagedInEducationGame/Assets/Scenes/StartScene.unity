@@ -2624,7 +2624,17 @@ PrefabInstance:
     - target: {fileID: 3198918888268551316, guid: 891d3ce08b8824e48a06d3980dd8fd18,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198918888268551317, guid: 891d3ce08b8824e48a06d3980dd8fd18,
+        type: 3}
+      propertyPath: canProceed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3198918888268551317, guid: 891d3ce08b8824e48a06d3980dd8fd18,
+        type: 3}
+      propertyPath: sceneToLoad
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3198918888268551317, guid: 891d3ce08b8824e48a06d3980dd8fd18,
         type: 3}
@@ -2699,6 +2709,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1867794774}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1867794776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3198918888268551317, guid: 891d3ce08b8824e48a06d3980dd8fd18,
+    type: 3}
+  m_PrefabInstance: {fileID: 1867794774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867794775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9738b648f5ebc0b40889635fcf763dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1942133818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2909,6 +2931,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1867794776}
+        m_TargetAssemblyTypeName: SceneManagement, Assembly-CSharp
+        m_MethodName: FadeToScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1

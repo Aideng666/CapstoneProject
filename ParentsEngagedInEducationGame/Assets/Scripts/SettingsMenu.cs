@@ -85,8 +85,8 @@ public class SettingsMenu : MonoBehaviour
         mainButton.transform.DORotate(Vector3.forward * 180f, rotationDuration).From(Vector3.zero).SetEase(rotationEase);
     }
 
-    private void OnDestroy()
-    {
-        mainButton.onClick.RemoveListener(ToggleMenu);
-    }
+    //private void OnDestroy()
+    //{
+    //    mainButton.onClick.RemoveListener(ToggleMenu);
+    //}
 }

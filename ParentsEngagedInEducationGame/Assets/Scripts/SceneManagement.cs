@@ -7,6 +7,7 @@ public class SceneManagement : MonoBehaviour
     public Animator animator;
     public int sceneToLoad;
     public bool shouldAutoLoad = false;
+    public bool canProceed = false;
 
     public void FadeToScene()
     {
@@ -19,6 +20,11 @@ public class SceneManagement : MonoBehaviour
         {
             SceneManager.LoadScene(sceneToLoad);
         }    
+
+        if (canProceed)
+        {
+            SceneManager.LoadScene(sceneToLoad);
+        }
     }
 
     public void OnFadeInComplete()
