@@ -11,6 +11,7 @@ public class QuestionScriptableObject : ScriptableObject
 {
     [Header("Base Variables")]
     public int grade;
+    public int questionNum; //number of the question for each grade, this should align with the number at the end of the name of each scriptable object u make
     public Subjects subject;
     //public QuestionTypes questionType;
     public string question;
