@@ -35,6 +35,10 @@ public class AchievementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //TEMP
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("GradesUnlocked", 1);
+
         questions = Classroom.GetQuestions<QuestionScriptableObject>("Questions");
         achievements = Classroom.GetQuestions<AchievementObject>("Achievements");
 
@@ -43,10 +47,12 @@ public class AchievementManager : MonoBehaviour
         {
             if (PlayerPrefs.HasKey(question.name))
             {
+                print("Adding True Question");
                 allQuestions.Add(question, true);
             }
             else
             {
+                print("Adding False Question");
                 allQuestions.Add(question, false);
             }
         }
@@ -70,24 +76,29 @@ public class AchievementManager : MonoBehaviour
     {
         if (!correct)
         {
+            CheckAchievements(grade);
+
             return;
         }
 
         allQuestions[question] = true;
 
-        CheckAchievements();
+        CheckAchievements(grade);
     }
 
     //Goes through all question based achievements to check if they have been completed
-    public void CheckAchievements()
+    public void CheckAchievements(int grade = -2)
     {
         foreach (AchievementObject achievement in Classroom.GetQuestions<AchievementObject>("Achievements"))
         {
-            if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
+            if (achievement.grade == grade || grade == -2)
             {
-                PlayerPrefs.SetInt(achievement.name, 1);
+                if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
+                {
+                    PlayerPrefs.SetInt(achievement.name, 1);
 
-                print($"You Got The Achievement for {achievement.name}");
+                    print($"You Got The Achievement for {achievement.name}");
+                }
             }
         }
     }
@@ -107,7 +118,6 @@ public class AchievementManager : MonoBehaviour
                 }
             }
         }
-
         return numCorrect;
     }
 }

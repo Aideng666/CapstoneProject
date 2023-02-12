@@ -15,4 +15,4 @@ MonoBehaviour:
   achievementType: 0
   decription: Answer correctly to 10 different questions in JK
   grade: 8
-  achievementThreshold: 3
+  achievementThreshold: 10

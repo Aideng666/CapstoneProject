@@ -2032,8 +2032,8 @@ MonoBehaviour:
   - {fileID: 629378510}
   - {fileID: 11038159}
   - {fileID: 1647070395}
-  totalQuestionNum: 3
-  numOfChances: 3
+  totalQuestionNum: 10
+  numOfChances: 5
 --- !u!1 &848755249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5123,7 +5123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91770f6e6d369549b00b6311bf2d8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hallwayEnvironment: {fileID: 539326566}
+  hallwayEnvironment: {fileID: 539326568}
   classroomEnvironment: {fileID: 706465731}
 --- !u!114 &1967131731
 MonoBehaviour:

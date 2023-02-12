@@ -14,18 +14,15 @@ public class AchievementObject : ScriptableObject
     {
         if (achievementType == AchievementTypes.TotalCorrect)
         {
-            if (AchievementManager.Instance.CheckCorrectQuestions(grade) >= achievementThreshold)
-            {
-                return true;
-            }
+            return AchievementManager.Instance.CheckCorrectQuestions(grade) >= achievementThreshold;
         }
         else if (achievementType == AchievementTypes.InARow)
         {
-
+            return Classroom.Instance.correctAnswerStreak >= achievementThreshold && grade == Classroom.Instance.selectedGrade;
         }
         else if (achievementType == AchievementTypes.Unlock)
         {
-
+            return Hallway.Instance.GetUnlockedDoors()[Hallway.Instance.GetDoors()[grade + 1]];
         }
 
         return false;

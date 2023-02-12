@@ -27,12 +27,19 @@ public class Classroom : MonoBehaviour
     Dictionary<QuestionScriptableObject, bool> answeredQuestions;
 
     int currentQuestionIndex = 0;
-    int selectedGrade;
     bool beginGrade = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
 
-    public static int correctAnswerStreak { get; private set; }
+    public int selectedGrade { get; private set; }
+    public int correctAnswerStreak { get; private set; }
+
+    public static Classroom Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -43,12 +50,6 @@ public class Classroom : MonoBehaviour
         correctAnswerStreak = 0;
 
         answeredQuestions = new Dictionary<QuestionScriptableObject, bool>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -196,7 +197,7 @@ public class Classroom : MonoBehaviour
 
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
-        if (percentage >= 0.5f)
+        if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 2)
         {
             Hallway.Instance.UnlockNextGrade();
         }
