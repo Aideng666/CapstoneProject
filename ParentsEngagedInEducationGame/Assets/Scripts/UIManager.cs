@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject namePanel;
     bool hasSetName = false;
     [SerializeField] GameObject editNameBtn;
+    [SerializeField] Button confirmNameBtn;
 
     [SerializeField] SceneManagement sceneManagement;
 
@@ -29,6 +31,8 @@ public class UIManager : MonoBehaviour
         {
             editNameBtn.SetActive(true);
         }
+
+        confirmNameBtn.interactable = false;
     }
 
     public void PanelFadeIn()
@@ -94,7 +98,7 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
         hasSetName = true;
-        PlayerPrefs.Save();     
+        PlayerPrefs.Save();                
     }
 
 
@@ -102,6 +106,15 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("PLAYER NAME: " + PlayerPrefs.GetString("username").ToString());
         Debug.Log("HAS SET NAME: " + PlayerPrefs.GetInt("hasSetName").ToString());
+
+        if (inputField.text == "")
+        {
+            confirmNameBtn.interactable = false;
+        }
+        else
+        {
+            confirmNameBtn.interactable = true;
+        }
     }
 
     public void DeletePlayerPref()

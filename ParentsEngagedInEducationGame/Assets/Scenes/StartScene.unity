@@ -2423,6 +2423,7 @@ MonoBehaviour:
   nameText: {fileID: 1039966883}
   namePanel: {fileID: 354711383}
   editNameBtn: {fileID: 1927173584}
+  confirmNameBtn: {fileID: 1951416561}
   sceneManagement: {fileID: 1867794776}
 --- !u!4 &1271859548
 Transform:
@@ -2934,7 +2935,7 @@ PrefabInstance:
     - target: {fileID: 3198918888268551316, guid: 891d3ce08b8824e48a06d3980dd8fd18,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3198918888268551317, guid: 891d3ce08b8824e48a06d3980dd8fd18,
         type: 3}
