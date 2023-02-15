@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject hallwayEnvironment;
+    [SerializeField] Hallway hallwayEnvironment;
     [SerializeField] Classroom classroomEnvironment;
 
     public GameStates currentGamestate { get; private set; } = GameStates.Hallway;
@@ -19,21 +19,10 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void EnterClassroom(int grade)
     {
-        hallwayEnvironment.SetActive(false);
+        hallwayEnvironment.gameObject.SetActive(false);
         classroomEnvironment.gameObject.SetActive(true);
         classroomEnvironment.InitClassroom(grade);
 
@@ -52,7 +41,7 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         classroomEnvironment.gameObject.SetActive(false);
-        hallwayEnvironment.SetActive(true);
+        hallwayEnvironment.gameObject.SetActive(true);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
         currentGamestate = GameStates.Hallway;
