@@ -21,17 +21,25 @@ public class Classroom : MonoBehaviour
     [SerializeField] int totalQuestionNum = 30;
     [SerializeField] int numOfChances = 10;
 
-    QuestionScriptableObject[] questionBank;
+    List<QuestionScriptableObject> questionBank;
     QuestionScriptableObject[] questionsToAsk;
 
     Dictionary<QuestionScriptableObject, bool> answeredQuestions;
 
-    int correctAnswersNeeded = 5;
     int currentQuestionIndex = 0;
-    int selectedGrade;
     bool beginGrade = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
+
+    public int selectedGrade { get; private set; }
+    public int correctAnswerStreak { get; private set; }
+
+    public static Classroom Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -39,14 +47,9 @@ public class Classroom : MonoBehaviour
         reportCardPanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        correctAnswerStreak = 0;
 
         answeredQuestions = new Dictionary<QuestionScriptableObject, bool>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -103,12 +106,16 @@ public class Classroom : MonoBehaviour
                 print("Correct!");
 
                 answeredQuestions.Add(currentQuestion, true);
+                correctAnswerStreak++;
+
+                AchievementManager.Instance.AnswerQuestion(currentQuestion, true, selectedGrade);
             }
             else
             {
                 print("Incorrect");
 
                 answeredQuestions.Add(currentQuestion, false);
+                correctAnswerStreak = 0;
             }
 
             waitingForAnswer = false;
@@ -190,7 +197,7 @@ public class Classroom : MonoBehaviour
 
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
-        if (percentage >= 0.5f)
+        if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 2)
         {
             Hallway.Instance.UnlockNextGrade();
         }
@@ -285,77 +292,23 @@ public class Classroom : MonoBehaviour
 
     public void InitClassroom(int grade)
     {
-        questionBank = new QuestionScriptableObject[totalQuestionNum];
+        questionBank = new List<QuestionScriptableObject>(totalQuestionNum);
         questionsToAsk = new QuestionScriptableObject[numOfChances];
         currentQuestionIndex = 0;
         beginGrade = false;
         selectedGrade = grade;
         letterGradeText.text = "";
 
-        switch (grade)
+        //Loops through every questions and selects every questions from the given grade to be in the question bank
+        foreach (QuestionScriptableObject question in GetQuestions<QuestionScriptableObject>("Questions"))
         {
-            case -1:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("JK");
-
-                break;
-
-            case 0:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("SK");
-
-                break;
-
-            case 1:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 1");
-
-                break;
-
-            case 2:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 2");
-
-                break;
-
-            case 3:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 3");
-
-                break;
-
-            case 4:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 4");
-
-                break;
-
-            case 5:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 5");
-
-                break;
-
-            case 6:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 6");
-
-                break;
-
-            case 7:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 7");
-
-                break;
-
-            case 8:
-
-                questionBank = GetQuestions<QuestionScriptableObject>("Grade 8");
-
-                break;
+            if (question.grade == grade)
+            {
+                questionBank.Add(question);
+            }
         }
 
-
+        //loops through the question bank and picks out a select amount at random to be part of the current round of the game
         for (int i = 0; i < numOfChances; i++)
         {
             int randomIndex = Random.Range(0, totalQuestionNum);
@@ -363,7 +316,7 @@ public class Classroom : MonoBehaviour
 
             for (int j = 0; j < numOfChances; j++)
             {
-                if (questionBank[randomIndex] == questionsToAsk[j])
+                if (questionsToAsk[j] != null && questionBank[randomIndex] == questionsToAsk[j])
                 {
                     i--;
 

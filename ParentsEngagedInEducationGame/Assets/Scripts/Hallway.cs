@@ -19,6 +19,11 @@ public class Hallway : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        AchievementManager.Instance.CheckAchievements();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,16 +75,26 @@ public class Hallway : MonoBehaviour
 
     public void UnlockNextGrade()
     {
-        foreach (KeyValuePair<Door, bool> door in unlockedDoors)
+        foreach (Door door in doors)
         {
-            if (!door.Value)
+            if (!unlockedDoors[door])
             {
-                unlockedDoors[door.Key] = true;
+                unlockedDoors[door] = true;
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
                 return;
             }
         }
+    }
+
+    public Dictionary<Door, bool> GetUnlockedDoors()
+    {
+        return unlockedDoors;
+    }
+
+    public List<Door> GetDoors()
+    {
+        return doors;
     }
 }
