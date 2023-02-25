@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIUtility : MonoBehaviour
 {
@@ -11,11 +12,11 @@ public class UIUtility : MonoBehaviour
     [SerializeField] CanvasGroup startCanvasGroup;
     [SerializeField] CanvasGroup titleCanvasGroup;
     [SerializeField] CanvasGroup titleCanvasMainGroup;
-   // [SerializeField] CanvasGroup hubCanvasGroup;
-   
+    // [SerializeField] CanvasGroup hubCanvasGroup;
+
     Tween fadeTween;
 
-    [Header("Edit Name Panel")] 
+    [Header("Edit Name Panel")]
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text nameText;
     string username = "";
@@ -23,6 +24,8 @@ public class UIUtility : MonoBehaviour
     bool hasSetName = false;
     [SerializeField] GameObject editNameButton;
     [SerializeField] Button enterButton;
+
+    [SerializeField] GameObject hubCanvasObj;
 
     void Start()
     {
@@ -57,11 +60,14 @@ public class UIUtility : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
+            LevelManager.Instance.LoadScene("LevelSelectTEST");
+            hubCanvasObj.SetActive(false);
             // TODO:
             // FadeOut
             // Loading Screen
             // Switch to Classroom Scene 
             // Camera zoom on door's opening?
+
         }
     }
 
@@ -94,7 +100,7 @@ public class UIUtility : MonoBehaviour
         }
     }
 
-    public void  DeletePlayerPrefs()
+    public void DeletePlayerPrefs()
     {
         PlayerPrefs.DeleteKey("username");
         PlayerPrefs.DeleteKey("hasSetName");
@@ -148,5 +154,5 @@ public class UIUtility : MonoBehaviour
     public void TapPlayButton()
     {
         StartCoroutine(PlayButtonFade());
-    }
+    } 
 }
