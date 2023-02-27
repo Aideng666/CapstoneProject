@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Grade1Math 10
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 10
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: "Olivia\u2019s desk drawer has 4 markers and 3 coloured pencils. How
+    many more markers than coloured pencils are in Olivia\u2019s drawer? "
+  learningTip: Use real life objects to find the answer
   mcAnswers:
-  - 0
-  - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - 7
+  - 1
+  - 4
+  - 12
+  mcCorrectAnswerIndex: 1

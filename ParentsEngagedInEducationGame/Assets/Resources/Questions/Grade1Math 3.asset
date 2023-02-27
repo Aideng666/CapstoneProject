@@ -15,11 +15,11 @@ MonoBehaviour:
   grade: 1
   questionNum: 3
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: "Which shape has 3\r sides?"
+  learningTip: Draw each object then count the sides
   mcAnswers:
-  - 0
-  - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - Square
+  - Triangle
+  - Rectangle
+  - Trapezoid
+  mcCorrectAnswerIndex: 1
