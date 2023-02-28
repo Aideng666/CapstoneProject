@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Grade1Math 5
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 5
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: What is 12 - 5?
+  learningTip: Lay out 12 objects, then remove 5 of them, how many do you have left
   mcAnswers:
-  - 0
+  - 17
   - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - 7
+  - 6
+  mcCorrectAnswerIndex: 2

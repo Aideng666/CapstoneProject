@@ -15,11 +15,11 @@ MonoBehaviour:
   grade: 1
   questionNum: 1
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: Counting down from 17, which number comes next?
+  learningTip: Use a number line to subtract
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - 14
+  - 12
+  - 16
+  - 18
+  mcCorrectAnswerIndex: 2

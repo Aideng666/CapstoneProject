@@ -14,7 +14,9 @@ public class QuestionScriptableObject : ScriptableObject
     public int questionNum; //number of the question for each grade, this should align with the number at the end of the name of each scriptable object u make
     public Subjects subject;
     //public QuestionTypes questionType;
+    [TextArea(3, 8)]
     public string question;
+    [TextArea(3, 8)]
     public string learningTip;
 
     [Header("Multiple Choice Variables")]

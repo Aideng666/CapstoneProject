@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Grade1Math 7
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 7
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: 'Fill in the missing number: __ + 5 = 7 '
+  learningTip: Use Subtraction (7 - 5)
   mcAnswers:
   - 0
   - 5

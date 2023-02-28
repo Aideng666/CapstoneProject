@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Grade1Math 4
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 4
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: What is 6 + 2?
+  learningTip: Use a number line
   mcAnswers:
-  - 0
-  - 5
+  - 4
   - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - 12
+  - 3
+  mcCorrectAnswerIndex: 1
