@@ -1,32 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UpdateName : MonoBehaviour
 {
-    public TMP_InputField inputField;
-    public TMP_Text nameText;
+    [Header("Edit Name Panel")]
+    [SerializeField] TMP_InputField inputField;
+    [SerializeField] TMP_Text nameText;
     string username = "";
-    [SerializeField] GameObject namePanel;
+    [SerializeField] GameObject editNamePanel;
     bool hasSetName = false;
-    [SerializeField] GameObject editNameBtn;
-    [SerializeField] Button confirmNameBtn;
+    [SerializeField] GameObject editNameButton;
+    [SerializeField] Button enterButton;
 
-    [SerializeField] SceneManagement sceneManagement;
+    [SerializeField] GameObject hubCanvasObj;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         nameText.text = PlayerPrefs.GetString("username");
 
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
-            editNameBtn.SetActive(true);
+            editNameButton.SetActive(true);
         }
 
-        confirmNameBtn.interactable = false;
+        enterButton.interactable = false;
     }
 
     public void ShowNamePanel()
@@ -39,25 +40,31 @@ public class UIManager : MonoBehaviour
         {
             PlayerPrefs.GetInt("hasSetName", 1);
         }
-      
+
         if (PlayerPrefs.GetInt("hasSetName") == 0)
         {
             // hasn't set their name, open name panel
-            namePanel.SetActive(true);
+            editNamePanel.SetActive(true);
         }
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
-            namePanel.SetActive(false);
-            sceneManagement.canProceed = true;
-            sceneManagement.FadeToScene();
+            editNamePanel.SetActive(false);
+            LevelManager.Instance.LoadScene("LevelSelectTEST");
+            hubCanvasObj.SetActive(false);
+            // TODO:
+            // FadeOut
+            // Loading Screen
+            // Switch to Classroom Scene 
+            // Camera zoom on door's opening?
+
         }
     }
 
-    public void UpdateName()
+    public void UpdateUserName()
     {
         username = inputField.text;
         nameText.text = username;
-        editNameBtn.SetActive(true);
+        editNameButton.SetActive(true);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
         hasSetName = true;
@@ -70,22 +77,20 @@ public class UIManager : MonoBehaviour
         inputField.text = "";
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        Debug.Log("PLAYER NAME: " + PlayerPrefs.GetString("username").ToString());
-        Debug.Log("HAS SET NAME: " + PlayerPrefs.GetInt("hasSetName").ToString());
-
         if (inputField.text == "")
         {
-            confirmNameBtn.interactable = false;
+            enterButton.interactable = false;
         }
         else
         {
-            confirmNameBtn.interactable = true;
+            enterButton.interactable = true;
         }
     }
 
-    public void DeletePlayerPref()
+    public void DeletePlayerPrefs()
     {
         PlayerPrefs.DeleteKey("username");
         PlayerPrefs.DeleteKey("hasSetName");
