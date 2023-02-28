@@ -22,7 +22,7 @@ public class AchievementObject : ScriptableObject
         }
         else if (achievementType == AchievementTypes.Unlock)
         {
-            return Hallway.Instance.GetUnlockedDoors()[Hallway.Instance.GetDoors()[grade + 1]];
+            return grade != 8 && Hallway.Instance.GetUnlockedDoors()[Hallway.Instance.GetDoors()[grade]];
         }
 
         return false;

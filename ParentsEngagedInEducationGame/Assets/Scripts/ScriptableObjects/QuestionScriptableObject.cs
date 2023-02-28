@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
 [CreateAssetMenu]
 public class QuestionScriptableObject : ScriptableObject
 {
@@ -20,16 +16,9 @@ public class QuestionScriptableObject : ScriptableObject
     public string learningTip;
 
     [Header("Multiple Choice Variables")]
-    /*[HideInInspector] */public string[] mcAnswers = new string[4];
+    public string[] mcAnswers = new string[4];
     [Range(0, 3)]
-    /*[HideInInspector]*/ public int mcCorrectAnswerIndex = 0;
-
-    //[Header("True or False Variables")]
-    //[HideInInspector] public bool _trueFalseAnswer;
-
-    //[Header("Select All The Apply Variables")]
-    //[HideInInspector] public string[] _selectAllAnswers = new string[4];
-    //[HideInInspector] public List<int> _selectAllCorrectIndices = new List<int>();
+    public int mcCorrectAnswerIndex = 0;
 }
 
 public enum Subjects
@@ -37,12 +26,4 @@ public enum Subjects
     Math,
     Science,
     Literacy
-}
-
-public enum QuestionTypes
-{
-    MultipleChoice,
-    TrueOrFalse,
-    SelectAllThatApply,
-    FillInBlank
 }
