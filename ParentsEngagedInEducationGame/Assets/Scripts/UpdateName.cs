@@ -49,7 +49,7 @@ public class UpdateName : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
-            LevelManager.Instance.LoadScene("LevelSelectTEST");
+            LevelManager.Instance.LoadScene("Main");
             hubCanvasObj.SetActive(false);
             // TODO:
             // FadeOut
