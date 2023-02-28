@@ -52,11 +52,7 @@ public class UpdateName : MonoBehaviour
             LevelManager.Instance.LoadScene("Main");
             hubCanvasObj.SetActive(false);
             // TODO:
-            // FadeOut
-            // Loading Screen
-            // Switch to Classroom Scene 
             // Camera zoom on door's opening?
-
         }
     }
 
@@ -88,6 +84,8 @@ public class UpdateName : MonoBehaviour
         {
             enterButton.interactable = true;
         }
+
+        //nameText.text = PlayerPrefs.GetString("username");
     }
 
     public void DeletePlayerPrefs()
