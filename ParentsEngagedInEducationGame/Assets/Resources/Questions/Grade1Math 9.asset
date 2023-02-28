@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Grade1Math 9
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 9
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: 'Which statement is true 5 __ 10 '
+  learningTip: Use a number line
   mcAnswers:
-  - 0
-  - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - 5 is less than 10
+  - 5 is equal to 10
+  - 5 is greater than 10
+  - 5 is not a real number
+  mcCorrectAnswerIndex: 0

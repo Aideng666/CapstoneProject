@@ -2151,6 +2151,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 3192266994295091418, guid: 212aa126c00f0854d8ed48d3640e91f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 212aa126c00f0854d8ed48d3640e91f4, type: 3}
 --- !u!224 &760884613 stripped
@@ -2882,7 +2887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1066182006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2894,7 +2899,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.86739, y: 0.86739, z: 0.86739}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2032436475}
   m_Father: {fileID: 981504385}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5494,18 +5500,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032436474}
   m_CullTransparentMesh: 1
---- !u!114 &1993097772 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 465957900434180459, guid: b04b49933e2773940b8ccc82b470500e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1993097768}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49efe97c91835344398e1e117e8667c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2049435157
 PrefabInstance:
   m_ObjectHideFlags: 0

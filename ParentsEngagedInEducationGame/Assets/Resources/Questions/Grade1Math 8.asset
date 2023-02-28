@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: Grade1Math 8
   m_EditorClassIdentifier: 
   grade: 1
-  questionNum: 3
+  questionNum: 8
   subject: 0
-  question: What is 5 + 5?
-  learningTip: 
+  question: 'Which non standard unit is better for estimating the length
+
+    of
+    polar bear?'
+  learningTip: Since a Polar Bear is a large animal, the best way to estimate it's
+    length is with the biggest possible object
   mcAnswers:
-  - 0
-  - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - Paper Clip
+  - Skateboard
+  - Banana
+  - Ant
+  mcCorrectAnswerIndex: 1
