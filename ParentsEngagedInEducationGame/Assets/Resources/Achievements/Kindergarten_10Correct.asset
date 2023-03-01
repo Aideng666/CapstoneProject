@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da52917a757243f4d98c26c6621206f9, type: 3}
-  m_Name: JK_20Correct
+  m_Name: Kindergarten_10Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Get 20 total questions correct in grade n
-  grade: -1
-  achievementThreshold: 20
+  decription: Answer correctly to 10 different questions in JK
+  grade: 0
+  achievementThreshold: 10
