@@ -36,7 +36,7 @@ public class AchievementManager : MonoBehaviour
     void Start()
     {
         //TEMP
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("GradesUnlocked", 1);
 
         questions = Classroom.GetQuestions<QuestionScriptableObject>("Questions");
