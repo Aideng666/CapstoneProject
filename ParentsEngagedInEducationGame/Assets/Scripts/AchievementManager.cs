@@ -35,12 +35,8 @@ public class AchievementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //TEMP
-        //PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt("GradesUnlocked", 1);
-
-        questions = Classroom.GetQuestions<QuestionScriptableObject>("Questions");
-        achievements = Classroom.GetQuestions<AchievementObject>("Achievements");
+        questions = Classroom.GetScriptableObjects<QuestionScriptableObject>("Questions");
+        achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
         //Checks each question to see if it has previously been answered correctly
         foreach (QuestionScriptableObject question in questions)
@@ -87,11 +83,11 @@ public class AchievementManager : MonoBehaviour
     }
 
     //Goes through all question based achievements to check if they have been completed
-    public void CheckAchievements(int grade = -2)
+    public void CheckAchievements(int grade = -1)
     {
-        foreach (AchievementObject achievement in Classroom.GetQuestions<AchievementObject>("Achievements"))
+        foreach (AchievementObject achievement in Classroom.GetScriptableObjects<AchievementObject>("Achievements"))
         {
-            if (achievement.grade == grade || grade == -2)
+            if (achievement.grade == grade || grade == -1)
             {
                 if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
                 {

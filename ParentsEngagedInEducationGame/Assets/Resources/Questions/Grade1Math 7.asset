@@ -18,8 +18,8 @@ MonoBehaviour:
   question: 'Fill in the missing number: __ + 5 = 7 '
   learningTip: Use Subtraction (7 - 5)
   mcAnswers:
-  - 0
-  - 5
-  - 8
-  - 10
-  mcCorrectAnswerIndex: 3
+  - 2
+  - 7
+  - 3
+  - 12
+  mcCorrectAnswerIndex: 0

@@ -48,6 +48,7 @@ public class Classroom : MonoBehaviour
         waitingForAnswer = false;
         gradeComplete = false;
         correctAnswerStreak = 0;
+        currentQuestionIndex = 0;
 
         answeredQuestions = new Dictionary<QuestionScriptableObject, bool>();
     }
@@ -197,7 +198,7 @@ public class Classroom : MonoBehaviour
 
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
-        if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 2)
+        if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
             Hallway.Instance.UnlockNextGrade();
         }
@@ -280,7 +281,6 @@ public class Classroom : MonoBehaviour
 
     public void ReplayLevel()
     {
-        //reportCardPanel.SetActive(false);
         GameManager.Instance.ReplayLevel(selectedGrade);
     }
 
@@ -300,7 +300,7 @@ public class Classroom : MonoBehaviour
         letterGradeText.text = "";
 
         //Loops through every questions and selects every questions from the given grade to be in the question bank
-        foreach (QuestionScriptableObject question in GetQuestions<QuestionScriptableObject>("Questions"))
+        foreach (QuestionScriptableObject question in GetScriptableObjects<QuestionScriptableObject>("Questions"))
         {
             if (question.grade == grade)
             {
@@ -335,7 +335,7 @@ public class Classroom : MonoBehaviour
     }
 
 
-    public static T[] GetQuestions<T>(string folderName) where T : ScriptableObject
+    public static T[] GetScriptableObjects<T>(string folderName) where T : ScriptableObject
     {
         T[] instanceList = Resources.LoadAll<T>(folderName);
 
