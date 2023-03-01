@@ -20,7 +20,7 @@ public class UIUtility : MonoBehaviour
 
     void Update()
     {
-
+       
     }
 
     private void Fade(CanvasGroup canvasGroup, float endValue, float duration, TweenCallback onEnd)
@@ -64,14 +64,12 @@ public class UIUtility : MonoBehaviour
         FadeIn(titleCanvasGroup, 1f);
         yield return new WaitForSeconds(2f);
         titleCanvasMainGroup.gameObject.SetActive(false);
-        //yield return new WaitForSeconds(0.2f);
-        //FadeOut(titleCanvasGroup, 1f);
         yield return new WaitForSeconds(1f);
         SceneManager.LoadSceneAsync("Hub");
     }
 
     public void TapPlayButton()
-    {
-        StartCoroutine(PlayButtonFade());
+    {     
+        StartCoroutine(PlayButtonFade());                
     } 
 }
