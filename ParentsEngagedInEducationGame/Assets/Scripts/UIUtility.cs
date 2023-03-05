@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UIUtility : MonoBehaviour
 {
@@ -27,11 +26,6 @@ public class UIUtility : MonoBehaviour
         {
             StartCoroutine(LogoFade());
         }
-    }
-
-    void Update()
-    {
-       
     }
 
     private void Fade(CanvasGroup canvasGroup, float endValue, float duration, TweenCallback onEnd)
