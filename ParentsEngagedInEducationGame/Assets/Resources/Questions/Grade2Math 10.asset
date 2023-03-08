@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Grade2Math 10
   m_EditorClassIdentifier: 
   grade: 2
-  questionNum: 3
+  questionNum: 10
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: A tent is 7 meters wide and 12 meters long. What is its perimeter?
+  learningTip: Perimeter = side + side + side + side
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - 84 m
+  - 38 m
+  - 14 m
+  - 24 m
+  mcCorrectAnswerIndex: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   grade: 1
   questionNum: 3
   subject: 0
-  question: "Which shape has 3\r sides?"
+  question: Which chape has 3 sides?
   learningTip: Draw each object then count the sides
   mcAnswers:
   - Square

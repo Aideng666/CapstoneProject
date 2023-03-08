@@ -15,11 +15,12 @@ MonoBehaviour:
   grade: 2
   questionNum: 1
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: Is 9 an even or an odd number?
+  learningTip: Even numbers have partners (2 + 2 = 4), while odd numbers do not have
+    partners (4 + 5 = 9)
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - Even
+  - Odd
+  - Happy
+  - Sad
+  mcCorrectAnswerIndex: 1
