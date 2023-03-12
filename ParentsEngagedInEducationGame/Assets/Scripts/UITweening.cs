@@ -14,6 +14,7 @@ public class UITweening : MonoBehaviour
     public float startDuration = 1f;
     public float endDuration = 1f;
     public float closePos = 100f;
+    public float settingsPanelDuration = 1f;
 
     Tween settingsButtonTween;
     Tween achievementButtonTween;
@@ -53,12 +54,13 @@ public class UITweening : MonoBehaviour
     {
         settingsPanel.SetActive(true);
         settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + Vector3.right * closePos, startDuration).SetEase(Ease.InSine);
-        settingsPanelTween = settingsPanel.transform.DOScale(1f, 1f).SetEase(Ease.InSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
     public void SettingsPanelTweenOut()
     {
         settingsPanel.SetActive(false);
         settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + Vector3.left * closePos, startDuration).SetEase(Ease.OutSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(0f, 0).SetEase(Ease.InSine);      
     }
 }
