@@ -53,7 +53,7 @@ public class UpdateName : MonoBehaviour
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
         PlayerPrefs.Save();
-        inputField.text = "";
+        inputField.text = "";   
     }
 
     public void CloseButton()
