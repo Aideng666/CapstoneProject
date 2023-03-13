@@ -43,12 +43,10 @@ public class AchievementManager : MonoBehaviour
         {
             if (PlayerPrefs.HasKey(question.name))
             {
-                print("Adding True Question");
                 allQuestions.Add(question, true);
             }
             else
             {
-                print("Adding False Question");
                 allQuestions.Add(question, false);
             }
         }
