@@ -9,6 +9,7 @@ public class UITweening : MonoBehaviour
     [SerializeField] Transform achievementButtonTrans;
     [SerializeField] Transform editNameButtonTrans;
     [SerializeField] Transform settingsCloseButtonTrans;
+    [SerializeField] Transform playButtonTrans;
     [SerializeField] GameObject settingsPanel;
     [SerializeField] GameObject creditsPanel;
     [SerializeField] GameObject resetPanel;
@@ -16,12 +17,8 @@ public class UITweening : MonoBehaviour
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsPanelTitleTrans;
     [SerializeField] Transform achievementsCloseButtonTrans;
-    public float movePos = 100f;
     public float startDuration = 1f;
     public float endDuration = 1f;
-    public float closePos = 100f;
-    public float achievementsPos = 100f;
-    public float achievementsPanelPos = 100f;
     public float settingsPanelDuration = 1f;
     public float creditsPanelDuration = 1f;
     public float resetPanelDuration = 1f;
@@ -31,6 +28,7 @@ public class UITweening : MonoBehaviour
     Tween settingsButtonTween;
     Tween achievementButtonTween;
     Tween editNameTween;
+    Tween playButtonTween;
     Tween settingsCloseButtonTween;
     Tween settingsPanelTween;
     Tween creditsPanelTween;
@@ -42,29 +40,31 @@ public class UITweening : MonoBehaviour
 
     public void ButtonTweenOut() 
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.up * movePos, startDuration).SetEase(Ease.OutSine);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.up * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.down * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
         SettingsPanelTweenIn();
     }
 
     public void ButtonTweenIn()
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.down * movePos, endDuration).SetEase(Ease.InOutElastic);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.down * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.up * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
         SettingsPanelTweenOut();
     }
 
     public void SettingsPanelTweenIn()
     {
-        settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + Vector3.right * closePos, startDuration).SetEase(Ease.InSine);
+        settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + (Vector3.right * Screen.width / 5), startDuration).SetEase(Ease.InSine);
         settingsPanelTween = settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
     public void SettingsPanelTweenOut()
     {
-        settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + Vector3.left * closePos, startDuration).SetEase(Ease.OutSine);
+        settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + (Vector3.left * Screen.width / 5), startDuration).SetEase(Ease.OutSine);
         settingsPanelTween = settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);      
     }
 
@@ -82,8 +82,8 @@ public class UITweening : MonoBehaviour
 
     public void ResetPanelTweenIn()
     {
-        settingsPanelTween = settingsPanel.transform.DOScale(settingsPanelDuration, resetPanelDuration).SetEase(Ease.OutSine);
         resetPanelTween = resetPanel.transform.DOScale(1f, resetPanelDuration).SetEase(Ease.InSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(0f, resetPanelDuration).SetEase(Ease.OutSine);
     }
 
     public void ResetPanelTweenOut()
@@ -94,37 +94,41 @@ public class UITweening : MonoBehaviour
 
     public void EditNamePanelTweenIn()
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.up * movePos, startDuration).SetEase(Ease.OutSine);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.up * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.down * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
         editNamePanelTween = editNamePanel.transform.DOScale(1f, editNamePanelDuration).SetEase(Ease.InSine);
     }
 
     public void EditNamePanelTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.down * movePos, endDuration).SetEase(Ease.InOutElastic);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.down * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.up * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
         editNamePanelTween = editNamePanel.transform.DOScale(0f, editNamePanelDuration).SetEase(Ease.OutSine);
     }
 
     public void AchievementsPanelTweenIn()
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.up * movePos, startDuration).SetEase(Ease.OutSine);
-        achievementsPanelTitleTween = achievementsPanelTitleTrans.DOMove(achievementsPanelTitleTrans.position + Vector3.down * achievementsPos, startDuration).SetEase(Ease.InSine);
-        achievementsPanelTween = achievementsPanel.DOMove(achievementsPanel.position + Vector3.left * achievementsPanelPos, achievementsPanelDuration).SetEase(Ease.InSine);
-        achievementsCloseButtonTween = achievementsCloseButtonTrans.DOMove(achievementsCloseButtonTrans.position + Vector3.right * closePos, startDuration).SetEase(Ease.InSine);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.left * Screen.width / 4), startDuration).SetEase(Ease.OutSine);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.up * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.down * Screen.height / 4), startDuration).SetEase(Ease.OutSine);
+        achievementsPanelTitleTween = achievementsPanelTitleTrans.DOMove(achievementsPanelTitleTrans.position + (Vector3.down * Screen.height / 1.65f), startDuration).SetEase(Ease.InSine);
+        achievementsPanelTween = achievementsPanel.DOMove(achievementsPanel.position + (Vector3.left * Screen.width / 1.27f), achievementsPanelDuration).SetEase(Ease.InSine);
+        achievementsCloseButtonTween = achievementsCloseButtonTrans.DOMove(achievementsCloseButtonTrans.position + (Vector3.right * Screen.width / 5), startDuration).SetEase(Ease.InSine);
     }
 
     public void AchievementsPanelTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.down * movePos, endDuration).SetEase(Ease.InOutElastic);
-        achievementsPanelTitleTween = achievementsPanelTitleTrans.DOMove(achievementsPanelTitleTrans.position + Vector3.up * achievementsPos, endDuration).SetEase(Ease.OutSine);
-        achievementsPanelTween = achievementsPanel.DOMove(achievementsPanel.position + Vector3.right * achievementsPanelPos, achievementsPanelDuration).SetEase(Ease.OutSine);
-        achievementsCloseButtonTween = achievementsCloseButtonTrans.DOMove(achievementsCloseButtonTrans.position + Vector3.left * closePos, startDuration).SetEase(Ease.OutSine);
+        settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + (Vector3.right * Screen.width / 4), endDuration).SetEase(Ease.InOutElastic);
+        editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + (Vector3.down * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
+        playButtonTween = playButtonTrans.DOMove(playButtonTrans.position + (Vector3.up * Screen.height / 4), endDuration).SetEase(Ease.InOutElastic);
+        achievementsPanelTitleTween = achievementsPanelTitleTrans.DOMove(achievementsPanelTitleTrans.position + (Vector3.up * Screen.height / 1.65f), endDuration).SetEase(Ease.OutSine);
+        achievementsPanelTween = achievementsPanel.DOMove(achievementsPanel.position + (Vector3.right * Screen.width / 1.27f), achievementsPanelDuration).SetEase(Ease.OutSine);
+        achievementsCloseButtonTween = achievementsCloseButtonTrans.DOMove(achievementsCloseButtonTrans.position + (Vector3.left * Screen.width / 5), startDuration).SetEase(Ease.OutSine);
     }
 }
