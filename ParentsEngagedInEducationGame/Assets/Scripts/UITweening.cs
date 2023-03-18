@@ -65,31 +65,31 @@ public class UITweening : MonoBehaviour
     public void SettingsPanelTweenOut()
     {
         settingsCloseButtonTween = settingsCloseButtonTrans.transform.DOMove(settingsCloseButtonTrans.position + Vector3.left * closePos, startDuration).SetEase(Ease.OutSine);
-        settingsPanelTween = settingsPanel.transform.DOScale(0f, 1).SetEase(Ease.OutSine);      
+        settingsPanelTween = settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);      
     }
 
    public void CreditsPanelTweenIn()
    {        
-        settingsPanelTween = settingsPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
-        creditsPanelTween = creditsPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
+        creditsPanelTween = creditsPanel.transform.DOScale(1f, creditsPanelDuration).SetEase(Ease.InSine);
    }    
 
     public void CreditsPanelTweenOut()
     {
-        creditsPanelTween = creditsPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
-        settingsPanelTween = settingsPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine);
+        creditsPanelTween = creditsPanel.transform.DOScale(0f, creditsPanelDuration).SetEase(Ease.OutSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
     public void ResetPanelTweenIn()
     {
-        settingsPanelTween = settingsPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
-        resetPanelTween = resetPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(settingsPanelDuration, resetPanelDuration).SetEase(Ease.OutSine);
+        resetPanelTween = resetPanel.transform.DOScale(1f, resetPanelDuration).SetEase(Ease.InSine);
     }
 
     public void ResetPanelTweenOut()
     {
-        resetPanelTween = resetPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
-        settingsPanelTween = settingsPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine);  
+        resetPanelTween = resetPanel.transform.DOScale(0f, resetPanelDuration).SetEase(Ease.OutSine);
+        settingsPanelTween = settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);  
     }
 
     public void EditNamePanelTweenIn()
@@ -97,7 +97,7 @@ public class UITweening : MonoBehaviour
         settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
         achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.left * movePos, startDuration).SetEase(Ease.OutSine);
         editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.up * movePos, startDuration).SetEase(Ease.OutSine);
-        editNamePanelTween = editNamePanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine);
+        editNamePanelTween = editNamePanel.transform.DOScale(1f, editNamePanelDuration).SetEase(Ease.InSine);
     }
 
     public void EditNamePanelTweenOut()
@@ -105,7 +105,7 @@ public class UITweening : MonoBehaviour
         settingsButtonTween = settingsButtonTrans.DOMove(settingsButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
         achievementButtonTween = achievementButtonTrans.DOMove(achievementButtonTrans.position + Vector3.right * movePos, endDuration).SetEase(Ease.InOutElastic);
         editNameTween = editNameButtonTrans.DOMove(editNameButtonTrans.position + Vector3.down * movePos, endDuration).SetEase(Ease.InOutElastic);
-        editNamePanelTween = editNamePanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
+        editNamePanelTween = editNamePanel.transform.DOScale(0f, editNamePanelDuration).SetEase(Ease.OutSine);
     }
 
     public void AchievementsPanelTweenIn()
