@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         print("Removed PlayerPrefs, THIS IS TEMPORARY");
 
         //Temp
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 

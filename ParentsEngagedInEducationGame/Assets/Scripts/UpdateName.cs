@@ -11,7 +11,6 @@ public class UpdateName : MonoBehaviour
     [SerializeField] TMP_Text nameText;
     string username = "";
     [SerializeField] GameObject editNamePanel;
-    bool hasSetName = false;
     [SerializeField] GameObject editNameButton;
     [SerializeField] Button enterButton;
 
@@ -26,21 +25,10 @@ public class UpdateName : MonoBehaviour
         {
             editNameButton.SetActive(true);
         }
-
-        enterButton.interactable = false;
     }
 
     public void ShowNamePanel()
-    {
-        if (!hasSetName)
-        {
-            PlayerPrefs.GetInt("hasSetName", 0);
-        }
-        else
-        {
-            PlayerPrefs.GetInt("hasSetName", 1);
-        }
-
+    {     
         if (PlayerPrefs.GetInt("hasSetName") == 0)
         {
             // hasn't set their name, open name panel
@@ -51,12 +39,9 @@ public class UpdateName : MonoBehaviour
             editNamePanel.SetActive(false);
             LevelManager.Instance.LoadScene("Main");
             hubCanvasObj.SetActive(false);
+            
             // TODO:
-            // FadeOut
-            // Loading Screen
-            // Switch to Classroom Scene 
             // Camera zoom on door's opening?
-
         }
     }
 
@@ -67,9 +52,8 @@ public class UpdateName : MonoBehaviour
         editNameButton.SetActive(true);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
-        hasSetName = true;
         PlayerPrefs.Save();
-        inputField.text = "";
+        inputField.text = "";   
     }
 
     public void CloseButton()
@@ -88,6 +72,8 @@ public class UpdateName : MonoBehaviour
         {
             enterButton.interactable = true;
         }
+
+        nameText.text = PlayerPrefs.GetString("username");
     }
 
     public void DeletePlayerPrefs()
