@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1ad535b7cdcca14ab832b5a34de5aeb, type: 3}
-  m_Name: Grade2Math 7
+  m_Name: Grade2English 5
   m_EditorClassIdentifier: 
   grade: 2
-  questionNum: 7
-  subject: 0
-  question: What is 66 rounded to the nearest ten?
-  learningTip: Use a hundreds chart
+  questionNum: 5
+  subject: 2
+  question: Which sentence is correct?
+  learningTip: Countries and names are capitalized, cheese is not a specific name
+    for a cheese so it is not capitalized.
   mcAnswers:
-  - 70
-  - 65
-  - 60
-  - 100
+  - My mom eats cheese from France.
+  - My mom eats Cheese from France.
+  - My mom eats Cheese from france.
+  - My mom eats cheese from france.
   mcCorrectAnswerIndex: 0

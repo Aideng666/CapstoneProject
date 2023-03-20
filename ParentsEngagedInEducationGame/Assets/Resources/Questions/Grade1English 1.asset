@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1ad535b7cdcca14ab832b5a34de5aeb, type: 3}
-  m_Name: Grade2Math 7
+  m_Name: Grade1English 1
   m_EditorClassIdentifier: 
-  grade: 2
-  questionNum: 7
-  subject: 0
-  question: What is 66 rounded to the nearest ten?
-  learningTip: Use a hundreds chart
+  grade: 1
+  questionNum: 1
+  subject: 2
+  question: Which one is a question?
+  learningTip: Questions end with a question mark.
   mcAnswers:
-  - 70
-  - 65
-  - 60
-  - 100
-  mcCorrectAnswerIndex: 0
+  - I went to school today.
+  - Did you eat a snack today?
+  - I had fun today!
+  - I want to go home.
+  mcCorrectAnswerIndex: 1

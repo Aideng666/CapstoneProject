@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Grade2Math 5
   m_EditorClassIdentifier: 
   grade: 2
-  questionNum: 3
+  questionNum: 5
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: "Paul bought 13 brownies but 5 were stale and had to be\r thrown away.
+    How many brownies does Paul have now?"
+  learningTip: Start at 13 on a number line, the count backwards by the number of
+    brownies that Paul threw away.
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - 10
+  - 8
+  - 18
+  - 12
+  mcCorrectAnswerIndex: 1

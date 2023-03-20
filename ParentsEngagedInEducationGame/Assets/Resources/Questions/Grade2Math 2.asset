@@ -15,11 +15,11 @@ MonoBehaviour:
   grade: 2
   questionNum: 2
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: 'Count forward by tens from 40: 40, __, __, __'
+  learningTip: Make a number line and count by tens
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - 10, 20, 30
+  - 50, 60, 70
+  - 45, 50, 55
+  - 45, 55, 65
+  mcCorrectAnswerIndex: 1

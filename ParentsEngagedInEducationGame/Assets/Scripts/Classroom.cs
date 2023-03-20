@@ -30,6 +30,7 @@ public class Classroom : MonoBehaviour
     bool beginGrade = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
+    int correctAnswersThisAttempt;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -49,6 +50,7 @@ public class Classroom : MonoBehaviour
         gradeComplete = false;
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
+        correctAnswersThisAttempt = 0;
 
         answeredQuestions = new Dictionary<QuestionScriptableObject, bool>();
     }
@@ -63,9 +65,10 @@ public class Classroom : MonoBehaviour
 
         if (beginGrade && !gradeComplete)
         {
-            if (currentQuestionIndex >= questionsToAsk.Length)
+            if (currentQuestionIndex >= questionsToAsk.Length || correctAnswersThisAttempt >= 5)
             {
                 gradeComplete = true;
+                correctAnswersThisAttempt = 0;
 
                 return;
             }
@@ -108,6 +111,7 @@ public class Classroom : MonoBehaviour
 
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
+                correctAnswersThisAttempt++;
 
                 AchievementManager.Instance.AnswerQuestion(currentQuestion, true, selectedGrade);
             }
@@ -292,8 +296,8 @@ public class Classroom : MonoBehaviour
 
     public void InitClassroom(int grade)
     {
-        questionBank = new List<QuestionScriptableObject>(totalQuestionNum);
-        questionsToAsk = new QuestionScriptableObject[numOfChances];
+        questionBank = new List<QuestionScriptableObject>(30);
+        questionsToAsk = new QuestionScriptableObject[totalQuestionNum];
         currentQuestionIndex = 0;
         beginGrade = false;
         selectedGrade = grade;
@@ -305,16 +309,19 @@ public class Classroom : MonoBehaviour
             if (question.grade == grade)
             {
                 questionBank.Add(question);
+
+                print("Adding Question To Bank");
             }
         }
 
         //loops through the question bank and picks out a select amount at random to be part of the current round of the game
-        for (int i = 0; i < numOfChances; i++)
+        for (int i = 0; i < totalQuestionNum; i++)
         {
-            int randomIndex = Random.Range(0, totalQuestionNum);
+            int randomIndex = Random.Range(0, questionBank.Count);
             bool alreadyPicked = false;
 
-            for (int j = 0; j < numOfChances; j++)
+            //For error prevention of duplicate questions
+            for (int j = 0; j < totalQuestionNum; j++)
             {
                 if (questionsToAsk[j] != null && questionBank[randomIndex] == questionsToAsk[j])
                 {
@@ -325,6 +332,7 @@ public class Classroom : MonoBehaviour
                 }
             }
 
+            //Adds the randomly selected question into the current round
             if (!alreadyPicked)
             {
                 questionsToAsk[i] = questionBank[randomIndex];

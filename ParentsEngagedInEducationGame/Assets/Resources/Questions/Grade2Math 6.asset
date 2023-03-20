@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Grade2Math 6
   m_EditorClassIdentifier: 
   grade: 2
-  questionNum: 3
+  questionNum: 6
   subject: 0
-  question: What is 1 + 1?
-  learningTip: 
+  question: In this problem, What is 16?  12 + 4 = 16
+  learningTip: Difference is for subtraction, sum is for addition, product is for
+    multiplication, and quotient is for division.
   mcAnswers:
-  - 2
-  - 0
-  - 3
-  - 1
-  mcCorrectAnswerIndex: 0
+  - difference
+  - sum
+  - product
+  - quotient
+  mcCorrectAnswerIndex: 1
