@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ad535b7cdcca14ab832b5a34de5aeb, type: 3}
+  m_Name: Grade2English 5
+  m_EditorClassIdentifier: 
+  grade: 2
+  questionNum: 5
+  subject: 2
+  question: Which sentence is correct?
+  learningTip: Countries and names are capitalized, cheese is not a specific name
+    for a cheese so it is not capitalized.
+  mcAnswers:
+  - My mom eats cheese from France.
+  - My mom eats Cheese from France.
+  - My mom eats Cheese from france.
+  - My mom eats cheese from france.
+  mcCorrectAnswerIndex: 0

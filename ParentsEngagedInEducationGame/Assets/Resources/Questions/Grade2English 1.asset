@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ad535b7cdcca14ab832b5a34de5aeb, type: 3}
+  m_Name: Grade2English 1
+  m_EditorClassIdentifier: 
+  grade: 2
+  questionNum: 1
+  subject: 2
+  question: Select the correct pronoun to complete the sentence. The dog ran away
+    from ___.
+  learningTip: In this sentence, the pronoun she/her is the object of the sentence.
+  mcAnswers:
+  - She
+  - Her
+  - They
+  - Girl
+  mcCorrectAnswerIndex: 1
