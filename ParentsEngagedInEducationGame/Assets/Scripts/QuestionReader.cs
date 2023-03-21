@@ -9,6 +9,7 @@ public class QuestionReader : MonoBehaviour
     [SerializeField] TextAsset file;
 
     public List<Question> questionList { get; private set; }
+    public List<Question>[] questionsByGrade { get; private set; }
 
     public static QuestionReader Instance { get; private set; }
 
@@ -23,8 +24,16 @@ public class QuestionReader : MonoBehaviour
     void Start()
     {
         questionList = new List<Question>();
+        questionsByGrade = new List<Question>[9];
+
+        for (int i = 0; i < questionsByGrade.Length; i++)
+        {
+            questionsByGrade[i] = new List<Question>();
+        } 
 
         ReadCSV();
+
+        SplitQuestions();
     }
 
     void ReadCSV()
@@ -62,6 +71,22 @@ public class QuestionReader : MonoBehaviour
             wrongAnswers[2] = entrySplit[6];
 
             questionList.Add(new Question(question, learningTip, grade, subject, correctAnswer, wrongAnswers));
+        }
+    }
+
+    void SplitQuestions()
+    {
+        for (int i = 0; i < questionsByGrade.Length; i++)
+        {
+            foreach (Question question in questionList)
+            {
+                if (question._grade == i)
+                {
+                    questionsByGrade[i].Add(question);
+
+                    question.SetQuestionNum(questionsByGrade[i].Count);
+                }
+            }
         }
     }
 }

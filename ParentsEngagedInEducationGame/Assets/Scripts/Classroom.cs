@@ -21,16 +21,18 @@ public class Classroom : MonoBehaviour
     [SerializeField] int totalQuestionNum = 30;
     [SerializeField] int numOfChances = 10;
 
-    List<QuestionScriptableObject> questionBank;
-    QuestionScriptableObject[] questionsToAsk;
+    //List<QuestionScriptableObject> questionBank;
+    //QuestionScriptableObject[] questionsToAsk;
+    Question[] questionsToAsk;
 
-    Dictionary<QuestionScriptableObject, bool> answeredQuestions;
+    Dictionary<Question, bool> answeredQuestions;
 
     int currentQuestionIndex = 0;
     bool beginGrade = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
     int correctAnswersThisAttempt;
+    int correctAnswerIndex;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -51,8 +53,9 @@ public class Classroom : MonoBehaviour
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
         correctAnswersThisAttempt = 0;
+        correctAnswerIndex = 0;
 
-        answeredQuestions = new Dictionary<QuestionScriptableObject, bool>();
+        answeredQuestions = new Dictionary<Question, bool>();
     }
 
     // Update is called once per frame
@@ -73,17 +76,36 @@ public class Classroom : MonoBehaviour
                 return;
             }
 
-            QuestionScriptableObject currentQuestion = questionsToAsk[currentQuestionIndex];
+            Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
             if (!waitingForAnswer)
             {
                 questionPanel.SetActive(true);
 
-                questionText.text = currentQuestion.question;
-                answerTexts[0].text = $"A) {currentQuestion.mcAnswers[0]}";
-                answerTexts[1].text = $"B) {currentQuestion.mcAnswers[1]}";
-                answerTexts[2].text = $"C) {currentQuestion.mcAnswers[2]}";
-                answerTexts[3].text = $"D) {currentQuestion.mcAnswers[3]}";
+                questionText.text = currentQuestion._question;
+
+                //Puts each answer in a random spot every time
+                List<int> answerIndices = new List<int>() { 0, 1, 2, 3};
+                int randomCorrectIndex = Random.Range(0, answerIndices.Count);
+                correctAnswerIndex = answerIndices[randomCorrectIndex];
+
+                answerTexts[answerIndices[randomCorrectIndex]].text = $"{currentQuestion._correctAnswer}";
+                answerIndices.RemoveAt(randomCorrectIndex);
+
+
+                for (int i = 0; i < currentQuestion._wrongAnswers.Length; i++)
+                {
+                    int randomIndex = Random.Range(0, answerIndices.Count);
+
+                    answerTexts[answerIndices[randomIndex]].text = $"{currentQuestion._wrongAnswers[i]}";
+
+                    answerIndices.RemoveAt(randomIndex);
+                }
+
+                //answerTexts[0].text = $"A) {currentQuestion.mcAnswers[0]}";
+                //answerTexts[1].text = $"B) {currentQuestion.mcAnswers[1]}";
+                //answerTexts[2].text = $"C) {currentQuestion.mcAnswers[2]}";
+                //answerTexts[3].text = $"D) {currentQuestion.mcAnswers[3]}";
 
                 waitingForAnswer = true;
             }
@@ -92,7 +114,7 @@ public class Classroom : MonoBehaviour
 
     public void ConfirmAnswer()
     {
-        QuestionScriptableObject currentQuestion = questionsToAsk[currentQuestionIndex];
+        Question currentQuestion = questionsToAsk[currentQuestionIndex];
         int answer = -1;
 
         for (int i = 0; i < answerToggles.Length; i++)
@@ -105,7 +127,7 @@ public class Classroom : MonoBehaviour
 
         if (answer != -1)
         {
-            if (answer == currentQuestion.mcCorrectAnswerIndex)
+            if (answer == correctAnswerIndex)
             {
                 print("Correct!");
 
@@ -134,17 +156,17 @@ public class Classroom : MonoBehaviour
         questionPanel.SetActive(false);
         reportCardPanel.SetActive(true);
 
-        Dictionary<QuestionScriptableObject, bool> mathQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
-        Dictionary<QuestionScriptableObject, bool> scienceQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
-        Dictionary<QuestionScriptableObject, bool> literacyQuestionsAnswered = new Dictionary<QuestionScriptableObject, bool>();
+        Dictionary<Question, bool> mathQuestionsAnswered = new Dictionary<Question, bool>();
+        Dictionary<Question, bool> scienceQuestionsAnswered = new Dictionary<Question, bool>();
+        Dictionary<Question, bool> literacyQuestionsAnswered = new Dictionary<Question, bool>();
 
         int mathQuestionsCorrect = 0;
         int scienceQuestionsCorrect = 0;
         int literacyQuestionsCorrect = 0;
 
-        foreach (KeyValuePair<QuestionScriptableObject, bool> questionAnswered in answeredQuestions)
+        foreach (KeyValuePair<Question, bool> questionAnswered in answeredQuestions)
         {
-            switch (questionAnswered.Key.subject)
+            switch (questionAnswered.Key._subject)
             {
                 case Subjects.Math:
 
@@ -192,7 +214,7 @@ public class Classroom : MonoBehaviour
     {
         int questionsCorrect = 0;
 
-        foreach (KeyValuePair<QuestionScriptableObject, bool> questionAnswered in answeredQuestions)
+        foreach (KeyValuePair<Question, bool> questionAnswered in answeredQuestions)
         {
             if (questionAnswered.Value)
             {
@@ -296,23 +318,24 @@ public class Classroom : MonoBehaviour
 
     public void InitClassroom(int grade)
     {
-        questionBank = new List<QuestionScriptableObject>(30);
-        questionsToAsk = new QuestionScriptableObject[totalQuestionNum];
+        List<Question> questionBank = QuestionReader.Instance.questionsByGrade[grade];
+        questionsToAsk = new Question[totalQuestionNum];
         currentQuestionIndex = 0;
         beginGrade = false;
         selectedGrade = grade;
         letterGradeText.text = "";
 
         //Loops through every questions and selects every questions from the given grade to be in the question bank
-        foreach (QuestionScriptableObject question in GetScriptableObjects<QuestionScriptableObject>("Questions"))
-        {
-            if (question.grade == grade)
-            {
-                questionBank.Add(question);
+        //foreach (QuestionScriptableObject question in GetScriptableObjects<QuestionScriptableObject>("Questions"))
+        //{
+        //    if (question.grade == grade)
+        //    {
+        //        questionBank.Add(question);
 
-                print("Adding Question To Bank");
-            }
-        }
+        //        print("Adding Question To Bank");
+        //    }
+        //}
+
 
         //loops through the question bank and picks out a select amount at random to be part of the current round of the game
         for (int i = 0; i < totalQuestionNum; i++)

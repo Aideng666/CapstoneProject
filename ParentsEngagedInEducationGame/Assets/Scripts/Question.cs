@@ -10,6 +10,7 @@ public class Question
     public Subjects _subject { get; private set; }
     public string _correctAnswer { get; private set; }
     public string[] _wrongAnswers { get; private set; } = new string[3];
+    public int _questionNum { get; private set; }
     
 
     public Question(string question, string learningTip, int grade, Subjects subject, string correctAnswer, string[] wrongAnswers)
@@ -20,5 +21,10 @@ public class Question
         _subject = subject;
         _correctAnswer = correctAnswer;
         _wrongAnswers = wrongAnswers;
+    }
+
+    public void SetQuestionNum(int num)
+    {
+        _questionNum = num;
     }
 }
