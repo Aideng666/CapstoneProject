@@ -23,6 +23,7 @@ public class QuestionScriptableObject : ScriptableObject
 
 public enum Subjects
 {
+    None,
     Math,
     Science,
     Literacy
