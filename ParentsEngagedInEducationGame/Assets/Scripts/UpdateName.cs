@@ -38,6 +38,7 @@ public class UpdateName : MonoBehaviour
         {
             editNamePanel.SetActive(false);
             LevelManager.Instance.LoadScene("Main");
+            MenuAudio.StartSound();
             hubCanvasObj.SetActive(false);
             
             // TODO:

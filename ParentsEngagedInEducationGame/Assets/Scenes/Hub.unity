@@ -5574,6 +5574,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270978304}
   m_CullTransparentMesh: 1
+--- !u!1 &1290620511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1290620514}
+  - component: {fileID: 1290620513}
+  - component: {fileID: 1290620512}
+  m_Layer: 0
+  m_Name: AudioManage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1290620512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290620511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa4036f9b6b01f49bb89c64fa5d509d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: f85086d4ba2b4f242b2c72928b60edd0, type: 3}
+    name: Menu
+    volume: 0.7
+    pitch: 1
+    group: {fileID: 0}
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: b4a3a7d2b32b72c4ba8876d0212ca766, type: 3}
+    name: Click
+    volume: 0.7
+    pitch: 1
+    group: {fileID: 0}
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 486784d0354dd5d46870a6b067f80132, type: 3}
+    name: Cancel
+    volume: 0.7
+    pitch: 1
+    group: {fileID: 0}
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: bf4521e04838561439ae2ff33260583e, type: 3}
+    name: Bells
+    volume: 1
+    pitch: 1
+    group: {fileID: 0}
+    source: {fileID: 0}
+--- !u!114 &1290620513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290620511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba222c4db69f574bb1704040b71e14f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSlider: {fileID: 972131903}
+  sfxSlider: {fileID: 1773076693}
+--- !u!4 &1290620514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290620511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1501.8798, y: 692.8707, z: 76.74124}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347449879
 GameObject:
   m_ObjectHideFlags: 0
@@ -9020,6 +9104,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3380939170215117220, guid: 9e9383c096bf6c84e85e895462cd8d6f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5973048378330784878, guid: 9e9383c096bf6c84e85e895462cd8d6f,
         type: 3}
       propertyPath: m_RootOrder
