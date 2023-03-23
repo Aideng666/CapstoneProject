@@ -6,7 +6,6 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] CameraMovement mainCam;
 
-
     public static InputHandler Instance { get; private set; }
 
 

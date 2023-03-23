@@ -40,6 +40,8 @@ public class UITweening : MonoBehaviour
 
     Tween answerButtonsTween;
 
+    public bool isAchievementPanelOpen { get; private set; } = false;
+
     public void ButtonTweenOut() 
     {
         settingsButtonTween = settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
@@ -162,6 +164,8 @@ public class UITweening : MonoBehaviour
         achievementButtonTween = achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementsPanelTween = achievementsPanel.DOScale(1f, achievementsPanelDuration).SetEase(Ease.InSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(1f, startDuration).SetEase(Ease.InSine);
+
+        isAchievementPanelOpen = true;       
     }
 
     public void AchievementsPanelMainTweenOut()
@@ -170,5 +174,7 @@ public class UITweening : MonoBehaviour
         achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, startDuration).SetEase(Ease.InSine);
         achievementsPanelTween = achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+
+        isAchievementPanelOpen = false;
     }
 }
