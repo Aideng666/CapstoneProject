@@ -146,9 +146,9 @@ public class UITweening : MonoBehaviour
 
     public void SettingsMainTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        settingsButtonTween = settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         settingsPanelTween = settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
 
         foreach (Transform trans in answerButtonTrans)
         {
@@ -166,8 +166,8 @@ public class UITweening : MonoBehaviour
 
     public void AchievementsPanelMainTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, startDuration).SetEase(Ease.InSine);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, startDuration).SetEase(Ease.InSine);
+        settingsButtonTween = settingsButtonTrans.DOScale(0.71721f, startDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, startDuration).SetEase(Ease.InSine);
         achievementsPanelTween = achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
     }
