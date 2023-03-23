@@ -7,6 +7,8 @@ public class Hallway : MonoBehaviour
     [SerializeField] List<Door> doors = new List<Door>();
     Dictionary<Door, bool> unlockedDoors;
 
+    [SerializeField] UITweening tweenScript;
+
     public static Hallway Instance { get; private set; }
 
     private void Awake()
@@ -48,7 +50,10 @@ public class Hallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputHandler.Instance.DetectDrag();
+        if (!tweenScript.isAchievementPanelOpen)
+        {
+            InputHandler.Instance.DetectDrag();
+        }
 
         Door selectedDoor = InputHandler.Instance.DetectDoorTap();
 
