@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Classroom : MonoBehaviour
 {
     [Header("Report Card Panel")]
-    [SerializeField] GameObject reportCardPanel;
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
     [SerializeField] TextMeshProUGUI literacyMarkText;
     [SerializeField] TextMeshProUGUI letterGradeText;
+    [SerializeField] GameObject shadePanel;
+    [SerializeField] GameObject reportCard;
+    [SerializeField] GameObject reportCardResultText;
+    [SerializeField] GameObject globalCanvas;
 
     [Header("Question Panel")]
     [SerializeField] GameObject questionPanel;
@@ -47,7 +51,7 @@ public class Classroom : MonoBehaviour
     private void OnEnable()
     {
         questionPanel.SetActive(false);
-        reportCardPanel.SetActive(false);
+        shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
         correctAnswerStreak = 0;
@@ -61,10 +65,10 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete && !reportCardPanel.activeInHierarchy)
+        if (gradeComplete)
         {
             ShowReportCard();
-        }
+        }    
 
         if (beginGrade && !gradeComplete)
         {
@@ -73,8 +77,10 @@ public class Classroom : MonoBehaviour
                 gradeComplete = true;
                 correctAnswersThisAttempt = 0;
 
+                PlayReportCardSequence();
+
                 return;
-            }
+            }          
 
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
@@ -154,7 +160,8 @@ public class Classroom : MonoBehaviour
     public void ShowReportCard()
     {
         questionPanel.SetActive(false);
-        reportCardPanel.SetActive(true);
+        shadePanel.SetActive(true);
+        globalCanvas.SetActive(false);
 
         Dictionary<Question, bool> mathQuestionsAnswered = new Dictionary<Question, bool>();
         Dictionary<Question, bool> scienceQuestionsAnswered = new Dictionary<Question, bool>();
@@ -203,11 +210,11 @@ public class Classroom : MonoBehaviour
             }
         }
 
-        mathMarkText.text = $"Math:    {mathQuestionsCorrect}  /  {mathQuestionsAnswered.Count}";
-        scienceMarkText.text = $"Science:    {scienceQuestionsCorrect}  /  {scienceQuestionsAnswered.Count}";
-        literacyMarkText.text = $"Literacy:    {literacyQuestionsCorrect}  /  {literacyQuestionsAnswered.Count}";
+        mathMarkText.text = $"{mathQuestionsCorrect} / {mathQuestionsAnswered.Count}";
+        scienceMarkText.text = $"{scienceQuestionsCorrect} / {scienceQuestionsAnswered.Count}";
+        literacyMarkText.text = $"{literacyQuestionsCorrect} / {literacyQuestionsAnswered.Count}";
 
-        CalculateGrade();
+        CalculateGrade();    
     }
 
     void CalculateGrade()
@@ -227,6 +234,11 @@ public class Classroom : MonoBehaviour
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
             Hallway.Instance.UnlockNextGrade();
+            reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
+        }
+        else if (percentage <= 0.5f)
+        {
+            reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Try Again!";
         }
 
         switch (percentage)
@@ -307,12 +319,18 @@ public class Classroom : MonoBehaviour
 
     public void ReplayLevel()
     {
+        shadePanel.SetActive(false);
+        reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
+        questionPanel.SetActive(true);
+        reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
+        gradeComplete = false;
+        globalCanvas.SetActive(true);
         GameManager.Instance.ReplayLevel(selectedGrade);
     }
 
     public void Continue()
     {
-        reportCardPanel.SetActive(false);
+        shadePanel.SetActive(false);
         GameManager.Instance.Continue();
     }
 
@@ -371,5 +389,23 @@ public class Classroom : MonoBehaviour
         T[] instanceList = Resources.LoadAll<T>(folderName);
 
         return instanceList;
+    }
+
+    public void PlayReportCardSequence()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        // Tween in Result Message
+        sequence.Append(reportCardResultText.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
+            // Wait 1 frame
+            .AppendInterval(1f)
+            // Tween out Result Message
+            .Append(reportCardResultText.transform.DOScale(0f, 1f).SetEase(Ease.OutSine))
+            // Wait 1 frame
+            .AppendInterval(1f)
+            // Tween in the Report Card Panel
+            .Append(reportCard.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
+            // Wait 1 frame
+            .AppendInterval(1f);
     }
 }
