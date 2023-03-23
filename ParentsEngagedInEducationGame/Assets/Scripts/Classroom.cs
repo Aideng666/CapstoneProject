@@ -8,7 +8,6 @@ using DG.Tweening;
 public class Classroom : MonoBehaviour
 {
     [Header("Report Card Panel")]
-    [SerializeField] GameObject reportCardPanel;
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
     [SerializeField] TextMeshProUGUI literacyMarkText;
@@ -52,7 +51,6 @@ public class Classroom : MonoBehaviour
     private void OnEnable()
     {
         questionPanel.SetActive(false);
-        reportCardPanel.SetActive(false);
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
@@ -67,7 +65,7 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete && !reportCardPanel.activeInHierarchy)
+        if (gradeComplete)
         {
             ShowReportCard();
         }    
@@ -162,8 +160,8 @@ public class Classroom : MonoBehaviour
     public void ShowReportCard()
     {
         questionPanel.SetActive(false);
-        reportCardPanel.SetActive(true);
         shadePanel.SetActive(true);
+        globalCanvas.SetActive(false);
 
         Dictionary<Question, bool> mathQuestionsAnswered = new Dictionary<Question, bool>();
         Dictionary<Question, bool> scienceQuestionsAnswered = new Dictionary<Question, bool>();
@@ -212,9 +210,9 @@ public class Classroom : MonoBehaviour
             }
         }
 
-        //mathMarkText.text = $"Math:    {mathQuestionsCorrect}  /  {mathQuestionsAnswered.Count}";
-        //scienceMarkText.text = $"Science:    {scienceQuestionsCorrect}  /  {scienceQuestionsAnswered.Count}";
-        //literacyMarkText.text = $"Literacy:    {literacyQuestionsCorrect}  /  {literacyQuestionsAnswered.Count}";
+        mathMarkText.text = $"{mathQuestionsCorrect} / {mathQuestionsAnswered.Count}";
+        scienceMarkText.text = $"{scienceQuestionsCorrect} / {scienceQuestionsAnswered.Count}";
+        literacyMarkText.text = $"{literacyQuestionsCorrect} / {literacyQuestionsAnswered.Count}";
 
         CalculateGrade();    
     }
@@ -321,10 +319,10 @@ public class Classroom : MonoBehaviour
 
     public void ReplayLevel()
     {
-        reportCardPanel.transform.localScale = new Vector3(0f, 0f, 0f);
         shadePanel.SetActive(false);
         reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
         questionPanel.SetActive(true);
+        reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
         gradeComplete = false;
         globalCanvas.SetActive(true);
         GameManager.Instance.ReplayLevel(selectedGrade);
@@ -332,10 +330,8 @@ public class Classroom : MonoBehaviour
 
     public void Continue()
     {
-        reportCardPanel.SetActive(false);
         shadePanel.SetActive(false);
         GameManager.Instance.Continue();
-        reportCardPanel.transform.localScale = new Vector3(0f, 0f, 0f);
     }
 
     public void InitClassroom(int grade)
@@ -397,9 +393,6 @@ public class Classroom : MonoBehaviour
 
     public void PlayReportCardSequence()
     {
-        questionPanel.SetActive(false);
-        globalCanvas.SetActive(false);
-
         Sequence sequence = DOTween.Sequence();
 
         // Tween in Result Message
