@@ -16,6 +16,7 @@ public class UITweening : MonoBehaviour
     [SerializeField] GameObject editNamePanel;
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsCloseButtonTrans;
+    [SerializeField] Transform quitPanel;
 
     [SerializeField] Transform[] answerButtonTrans;
     public float startDuration = 1f;
@@ -39,8 +40,9 @@ public class UITweening : MonoBehaviour
     Tween achievementsCloseButtonTween;
 
     Tween answerButtonsTween;
+    Tween quitPanelTween;
 
-    public bool isAchievementPanelOpen { get; private set; } = false;
+    public bool isPanelOpen { get; private set; } = false;
 
     public void ButtonTweenOut() 
     {
@@ -53,10 +55,10 @@ public class UITweening : MonoBehaviour
 
     public void ButtonTweenIn()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
+        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         SettingsPanelTweenOut();
     }
 
@@ -107,10 +109,10 @@ public class UITweening : MonoBehaviour
 
     public void EditNamePanelTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
+        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         editNamePanelTween = editNamePanel.transform.DOScale(0f, editNamePanelDuration).SetEase(Ease.OutSine);
     }
 
@@ -126,10 +128,10 @@ public class UITweening : MonoBehaviour
 
     public void AchievementsPanelTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
-        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InOutElastic);
+        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         achievementsPanelTween = achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
     }
@@ -144,6 +146,8 @@ public class UITweening : MonoBehaviour
         {
             answerButtonsTween = trans.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
         }
+
+        isPanelOpen = true;
     }
 
     public void SettingsMainTweenOut()
@@ -156,6 +160,8 @@ public class UITweening : MonoBehaviour
         {
             answerButtonsTween = trans.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
         }
+
+        isPanelOpen = false;
     }
 
     public void AchievementsPanelMainTweenIn()
@@ -165,7 +171,7 @@ public class UITweening : MonoBehaviour
         achievementsPanelTween = achievementsPanel.DOScale(1f, achievementsPanelDuration).SetEase(Ease.InSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(1f, startDuration).SetEase(Ease.InSine);
 
-        isAchievementPanelOpen = true;       
+        isPanelOpen = true;       
     }
 
     public void AchievementsPanelMainTweenOut()
@@ -175,6 +181,24 @@ public class UITweening : MonoBehaviour
         achievementsPanelTween = achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTween = achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
 
-        isAchievementPanelOpen = false;
+        isPanelOpen = false;
+    }
+
+    public void QuitPanelMain()
+    {
+        LevelManager.Instance.LoadScene("Hub");
+    }
+
+    public void QuitPanelTweenIn()
+    {
+        settingsPanelTween = settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
+        quitPanelTween = quitPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
+    }
+
+    public void QuitPanelTweenOut()
+    {
+        settingsButtonTween = settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        quitPanelTween = quitPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
     }
 }

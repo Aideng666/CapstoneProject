@@ -50,10 +50,10 @@ public class Hallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!tweenScript.isAchievementPanelOpen)
+        if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
-        }
+        }     
 
         Door selectedDoor = InputHandler.Instance.DetectDoorTap();
 
