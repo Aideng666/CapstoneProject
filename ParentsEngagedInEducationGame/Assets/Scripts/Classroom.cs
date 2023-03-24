@@ -77,10 +77,10 @@ public class Classroom : MonoBehaviour
                 gradeComplete = true;
                 correctAnswersThisAttempt = 0;
 
-                PlayReportCardSequence();
+                PlayReportCardSequence(reportCard);
 
                 return;
-            }          
+            }
 
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
@@ -97,7 +97,6 @@ public class Classroom : MonoBehaviour
 
                 answerTexts[answerIndices[randomCorrectIndex]].text = $"{currentQuestion._correctAnswer}";
                 answerIndices.RemoveAt(randomCorrectIndex);
-
 
                 for (int i = 0; i < currentQuestion._wrongAnswers.Length; i++)
                 {
@@ -236,7 +235,7 @@ public class Classroom : MonoBehaviour
             Hallway.Instance.UnlockNextGrade();
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
         }
-        else if (percentage <= 0.5f)
+        else if (percentage < 0.5f)
         {
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Try Again!";
         }
@@ -331,6 +330,11 @@ public class Classroom : MonoBehaviour
     public void Continue()
     {
         shadePanel.SetActive(false);
+        globalCanvas.SetActive(true);
+        reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
+        reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
+        questionPanel.SetActive(false);
+        gradeComplete = false;
         GameManager.Instance.Continue();
     }
 
@@ -391,7 +395,7 @@ public class Classroom : MonoBehaviour
         return instanceList;
     }
 
-    public void PlayReportCardSequence()
+    public void PlayReportCardSequence(GameObject reportCardPanel)
     {
         Sequence sequence = DOTween.Sequence();
 
@@ -404,7 +408,7 @@ public class Classroom : MonoBehaviour
             // Wait 1 frame
             .AppendInterval(1f)
             // Tween in the Report Card Panel
-            .Append(reportCard.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
+            .Append(reportCardPanel.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
             // Wait 1 frame
             .AppendInterval(1f);
     }
