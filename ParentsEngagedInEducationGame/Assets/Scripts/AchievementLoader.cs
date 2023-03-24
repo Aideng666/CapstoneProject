@@ -7,7 +7,7 @@ public class AchievementLoader : MonoBehaviour
 {
     [SerializeField] GameObject achievementPrefab;
 
-    float bufferTime = 0.1f;
+    float bufferTime = 0.5f;
     float elapsedTime = 0f;
     bool isBufferComplete;
 

@@ -14,7 +14,6 @@ public class Classroom : MonoBehaviour
     [SerializeField] TextMeshProUGUI letterGradeText;
     [SerializeField] GameObject shadePanel;
     [SerializeField] GameObject reportCard;
-    [SerializeField] GameObject reportCardFail;
     [SerializeField] GameObject reportCardResultText;
     [SerializeField] GameObject globalCanvas;
 
@@ -236,7 +235,7 @@ public class Classroom : MonoBehaviour
             Hallway.Instance.UnlockNextGrade();
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
         }
-        else if (percentage <= 0.5f)
+        else if (percentage < 0.5f)
         {
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Try Again!";
         }
@@ -323,7 +322,6 @@ public class Classroom : MonoBehaviour
         reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
         questionPanel.SetActive(true);
         reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
-        reportCardFail.transform.localScale = new Vector3(0f, 0f, 0f);
         gradeComplete = false;
         globalCanvas.SetActive(true);
         GameManager.Instance.ReplayLevel(selectedGrade);
@@ -332,6 +330,11 @@ public class Classroom : MonoBehaviour
     public void Continue()
     {
         shadePanel.SetActive(false);
+        globalCanvas.SetActive(true);
+        reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
+        reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
+        questionPanel.SetActive(false);
+        gradeComplete = false;
         GameManager.Instance.Continue();
     }
 
