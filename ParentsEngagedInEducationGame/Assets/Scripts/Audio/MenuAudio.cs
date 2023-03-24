@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class MenuAudio : MonoBehaviour
 {
 
-    [SerializeField] Slider musicSlider;
-    [SerializeField] Slider sfxSlider;
+    //[SerializeField] Slider musicSlider;
+    //[SerializeField] Slider sfxSlider;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if (!AudioManager.Instance.IsPlaying("Menu") && !AudioManager.Instance.IsPlaying("Menu"))
@@ -18,29 +17,40 @@ public class MenuAudio : MonoBehaviour
             AudioManager.Instance.Play("Menu");
             AudioManager.Instance.Loop("Menu");
         }
-        musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
-        sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
+        
+        //musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
+        //sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
     }
 
-    public void SetMusicVolume()
-    {
-        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
-    }
+    //public void SetMusicVolume()
+    //{
 
-    public float GetMusicVolume()
-    {
-        return musicSlider.value;
-    }
+    //    PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
 
-    public void SetSFXVolume()
-    {
-        PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
-    }
+    //    AudioManager.Instance.sounds[0].source.volume = PlayerPrefs.GetFloat("MusicVolume");
 
-    public float GetSFXVolume()
-    {
-        return sfxSlider.value;
-    }
+    //}
+
+    //public float GetMusicVolume()
+    //{
+    //    return musicSlider.value;
+    //}
+
+    //public void SetSFXVolume()
+    //{
+    //    PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
+
+    //    for (int i = 1; i < AudioManager.Instance.sounds.Length; i++)
+    //    {
+    //        AudioManager.Instance.sounds[i].source.volume = PlayerPrefs.GetFloat("SFXVolume");
+    //    }
+
+    //}
+
+    //public float GetSFXVolume()
+    //{
+    //    return sfxSlider.value;
+    //}
     public void ClickSound()
     {
         AudioManager.Instance.Play("Click");
@@ -56,4 +66,5 @@ public class MenuAudio : MonoBehaviour
         AudioManager.Instance.Play("Bells");
         AudioManager.Instance.Stop("Menu");
     }
+
 }

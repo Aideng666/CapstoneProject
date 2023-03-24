@@ -7,12 +7,12 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
 
-    //[SerializeField] Slider musicSlider;
-    //[SerializeField] Slider sfxSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider sfxSlider;
     //[SerializeField] Toggle muteToggle;
 
-    float musicSlider;
-    float sfxSlider;
+    //float musicSlider;
+    //float sfxSlider;
 
     float[] savedVolumes;
     public static AudioManager Instance { get; set; }
@@ -61,17 +61,17 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = s.group;
         }
 
-        musicSlider = PlayerPrefs.GetFloat("MusicVolume");
-        sfxSlider = PlayerPrefs.GetFloat("SFXVolume");
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
 
         if (PlayerPrefs.GetFloat("MusicVolume") == 0)
         {
-            musicSlider = 0.3f;
+            musicSlider.value = 0.5f;
         }
 
         if (PlayerPrefs.GetFloat("SFXVolume") == 0)
         {
-            sfxSlider = 0.5f;
+            sfxSlider.value = 0.7f;
         }
 
         //if (PlayerPrefs.GetInt("Mute") == 0)
@@ -84,8 +84,8 @@ public class AudioManager : MonoBehaviour
         //}
 
         savedVolumes = new float[sounds.Length];
-        //musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
-        //sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
+        musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
+        sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
         //muteToggle.onValueChanged.AddListener(delegate { ToggleMute(); });
     }
 
@@ -133,24 +133,24 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume()
     {
-        sounds[0].source.volume = musicSlider;
+        sounds[0].source.volume = musicSlider.value;
 
-        PlayerPrefs.SetFloat("MusicVolume", musicSlider);
+        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
     }
 
     public float GetMusicVolume()
     {
-        return musicSlider;
+        return musicSlider.value;
     }
 
     public void SetSFXVolume()
     {
         for (int i = 1; i < sounds.Length; i++)
         {
-            sounds[i].source.volume = sfxSlider;
+            sounds[i].source.volume = sfxSlider.value;
         }
 
-        PlayerPrefs.SetFloat("SFXVolume", musicSlider);
+        PlayerPrefs.SetFloat("SFXVolume", musicSlider.value);
 
        
         //dirtyTen   = true;
@@ -159,12 +159,12 @@ public class AudioManager : MonoBehaviour
 
     public float GetSFXVolume()
     {
-        return sfxSlider;
+        return sfxSlider.value;
     }
 
     //public void ToggleMute()
     //{
-        
+
     //    //dirtyTen = true;
 
     //    if (muteToggle.isOn)
@@ -193,5 +193,11 @@ public class AudioManager : MonoBehaviour
     //    return muteToggle.isOn;
     //}
 
-
+    public void Reset()
+    {
+        sfxSlider.value=0.7f;
+        musicSlider.value=0.5f;
+        SetMusicVolume();
+        SetSFXVolume();
+    }
 }
