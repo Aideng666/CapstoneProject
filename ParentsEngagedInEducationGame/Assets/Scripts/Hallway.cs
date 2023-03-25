@@ -65,7 +65,7 @@ public class Hallway : MonoBehaviour
                 {
                     if (door.Value)
                     {
-                        selectedDoor.EnterGrade();
+                        selectedDoor.EnterGrade();                       
                     }
                     else
                     {

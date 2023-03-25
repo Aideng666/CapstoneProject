@@ -16,6 +16,7 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject reportCard;
     [SerializeField] GameObject reportCardResultText;
     [SerializeField] GameObject globalCanvas;
+    [SerializeField] Transform[] stars;
 
     [Header("Question Panel")]
     [SerializeField] GameObject questionPanel;
@@ -38,6 +39,8 @@ public class Classroom : MonoBehaviour
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
 
+    bool passedSubject;
+
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
 
@@ -59,6 +62,8 @@ public class Classroom : MonoBehaviour
         correctAnswersThisAttempt = 0;
         correctAnswerIndex = 0;
 
+        passedSubject = false;
+
         answeredQuestions = new Dictionary<Question, bool>();
     }
 
@@ -73,14 +78,17 @@ public class Classroom : MonoBehaviour
         if (beginGrade && !gradeComplete)
         {
             if (currentQuestionIndex >= questionsToAsk.Length || correctAnswersThisAttempt >= 5)
-            {
+            {          
                 gradeComplete = true;
                 correctAnswersThisAttempt = 0;
-
+                
+                // FIX THIS LOGIC
+                passedSubject = true;
+                           
                 PlayReportCardSequence(reportCard);
 
                 return;
-            }
+            }        
 
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
@@ -211,7 +219,7 @@ public class Classroom : MonoBehaviour
 
         mathMarkText.text = $"{mathQuestionsCorrect} / {mathQuestionsAnswered.Count}";
         scienceMarkText.text = $"{scienceQuestionsCorrect} / {scienceQuestionsAnswered.Count}";
-        literacyMarkText.text = $"{literacyQuestionsCorrect} / {literacyQuestionsAnswered.Count}";
+        literacyMarkText.text = $"{literacyQuestionsCorrect} / {literacyQuestionsAnswered.Count}";     
 
         CalculateGrade();    
     }
@@ -324,6 +332,10 @@ public class Classroom : MonoBehaviour
         reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
         gradeComplete = false;
         globalCanvas.SetActive(true);
+        passedSubject = false;
+
+        stars[0].localScale = new Vector3(0f, 0f, 0f);
+
         GameManager.Instance.ReplayLevel(selectedGrade);
     }
 
@@ -335,6 +347,10 @@ public class Classroom : MonoBehaviour
         reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
         questionPanel.SetActive(false);
         gradeComplete = false;
+        passedSubject = false;
+
+        stars[0].localScale = new Vector3(0f, 0f, 0f);
+
         GameManager.Instance.Continue();
     }
 
@@ -411,5 +427,11 @@ public class Classroom : MonoBehaviour
             .Append(reportCardPanel.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
             // Wait 1 frame
             .AppendInterval(1f);
+
+        if (passedSubject)
+        {
+            Debug.Log("PASSED GRADE");
+            sequence.Append(stars[0].DOScale(1f, 1f).SetEase(Ease.InSine));
+        }
     }
 }

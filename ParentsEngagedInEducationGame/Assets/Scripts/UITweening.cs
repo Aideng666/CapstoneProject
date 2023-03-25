@@ -17,6 +17,7 @@ public class UITweening : MonoBehaviour
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsCloseButtonTrans;
     [SerializeField] Transform quitPanel;
+    [SerializeField] Transform[] starFills;
 
     [SerializeField] Transform[] answerButtonTrans;
     public float startDuration = 1f;
@@ -200,5 +201,7 @@ public class UITweening : MonoBehaviour
         settingsButtonTween = settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         quitPanelTween = quitPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
+
+        isPanelOpen = false;
     }
 }
