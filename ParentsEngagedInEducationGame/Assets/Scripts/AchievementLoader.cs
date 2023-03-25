@@ -24,6 +24,7 @@ public class AchievementLoader : MonoBehaviour
         {
             AchievementObject[] achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
+
             for (int i = 0; i < achievements.Length; i++)
             {
                 GameObject obj = Instantiate(achievementPrefab, transform);

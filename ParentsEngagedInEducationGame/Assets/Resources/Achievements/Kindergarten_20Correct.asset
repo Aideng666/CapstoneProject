@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Kindergarten_20Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Get 20 total questions correct in grade n
+  name: Wiz Kid
+  decription: Get 20 total questions correct in Kindergarten
   grade: 0
   achievementThreshold: 20

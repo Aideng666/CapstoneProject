@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Kindergarten_10Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Answer correctly to 10 different questions in JK
+  name: Growing Minds
+  decription: Answer 10 different questions correctly in Kindergarten
   grade: 0
   achievementThreshold: 10

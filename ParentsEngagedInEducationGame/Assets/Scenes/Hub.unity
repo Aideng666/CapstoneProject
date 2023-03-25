@@ -901,6 +901,8 @@ MonoBehaviour:
   editNamePanel: {fileID: 1270978304}
   achievementsPanel: {fileID: 1270007622}
   achievementsCloseButtonTrans: {fileID: 1476996925}
+  quitPanel: {fileID: 0}
+  starFills: []
   answerButtonTrans: []
   startDuration: 0.4
   endDuration: 0.6
@@ -7707,7 +7709,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -7919.461
+      value: -31298.475
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}

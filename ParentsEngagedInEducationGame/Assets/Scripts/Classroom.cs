@@ -26,6 +26,9 @@ public class Classroom : MonoBehaviour
     [SerializeField] int totalQuestionNum = 30;
     [SerializeField] int numOfChances = 10;
 
+    [SerializeField] GameObject answersPanel;
+    [SerializeField] Transform answerResultText;
+
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
     Question[] questionsToAsk;
@@ -57,6 +60,7 @@ public class Classroom : MonoBehaviour
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
         correctAnswersThisAttempt = 0;
@@ -95,6 +99,7 @@ public class Classroom : MonoBehaviour
             if (!waitingForAnswer)
             {
                 questionPanel.SetActive(true);
+                answersPanel.SetActive(true);
 
                 questionText.text = currentQuestion._question;
 
@@ -140,9 +145,23 @@ public class Classroom : MonoBehaviour
 
         if (answer != -1)
         {
+            Sequence sequence = DOTween.Sequence();
+
             if (answer == correctAnswerIndex)
             {
                 print("Correct!");
+                answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
+
+                // Scale out the questions and answers
+                sequence.Append(questionPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine))
+                    // Pop in the result text                  
+                    .Append(answerResultText.DOScale(1f, 1f).SetEase(Ease.InSine))
+                    // Linger for 1/2 frame
+                    .AppendInterval(0.5f)
+                    // Pop out the result text
+                    .Append(answerResultText.DOScale(0f, 1f).SetEase(Ease.InSine))
+                    // Pop back in the next question and answers
+                    .Append(questionPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
 
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
@@ -153,6 +172,18 @@ public class Classroom : MonoBehaviour
             else
             {
                 print("Incorrect");
+                answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
+
+                // Scale out the questions and answers
+                sequence.Append(questionPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine))
+                    // Pop in the result text                  
+                    .Append(answerResultText.DOScale(1f, 1f).SetEase(Ease.InSine))
+                    // Linger for 1/2 frame
+                    .AppendInterval(0.5f)
+                    // Pop out the result text
+                    .Append(answerResultText.DOScale(0f, 1f).SetEase(Ease.InSine))
+                    // Pop back in the next question and answers
+                    .Append(questionPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
@@ -161,6 +192,7 @@ public class Classroom : MonoBehaviour
             waitingForAnswer = false;
             currentQuestionIndex++;
             questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
         }
     }
 
@@ -169,6 +201,7 @@ public class Classroom : MonoBehaviour
         questionPanel.SetActive(false);
         shadePanel.SetActive(true);
         globalCanvas.SetActive(false);
+        answersPanel.SetActive(false);
 
         Dictionary<Question, bool> mathQuestionsAnswered = new Dictionary<Question, bool>();
         Dictionary<Question, bool> scienceQuestionsAnswered = new Dictionary<Question, bool>();
@@ -333,6 +366,7 @@ public class Classroom : MonoBehaviour
         gradeComplete = false;
         globalCanvas.SetActive(true);
         passedSubject = false;
+        answersPanel.SetActive(true);
 
         stars[0].localScale = new Vector3(0f, 0f, 0f);
 
@@ -348,6 +382,7 @@ public class Classroom : MonoBehaviour
         questionPanel.SetActive(false);
         gradeComplete = false;
         passedSubject = false;
+        answersPanel.SetActive(false);
 
         stars[0].localScale = new Vector3(0f, 0f, 0f);
 
