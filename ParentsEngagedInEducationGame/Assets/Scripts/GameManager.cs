@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] Hallway hallwayEnvironment;
     [SerializeField] Classroom classroomEnvironment;
+    [SerializeField] GameObject achievementButton;
 
     public GameStates currentGamestate { get; private set; } = GameStates.Hallway;
     public static GameManager Instance { get; private set; }
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     {
         hallwayEnvironment.gameObject.SetActive(false);
         classroomEnvironment.gameObject.SetActive(true);
+        achievementButton.transform.localScale = new Vector3(0f, 0f, 0f);
         classroomEnvironment.InitClassroom(grade);
 
         currentGamestate = GameStates.Classroom;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         classroomEnvironment.gameObject.SetActive(false);
         hallwayEnvironment.gameObject.SetActive(true);
+        achievementButton.transform.localScale = new Vector3(1f, 1f, 1f);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
         currentGamestate = GameStates.Hallway;

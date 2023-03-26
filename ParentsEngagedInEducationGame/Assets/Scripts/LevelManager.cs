@@ -47,6 +47,8 @@ public class LevelManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
 
+        await Task.Delay(60);
+
         loadingCanvas.SetActive(false);
     }
 

@@ -6,11 +6,11 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
     //Dictionary of questions and achievements to check which ones have been answered correctly or achieved
-    Dictionary<QuestionScriptableObject, bool> allQuestions = new Dictionary<QuestionScriptableObject, bool>(300); // Bool is for if the player has ever answered it correctly
-    Dictionary<AchievementObject, bool> receivedAchievements = new Dictionary<AchievementObject, bool>(49);
+    Dictionary<Question, bool> allQuestions = new Dictionary<Question, bool>(); // Bool is for if the player has ever answered it correctly
+    Dictionary<AchievementObject, bool> receivedAchievements = new Dictionary<AchievementObject, bool>();
 
     //Array of all questions and achievements
-    QuestionScriptableObject[] questions;
+    List<Question> questions;
     AchievementObject[] achievements;
 
     public static AchievementManager Instance { get; private set; }
@@ -23,11 +23,11 @@ public class AchievementManager : MonoBehaviour
     private void OnDestroy()
     {
         //Setting player prefs when the game exits so it saves for next playthrough
-        foreach (KeyValuePair<QuestionScriptableObject, bool> question in allQuestions)
+        foreach (KeyValuePair<Question, bool> question in allQuestions)
         {
             if (question.Value)
             {
-                PlayerPrefs.SetInt(question.Key.name, 1);
+                PlayerPrefs.SetInt($"{question.Key._grade}_{question.Key._subject.ToString()}_{question.Key._questionNum}", 1);
             }
         }
     }
@@ -35,13 +35,14 @@ public class AchievementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        questions = Classroom.GetScriptableObjects<QuestionScriptableObject>("Questions");
+        questions = QuestionReader.Instance.questionList;
+        //questions = Classroom.GetScriptableObjects<QuestionScriptableObject>("Questions");
         achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
         //Checks each question to see if it has previously been answered correctly
-        foreach (QuestionScriptableObject question in questions)
+        foreach (Question question in questions)
         {
-            if (PlayerPrefs.HasKey(question.name))
+            if (PlayerPrefs.HasKey($"{question._grade}_{question._subject.ToString()}_{question._questionNum}"))
             {
                 allQuestions.Add(question, true);
             }
@@ -66,7 +67,7 @@ public class AchievementManager : MonoBehaviour
     }
 
     //Performs updates only every time a question is answered in the game
-    public void AnswerQuestion(QuestionScriptableObject question, bool correct, int grade)
+    public void AnswerQuestion(Question question, bool correct, int grade)
     {
         if (!correct)
         {
@@ -102,9 +103,9 @@ public class AchievementManager : MonoBehaviour
     {
         int numCorrect = 0;
 
-        foreach (KeyValuePair<QuestionScriptableObject, bool> question in allQuestions)
+        foreach (KeyValuePair<Question, bool> question in allQuestions)
         {
-            if (question.Key.grade == grade)
+            if (question.Key._grade == grade)
             {
                 if (question.Value)
                 {
