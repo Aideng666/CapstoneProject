@@ -27,6 +27,11 @@ public class Door : MonoBehaviour
         GameManager.Instance.EnterClassroom(grade);
     }
 
+    public int GetGrade()
+    {
+        return grade;
+    }
+
     public void UnlockStar()
     {
         star.fillAmount = 1f;

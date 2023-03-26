@@ -23,7 +23,10 @@ public class Hallway : MonoBehaviour
 
     private void OnEnable()
     {
-        AchievementManager.Instance.CheckAchievements();
+        if (AchievementManager.Instance != null)
+        {
+            AchievementManager.Instance.CheckAchievements();
+        }
     }
 
     // Start is called before the first frame update
@@ -67,7 +70,9 @@ public class Hallway : MonoBehaviour
                 {
                     if (door.Value)
                     {
-                        selectedDoor.EnterGrade();                       
+                        selectedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
+                        StartCoroutine(DelayGradeEntry(selectedDoor));
+                        //selectedDoor.EnterGrade();
                     }
                     else
                     {
@@ -78,6 +83,18 @@ public class Hallway : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator DelayGradeEntry(Door door)
+    {
+        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            yield return null;
+        }
+
+        door.EnterGrade();
+
+        yield return null;
     }
 
     public void UnlockNextGrade()
