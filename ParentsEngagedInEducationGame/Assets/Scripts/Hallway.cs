@@ -23,7 +23,10 @@ public class Hallway : MonoBehaviour
 
     private void OnEnable()
     {
-        AchievementManager.Instance.CheckAchievements();
+        if (AchievementManager.Instance != null)
+        {
+            AchievementManager.Instance.CheckAchievements();
+        }
     }
 
     // Start is called before the first frame update
@@ -50,12 +53,14 @@ public class Hallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!tweenScript.isAchievementPanelOpen)
+        Door selectedDoor = null;
+
+        if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
-        }
 
-        Door selectedDoor = InputHandler.Instance.DetectDoorTap();
+            selectedDoor = InputHandler.Instance.DetectDoorTap();
+        }
 
         if (selectedDoor != null)
         {
@@ -65,7 +70,9 @@ public class Hallway : MonoBehaviour
                 {
                     if (door.Value)
                     {
-                        selectedDoor.EnterGrade();
+                        selectedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
+                        StartCoroutine(DelayGradeEntry(selectedDoor));
+                        //selectedDoor.EnterGrade();
                     }
                     else
                     {
@@ -78,6 +85,18 @@ public class Hallway : MonoBehaviour
         }
     }
 
+    IEnumerator DelayGradeEntry(Door door)
+    {
+        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            yield return null;
+        }
+
+        door.EnterGrade();
+
+        yield return null;
+    }
+
     public void UnlockNextGrade()
     {
         foreach (Door door in doors)
@@ -85,6 +104,8 @@ public class Hallway : MonoBehaviour
             if (!unlockedDoors[door])
             {
                 unlockedDoors[door] = true;
+
+                door.UnlockStar();
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 

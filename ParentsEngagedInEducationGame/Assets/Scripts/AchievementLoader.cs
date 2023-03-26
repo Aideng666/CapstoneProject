@@ -24,11 +24,13 @@ public class AchievementLoader : MonoBehaviour
         {
             AchievementObject[] achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
+
             for (int i = 0; i < achievements.Length; i++)
             {
                 GameObject obj = Instantiate(achievementPrefab, transform);
-                achievementPrefab.GetComponentInChildren<TextMeshProUGUI>().text =
-                    achievements[i].decription;
+                //achievementPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = achievements[i].name;
+                //achievementPrefab.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = achievements[i].decription;
+                achievementPrefab.GetComponentInChildren<TextMeshProUGUI>().text = achievements[i].decription;
             }
 
             isBufferComplete = true;
