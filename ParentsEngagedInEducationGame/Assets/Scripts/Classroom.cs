@@ -145,6 +145,8 @@ public class Classroom : MonoBehaviour
 
         if (answer != -1)
         {         
+            learningPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = questionsToAsk[currentQuestionIndex]._learningTip;
+
             if (answer == correctAnswerIndex)
             {
                 //print("Correct!");

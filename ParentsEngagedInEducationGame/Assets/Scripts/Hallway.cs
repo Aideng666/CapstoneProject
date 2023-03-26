@@ -87,7 +87,7 @@ public class Hallway : MonoBehaviour
 
     IEnumerator DelayGradeEntry(Door door)
     {
-        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1.3f || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             yield return null;
         }
