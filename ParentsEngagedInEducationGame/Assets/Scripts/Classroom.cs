@@ -153,15 +153,15 @@ public class Classroom : MonoBehaviour
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
 
                 // Scale out the questions and answers
-                sequence.Append(questionPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine))
+                sequence.Append(questionPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
                     // Pop in the result text                  
-                    .Append(answerResultText.DOScale(1f, 1f).SetEase(Ease.InSine))
+                    .Append(answerResultText.DOScale(1f, 0.5f).SetEase(Ease.InSine))
                     // Linger for 1/2 frame
-                    .AppendInterval(0.5f)
+                    .AppendInterval(0.8f)
                     // Pop out the result text
-                    .Append(answerResultText.DOScale(0f, 1f).SetEase(Ease.InSine))
+                    .Append(answerResultText.DOScale(0f, 0.5f).SetEase(Ease.InSine))
                     // Pop back in the next question and answers
-                    .Append(questionPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
+                    .Append(questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine));
 
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
@@ -175,15 +175,15 @@ public class Classroom : MonoBehaviour
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 // Scale out the questions and answers
-                sequence.Append(questionPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine))
+                sequence.Append(questionPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
                     // Pop in the result text                  
-                    .Append(answerResultText.DOScale(1f, 1f).SetEase(Ease.InSine))
+                    .Append(answerResultText.DOScale(1f, 0.5f).SetEase(Ease.InSine))
                     // Linger for 1/2 frame
-                    .AppendInterval(0.5f)
+                    .AppendInterval(0.8f)
                     // Pop out the result text
-                    .Append(answerResultText.DOScale(0f, 1f).SetEase(Ease.InSine))
+                    .Append(answerResultText.DOScale(0f, 0.5f).SetEase(Ease.InSine))
                     // Pop back in the next question and answers
-                    .Append(questionPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
+                    .Append(questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine));
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
