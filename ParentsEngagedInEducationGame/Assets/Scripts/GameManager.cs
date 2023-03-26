@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        print("Removed PlayerPrefs, THIS IS TEMPORARY");
+        //print("Removed PlayerPrefs, THIS IS TEMPORARY");
 
         //Temp
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt("GradesUnlocked", 1);
+        //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 
     public void EnterClassroom(int grade)

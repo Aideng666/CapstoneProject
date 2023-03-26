@@ -21,9 +21,11 @@ public class UpdateName : MonoBehaviour
     {
         nameText.text = PlayerPrefs.GetString("username");
 
+        editNameButton.transform.localScale = new Vector3(0f, 0f, 0f);
+
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
-            editNameButton.SetActive(true);
+            editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 
@@ -46,7 +48,8 @@ public class UpdateName : MonoBehaviour
     {
         username = inputField.text;
         nameText.text = username;
-        editNameButton.SetActive(true);
+        //editNameButton.SetActive(true);
+        editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
         PlayerPrefs.Save();
