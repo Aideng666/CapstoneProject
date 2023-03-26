@@ -648,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grade: 0
+  star: {fileID: 3533151746594444520}
 --- !u!65 &3782198376675313999
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -16,7 +16,6 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject reportCard;
     [SerializeField] GameObject reportCardResultText;
     [SerializeField] GameObject globalCanvas;
-    [SerializeField] Transform[] stars;
 
     [Header("Question Panel")]
     [SerializeField] GameObject questionPanel;
@@ -30,6 +29,8 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject learningPanel;
     [SerializeField] GameObject answerResultText;
 
+    [SerializeField] GameObject confirmButton;
+
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
     Question[] questionsToAsk;
@@ -42,8 +43,6 @@ public class Classroom : MonoBehaviour
     bool gradeComplete;
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
-
-    bool passedSubject;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -66,10 +65,9 @@ public class Classroom : MonoBehaviour
         currentQuestionIndex = 0;
         correctAnswersThisAttempt = 0;
         correctAnswerIndex = 0;
-
-        passedSubject = false;
-
         answeredQuestions = new Dictionary<Question, bool>();
+
+        confirmButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,9 +85,6 @@ public class Classroom : MonoBehaviour
                 gradeComplete = true;
                 correctAnswersThisAttempt = 0;
                 
-                // FIX THIS LOGIC
-                passedSubject = true;
-
                 answerResultText.SetActive(false);
                 learningPanel.SetActive(false);
                 PlayReportCardSequence(reportCard);
@@ -130,11 +125,13 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }
+        }       
     }
 
     public void ConfirmAnswer()
     {
+        confirmButton.SetActive(false);
+
         Question currentQuestion = questionsToAsk[currentQuestionIndex];
         int answer = -1;
 
@@ -150,7 +147,7 @@ public class Classroom : MonoBehaviour
         {         
             if (answer == correctAnswerIndex)
             {
-                print("Correct!");
+                //print("Correct!");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
 
                 PlayAnswerResultSequence();
@@ -163,7 +160,7 @@ public class Classroom : MonoBehaviour
             }
             else
             {
-                print("Incorrect");
+                //print("Incorrect");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 PlayAnswerResultSequence();
@@ -433,12 +430,6 @@ public class Classroom : MonoBehaviour
             .Append(reportCardPanel.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
             // Wait 1 frame
             .AppendInterval(1f);
-
-        if (passedSubject)
-        {
-            Debug.Log("PASSED GRADE");
-            sequence.Append(stars[0].DOScale(1f, 1f).SetEase(Ease.InSine));
-        }
     }
 
     public void PlayAnswerResultSequence()
@@ -472,12 +463,11 @@ public class Classroom : MonoBehaviour
         reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
         questionPanel.transform.localScale = new Vector3(1f, 1f, 1f);
         gradeComplete = false;
-        passedSubject = false;
         answersPanel.transform.localScale = new Vector3(1f, 1f, 1f);
         answerResultText.SetActive(true);
         answerResultText.transform.localScale = new Vector3(0f, 0f, 0f);
         learningPanel.SetActive(true);
         learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
-        stars[0].localScale = new Vector3(0f, 0f, 0f);
+        confirmButton.SetActive(false);
     }
 }
