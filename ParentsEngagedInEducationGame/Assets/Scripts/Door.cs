@@ -25,4 +25,9 @@ public class Door : MonoBehaviour
 
         GameManager.Instance.EnterClassroom(grade);
     }
+
+    public int GetGrade()
+    {
+        return grade;
+    }
 }
