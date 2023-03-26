@@ -111,8 +111,8 @@ public class UITweening : MonoBehaviour
 
     public void EditNamePanelTweenOut()
     {
-        settingsButtonTween = settingsButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
-        achievementButtonTween = achievementButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        settingsButtonTween = settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTween = achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         editNameTween = editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         playButtonTween = playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         editNamePanelTween = editNamePanel.transform.DOScale(0f, editNamePanelDuration).SetEase(Ease.OutSine);
