@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Kindergarten_5InARow
   m_EditorClassIdentifier: 
   achievementType: 1
-  name: Baby Steps!
-  decription: Get 5 questions correct in a row in Kindergarten
+  decription: Get 5 Questions Correct in a row in grade n
   grade: 0
   achievementThreshold: 5

@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class Classroom : MonoBehaviour
 {
     [Header("Report Card Panel")]
+    [SerializeField] GameObject reportCardPanel;
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
     [SerializeField] TextMeshProUGUI literacyMarkText;
     [SerializeField] TextMeshProUGUI letterGradeText;
-    [SerializeField] GameObject shadePanel;
-    [SerializeField] GameObject reportCard;
-    [SerializeField] GameObject reportCardResultText;
-    [SerializeField] GameObject globalCanvas;
 
     [Header("Question Panel")]
     [SerializeField] GameObject questionPanel;
@@ -24,12 +20,6 @@ public class Classroom : MonoBehaviour
     [SerializeField] Toggle[] answerToggles = new Toggle[4];
     [SerializeField] int totalQuestionNum = 30;
     [SerializeField] int numOfChances = 10;
-
-    [SerializeField] GameObject answersPanel;
-    [SerializeField] GameObject learningPanel;
-    [SerializeField] GameObject answerResultText;
-
-    [SerializeField] GameObject confirmButton;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -57,47 +47,40 @@ public class Classroom : MonoBehaviour
     private void OnEnable()
     {
         questionPanel.SetActive(false);
-        shadePanel.SetActive(false);
+        reportCardPanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
-        answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
         correctAnswersThisAttempt = 0;
         correctAnswerIndex = 0;
-        answeredQuestions = new Dictionary<Question, bool>();
 
-        confirmButton.SetActive(false);
+        answeredQuestions = new Dictionary<Question, bool>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        if (gradeComplete && !reportCardPanel.activeInHierarchy)
         {
             ShowReportCard();
-        }    
+        }
 
         if (beginGrade && !gradeComplete)
         {
             if (currentQuestionIndex >= questionsToAsk.Length || correctAnswersThisAttempt >= 5)
-            {          
+            {
                 gradeComplete = true;
                 correctAnswersThisAttempt = 0;
-                
-                answerResultText.SetActive(false);
-                learningPanel.SetActive(false);
-                PlayReportCardSequence(reportCard);
 
                 return;
-            }        
+            }
 
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
             if (!waitingForAnswer)
             {
                 questionPanel.SetActive(true);
-                answersPanel.SetActive(true);
 
                 questionText.text = currentQuestion._question;
 
@@ -108,6 +91,7 @@ public class Classroom : MonoBehaviour
 
                 answerTexts[answerIndices[randomCorrectIndex]].text = $"{currentQuestion._correctAnswer}";
                 answerIndices.RemoveAt(randomCorrectIndex);
+
 
                 for (int i = 0; i < currentQuestion._wrongAnswers.Length; i++)
                 {
@@ -125,13 +109,11 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }       
+        }
     }
 
     public void ConfirmAnswer()
     {
-        confirmButton.SetActive(false);
-
         Question currentQuestion = questionsToAsk[currentQuestionIndex];
         int answer = -1;
 
@@ -144,13 +126,10 @@ public class Classroom : MonoBehaviour
         }
 
         if (answer != -1)
-        {         
+        {
             if (answer == correctAnswerIndex)
             {
-                //print("Correct!");
-                answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
-
-                PlayAnswerResultSequence();
+                print("Correct!");
 
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
@@ -160,10 +139,7 @@ public class Classroom : MonoBehaviour
             }
             else
             {
-                //print("Incorrect");
-                answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
-
-                PlayAnswerResultSequence();
+                print("Incorrect");
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
@@ -172,16 +148,13 @@ public class Classroom : MonoBehaviour
             waitingForAnswer = false;
             currentQuestionIndex++;
             questionPanel.SetActive(false);
-            answersPanel.SetActive(false);
         }
     }
 
     public void ShowReportCard()
     {
         questionPanel.SetActive(false);
-        shadePanel.SetActive(true);
-        globalCanvas.SetActive(false);
-        answersPanel.SetActive(false);
+        reportCardPanel.SetActive(true);
 
         Dictionary<Question, bool> mathQuestionsAnswered = new Dictionary<Question, bool>();
         Dictionary<Question, bool> scienceQuestionsAnswered = new Dictionary<Question, bool>();
@@ -230,11 +203,11 @@ public class Classroom : MonoBehaviour
             }
         }
 
-        mathMarkText.text = $"{mathQuestionsCorrect} / {mathQuestionsAnswered.Count}";
-        scienceMarkText.text = $"{scienceQuestionsCorrect} / {scienceQuestionsAnswered.Count}";
-        literacyMarkText.text = $"{literacyQuestionsCorrect} / {literacyQuestionsAnswered.Count}";     
+        mathMarkText.text = $"Math:    {mathQuestionsCorrect}  /  {mathQuestionsAnswered.Count}";
+        scienceMarkText.text = $"Science:    {scienceQuestionsCorrect}  /  {scienceQuestionsAnswered.Count}";
+        literacyMarkText.text = $"Literacy:    {literacyQuestionsCorrect}  /  {literacyQuestionsAnswered.Count}";
 
-        CalculateGrade();    
+        CalculateGrade();
     }
 
     void CalculateGrade()
@@ -254,11 +227,6 @@ public class Classroom : MonoBehaviour
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
             Hallway.Instance.UnlockNextGrade();
-            reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
-        }
-        else if (percentage < 0.5f)
-        {
-            reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Try Again!";
         }
 
         switch (percentage)
@@ -339,21 +307,12 @@ public class Classroom : MonoBehaviour
 
     public void ReplayLevel()
     {
-        ResetActives();
-
-        questionPanel.SetActive(true);
-        answersPanel.SetActive(true);
-
         GameManager.Instance.ReplayLevel(selectedGrade);
     }
 
     public void Continue()
     {
-        ResetActives();
-
-        questionPanel.SetActive(false);
-        answersPanel.SetActive(false);
-
+        reportCardPanel.SetActive(false);
         GameManager.Instance.Continue();
     }
 
@@ -412,62 +371,5 @@ public class Classroom : MonoBehaviour
         T[] instanceList = Resources.LoadAll<T>(folderName);
 
         return instanceList;
-    }
-
-    public void PlayReportCardSequence(GameObject reportCardPanel)
-    {
-        Sequence sequence = DOTween.Sequence();
-
-        // Tween in Result Message
-        sequence.Append(reportCardResultText.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
-            // Wait 1 frame
-            .AppendInterval(1f)
-            // Tween out Result Message
-            .Append(reportCardResultText.transform.DOScale(0f, 1f).SetEase(Ease.OutSine))
-            // Wait 1 frame
-            .AppendInterval(1f)
-            // Tween in the Report Card Panel
-            .Append(reportCardPanel.transform.DOScale(1f, 1f).SetEase(Ease.InSine))
-            // Wait 1 frame
-            .AppendInterval(1f);
-    }
-
-    public void PlayAnswerResultSequence()
-    {
-        Sequence sequence = DOTween.Sequence();
-
-        // Scale out the questions and answers
-        sequence.Append(questionPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
-            .Append(answersPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
-            // Pop in the result text                  
-            .Append(answerResultText.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine))
-            // Linger for 1/2 frame
-            .AppendInterval(0.8f)
-            // Pop out the result text
-            .Append(answerResultText.transform.DOScale(0f, 0.5f).SetEase(Ease.InSine))
-            .Append(learningPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
-    }
-
-    public void ResumeFromLearningTip()
-    {      
-        learningPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
-        questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);
-        answersPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);                   
-    }
-
-    private void ResetActives()
-    {
-        shadePanel.SetActive(false);
-        globalCanvas.SetActive(true);
-        reportCardResultText.transform.localScale = new Vector3(0f, 0f, 0f);
-        reportCard.transform.localScale = new Vector3(0f, 0f, 0f);
-        questionPanel.transform.localScale = new Vector3(1f, 1f, 1f);
-        gradeComplete = false;
-        answersPanel.transform.localScale = new Vector3(1f, 1f, 1f);
-        answerResultText.SetActive(true);
-        answerResultText.transform.localScale = new Vector3(0f, 0f, 0f);
-        learningPanel.SetActive(true);
-        learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
-        confirmButton.SetActive(false);
     }
 }

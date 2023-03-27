@@ -6,7 +6,6 @@ using UnityEngine;
 public class AchievementObject : ScriptableObject
 {
     public AchievementTypes achievementType;
-    public string name;
     public string decription;
     public int grade;
     public int achievementThreshold; // The number needed to meet the achievement condition

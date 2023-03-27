@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Kindergarten_AllCorrect
   m_EditorClassIdentifier: 
   achievementType: 0
-  name: Kindergarten Master
-  decription: Get every questions correct in Kindergarten
+  decription: Get every questions correct in grade n
   grade: 0
   achievementThreshold: 30

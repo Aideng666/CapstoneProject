@@ -7,8 +7,6 @@ public class Hallway : MonoBehaviour
     [SerializeField] List<Door> doors = new List<Door>();
     Dictionary<Door, bool> unlockedDoors;
 
-    [SerializeField] UITweening tweenScript;
-
     public static Hallway Instance { get; private set; }
 
     private void Awake()
@@ -23,10 +21,7 @@ public class Hallway : MonoBehaviour
 
     private void OnEnable()
     {
-        if (AchievementManager.Instance != null)
-        {
-            AchievementManager.Instance.CheckAchievements();
-        }
+        AchievementManager.Instance.CheckAchievements();
     }
 
     // Start is called before the first frame update
@@ -53,14 +48,9 @@ public class Hallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Door selectedDoor = null;
+        InputHandler.Instance.DetectDrag();
 
-        if (!tweenScript.isPanelOpen)
-        {
-            InputHandler.Instance.DetectDrag();
-
-            selectedDoor = InputHandler.Instance.DetectDoorTap();
-        }
+        Door selectedDoor = InputHandler.Instance.DetectDoorTap();
 
         if (selectedDoor != null)
         {
@@ -70,9 +60,7 @@ public class Hallway : MonoBehaviour
                 {
                     if (door.Value)
                     {
-                        selectedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
-                        StartCoroutine(DelayGradeEntry(selectedDoor));
-                        //selectedDoor.EnterGrade();
+                        selectedDoor.EnterGrade();
                     }
                     else
                     {
@@ -85,18 +73,6 @@ public class Hallway : MonoBehaviour
         }
     }
 
-    IEnumerator DelayGradeEntry(Door door)
-    {
-        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            yield return null;
-        }
-
-        door.EnterGrade();
-
-        yield return null;
-    }
-
     public void UnlockNextGrade()
     {
         foreach (Door door in doors)
@@ -104,8 +80,6 @@ public class Hallway : MonoBehaviour
             if (!unlockedDoors[door])
             {
                 unlockedDoors[door] = true;
-
-                door.UnlockStar();
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
