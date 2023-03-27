@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] float leftCamBoundary = 0;
-    [SerializeField] float rightCamBoundary = 11;
+    [SerializeField] float rightCamBoundary = 18.25f;
     [SerializeField] float camSlowingAccel = -0.1f;
 
     Vector3 cameraVel;

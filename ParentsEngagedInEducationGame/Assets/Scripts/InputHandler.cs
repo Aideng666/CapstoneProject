@@ -6,7 +6,6 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] CameraMovement mainCam;
 
-
     public static InputHandler Instance { get; private set; }
 
 
@@ -73,7 +72,7 @@ public class InputHandler : MonoBehaviour
                     if (hit.collider.CompareTag("Door"))
                     {
                         tappedDoor = hit.collider.GetComponent<Door>();
-                        //hit.collider.GetComponent<Door>().EnterGrade();
+                        //tappedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
                     }
                 }
             }

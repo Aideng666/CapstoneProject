@@ -40,9 +40,6 @@ public class UpdateName : MonoBehaviour
             LevelManager.Instance.LoadScene("Main");
             MenuAudio.StartSound();
             hubCanvasObj.SetActive(false);
-            
-            // TODO:
-            // Camera zoom on door's opening?
         }
     }
 
