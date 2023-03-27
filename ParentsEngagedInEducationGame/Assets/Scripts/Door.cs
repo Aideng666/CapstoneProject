@@ -24,5 +24,6 @@ public class Door : MonoBehaviour
         GetComponent<Animator>().SetTrigger("DoorOpened");
 
         GameManager.Instance.EnterClassroom(grade);
+        AudioManager.Instance.Stop("Hallway");
     }
 }
