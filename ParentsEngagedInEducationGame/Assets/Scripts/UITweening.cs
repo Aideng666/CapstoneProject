@@ -120,6 +120,9 @@ public class UITweening : MonoBehaviour
         playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+
+        //scrollView.ScrollTo(scrollView.ElementAt(0));
+        //scrollRect.verticalNormalizedPosition = 0;
     }
 
     public void SettingsMainTweenIn()

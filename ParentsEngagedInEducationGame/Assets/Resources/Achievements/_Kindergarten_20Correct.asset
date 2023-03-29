@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da52917a757243f4d98c26c6621206f9, type: 3}
-  m_Name: Kindergarten_AllCorrect
+  m_Name: _Kindergarten_20Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  name: Kindergarten Master
-  decription: Get every questions correct in Kindergarten
+  name: Prodigy
+  decription: Get 20 total questions correct in Kindergarten
   grade: 0
-  achievementThreshold: 30
+  achievementThreshold: 20

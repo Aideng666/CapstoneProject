@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade7_20Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Get 20 total questions correct in grade n
+  name: Study Buddy 8
+  decription: Get 20 total questions correct in Grade 7
   grade: 7
   achievementThreshold: 20
