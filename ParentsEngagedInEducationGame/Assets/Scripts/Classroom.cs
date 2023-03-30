@@ -252,8 +252,12 @@ public class Classroom : MonoBehaviour
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
+        {          
+            Hallway.Instance.UnlockNextGrade();          
+        }
+
+        if (percentage >= 0.5f)
         {
-            Hallway.Instance.UnlockNextGrade();
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
         }
         else if (percentage < 0.5f)
