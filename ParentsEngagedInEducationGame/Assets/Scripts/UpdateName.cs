@@ -48,7 +48,7 @@ public class UpdateName : MonoBehaviour
     {
         username = inputField.text;
         nameText.text = username;
-        //editNameButton.SetActive(true);
+        editNameButton.SetActive(true);
         editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
