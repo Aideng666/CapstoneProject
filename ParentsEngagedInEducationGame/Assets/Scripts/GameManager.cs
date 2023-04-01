@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        print("Removed PlayerPrefs, THIS IS TEMPORARY");
+        //print("Removed PlayerPrefs, THIS IS TEMPORARY");
 
         //Temp
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetInt("GradesUnlocked", 1);
+        //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 
     public void EnterClassroom(int grade)
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         classroomEnvironment.gameObject.SetActive(false);
         hallwayEnvironment.gameObject.SetActive(true);
-        achievementButton.transform.localScale = new Vector3(1f, 1f, 1f);
+        achievementButton.transform.localScale = new Vector3(0.71721f, 0.71721f, 0.71721f);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
         currentGamestate = GameStates.Hallway;

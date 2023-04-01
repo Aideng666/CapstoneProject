@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade6_AllCorrect
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Get every questions correct in grade n
+  name: Grade 6 Master
+  decription: Get every question correct in Grade 6
   grade: 6
   achievementThreshold: 30
