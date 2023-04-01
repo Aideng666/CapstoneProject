@@ -267,8 +267,6 @@ public class Classroom : MonoBehaviour
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
             AudioManager.Instance.Play("Congratz");
             AudioManager.Instance.Stop("Question");
-
-
         }
         else if (percentage < 0.5f)
         {
