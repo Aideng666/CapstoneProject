@@ -73,12 +73,17 @@ public class Hallway : MonoBehaviour
                         selectedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
                         StartCoroutine(DelayGradeEntry(selectedDoor));
                         //selectedDoor.EnterGrade();
+                        AudioManager.Instance.Stop("Hallway");
+                        AudioManager.Instance.Play("Door Open");
+
                     }
                     else
                     {
                         //Let the user know that the door they selected is locked somehow
                         //Probs some animation or smth
                         print("This door is locked");
+                        AudioManager.Instance.Play("Door Lock");
+
                     }
                 }
             }
