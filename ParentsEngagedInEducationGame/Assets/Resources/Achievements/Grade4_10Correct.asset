@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade4_10Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Answer correctly to 10 different questions in JK
+  name: Study Buddy 5
+  decription: Get 10 different questions correct in Grade 4
   grade: 4
   achievementThreshold: 10

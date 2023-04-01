@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade1_Unlock
   m_EditorClassIdentifier: 
   achievementType: 2
-  decription: Unlock the door for grade n
+  name: Fast Learner
+  decription: Pass Grade 1
   grade: 1
   achievementThreshold: 0

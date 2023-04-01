@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade2_20Correct
   m_EditorClassIdentifier: 
   achievementType: 0
-  decription: Get 20 total questions correct in grade n
+  name: Prodigy 3
+  decription: Get 20 total questions correct in Grade 2
   grade: 2
   achievementThreshold: 20

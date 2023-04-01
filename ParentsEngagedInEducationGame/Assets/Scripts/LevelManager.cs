@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
 
         target = 1;
 
-        await Task.Delay(2000);
+        await Task.Delay(3000);
 
         scene.allowSceneActivation = true;
 
