@@ -53,12 +53,14 @@ public class Hallway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!tweenScript.isAchievementPanelOpen)
+        Door selectedDoor = null;
+
+        if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
-        }
 
-        Door selectedDoor = InputHandler.Instance.DetectDoorTap();
+            selectedDoor = InputHandler.Instance.DetectDoorTap();
+        }
 
         if (selectedDoor != null)
         {
@@ -85,7 +87,7 @@ public class Hallway : MonoBehaviour
 
     IEnumerator DelayGradeEntry(Door door)
     {
-        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1.3f || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             yield return null;
         }
@@ -102,6 +104,8 @@ public class Hallway : MonoBehaviour
             if (!unlockedDoors[door])
             {
                 unlockedDoors[door] = true;
+
+                door.UnlockStar();
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
