@@ -39,6 +39,7 @@ public class UpdateName : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
+            MenuAudio.StartSound();
             LevelManager.Instance.LoadScene("Main");
             hubCanvasObj.SetActive(false);
         }
@@ -80,5 +81,7 @@ public class UpdateName : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("username");
         PlayerPrefs.DeleteKey("hasSetName");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 }

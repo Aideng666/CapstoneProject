@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class UITweening : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class UITweening : MonoBehaviour
     public float resetPanelDuration = 1f;
     public float editNamePanelDuration = 1f;
     public float achievementsPanelDuration = 1f;
+
+    [SerializeField] ScrollRect achievementScroll;
 
     public bool isPanelOpen { get; private set; } = false;
 
@@ -121,8 +124,7 @@ public class UITweening : MonoBehaviour
         achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
 
-        //scrollView.ScrollTo(scrollView.ElementAt(0));
-        //scrollRect.verticalNormalizedPosition = 0;
+        achievementScroll.verticalNormalizedPosition = 1;
     }
 
     public void SettingsMainTweenIn()
