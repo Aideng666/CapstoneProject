@@ -30,6 +30,7 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject answerResultText;
 
     [SerializeField] GameObject confirmButton;
+    [SerializeField] GameObject[] scienceSummary;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -125,7 +126,23 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }       
+        }   
+        
+        // Hide science for Kindergarten and Grade 1 as there are no science questions
+        if (selectedGrade == 0 || selectedGrade == 1)
+        {
+            foreach(GameObject sci in scienceSummary)
+            {
+                sci.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject sci in scienceSummary)
+            {
+                sci.SetActive(true);
+            }
+        }
     }
 
     public void ConfirmAnswer()
