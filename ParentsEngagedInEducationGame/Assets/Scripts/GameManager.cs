@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         classroomEnvironment.gameObject.SetActive(false);
         hallwayEnvironment.gameObject.SetActive(true);
-        achievementButton.transform.localScale = new Vector3(1f, 1f, 1f);
+        achievementButton.transform.localScale = new Vector3(0.71721f, 0.71721f, 0.71721f);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
         currentGamestate = GameStates.Hallway;
