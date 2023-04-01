@@ -21,9 +21,11 @@ public class UpdateName : MonoBehaviour
     {
         nameText.text = PlayerPrefs.GetString("username");
 
+        editNameButton.transform.localScale = new Vector3(0f, 0f, 0f);
+
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
-            editNameButton.SetActive(true);
+            editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 
@@ -37,6 +39,7 @@ public class UpdateName : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
+            MenuAudio.StartSound();
             LevelManager.Instance.LoadScene("Main");
             hubCanvasObj.SetActive(false);
         }
@@ -47,6 +50,7 @@ public class UpdateName : MonoBehaviour
         username = inputField.text;
         nameText.text = username;
         editNameButton.SetActive(true);
+        editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
         PlayerPrefs.Save();
@@ -77,5 +81,7 @@ public class UpdateName : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("username");
         PlayerPrefs.DeleteKey("hasSetName");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 }

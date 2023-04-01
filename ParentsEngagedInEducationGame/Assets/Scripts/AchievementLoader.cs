@@ -7,7 +7,7 @@ public class AchievementLoader : MonoBehaviour
 {
     [SerializeField] GameObject achievementPrefab;
 
-    float bufferTime = 0.5f;
+    float bufferTime = 1f;
     float elapsedTime = 0f;
     bool isBufferComplete;
 
@@ -28,9 +28,9 @@ public class AchievementLoader : MonoBehaviour
             for (int i = 0; i < achievements.Length; i++)
             {
                 GameObject obj = Instantiate(achievementPrefab, transform);
-                //achievementPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = achievements[i].name;
-                //achievementPrefab.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = achievements[i].decription;
-                achievementPrefab.GetComponentInChildren<TextMeshProUGUI>().text = achievements[i].decription;
+                
+                achievementPrefab.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = achievements[i].name;
+                achievementPrefab.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = achievements[i].decription;
             }
 
             isBufferComplete = true;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade7_Unlock
   m_EditorClassIdentifier: 
   achievementType: 2
-  decription: Unlock the door for grade n
+  name: Brainiac
+  decription: Pass Grade 7
   grade: 7
   achievementThreshold: 0
