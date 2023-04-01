@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         achievementButton.transform.localScale = new Vector3(0f, 0f, 0f);
         classroomEnvironment.InitClassroom(grade);
 
+        AudioManager.Instance.Play("Question");
+        AudioManager.Instance.Loop("Question");
         currentGamestate = GameStates.Classroom;
     }
 
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
         classroomEnvironment.gameObject.SetActive(true);
         classroomEnvironment.InitClassroom(grade);
 
+        AudioManager.Instance.Play("Question");
+        AudioManager.Instance.Loop("Question");
         currentGamestate = GameStates.Classroom;
     }
 
@@ -56,6 +60,9 @@ public class GameManager : MonoBehaviour
         achievementButton.transform.localScale = new Vector3(0.71721f, 0.71721f, 0.71721f);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
+        AudioManager.Instance.Stop("Question");
+        AudioManager.Instance.Play("Hallway");
+        AudioManager.Instance.Loop("Hallway");
         currentGamestate = GameStates.Hallway;
     }
 }

@@ -145,6 +145,8 @@ public class Classroom : MonoBehaviour
 
         if (answer != -1)
         {         
+            learningPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = questionsToAsk[currentQuestionIndex]._learningTip;
+
             if (answer == correctAnswerIndex)
             {
                 //print("Correct!");
@@ -156,6 +158,8 @@ public class Classroom : MonoBehaviour
                 correctAnswerStreak++;
                 correctAnswersThisAttempt++;
 
+                AudioManager.Instance.Play("Correct");
+
                 AchievementManager.Instance.AnswerQuestion(currentQuestion, true, selectedGrade);
             }
             else
@@ -164,6 +168,8 @@ public class Classroom : MonoBehaviour
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 PlayAnswerResultSequence();
+
+                AudioManager.Instance.Play("Incorrect");
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
@@ -259,6 +265,10 @@ public class Classroom : MonoBehaviour
         if (percentage >= 0.5f)
         {
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
+            AudioManager.Instance.Play("Congratz");
+            AudioManager.Instance.Stop("Question");
+
+
         }
         else if (percentage < 0.5f)
         {

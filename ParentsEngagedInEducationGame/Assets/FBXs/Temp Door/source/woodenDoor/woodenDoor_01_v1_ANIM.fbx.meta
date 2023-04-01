@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: de5b60734c2e9064b96e259d5a8a925c
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 2890389298847702017
+    second: DoorBone|ArmatureAction
   externalObjects: {}
   materials:
     materialImportMode: 2
