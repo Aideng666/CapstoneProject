@@ -105,7 +105,7 @@ public class Hallway : MonoBehaviour
             {
                 unlockedDoors[door] = true;
 
-                //door.UnlockStar();
+                door.UnlockStar();
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
