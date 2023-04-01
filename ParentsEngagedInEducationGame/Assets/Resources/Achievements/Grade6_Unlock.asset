@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: Whiz Kid
-  decription: Pass Grade 6
+  decription: Unlock Grade 6
   grade: 6
   achievementThreshold: 0

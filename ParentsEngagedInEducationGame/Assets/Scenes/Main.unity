@@ -9767,7 +9767,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -170144.73
+      value: -170985.8
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
@@ -9983,6 +9983,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1747691777}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1747691780 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3902187674788466584, guid: 479ddad75e40e354198b139b9116fe2f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1747691777}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1754040709
 GameObject:
   m_ObjectHideFlags: 0
@@ -10971,7 +10983,9 @@ MonoBehaviour:
   resetPanelDuration: 0
   editNamePanelDuration: 0
   achievementsPanelDuration: 0.4
-  achievementScroll: {fileID: 0}
+  achievementScroll: {fileID: 1747691780}
+  hallway: {fileID: 539326566}
+  classroom: {fileID: 706465729}
 --- !u!114 &1967131734
 MonoBehaviour:
   m_ObjectHideFlags: 0
