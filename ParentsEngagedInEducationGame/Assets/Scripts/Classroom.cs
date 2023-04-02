@@ -74,6 +74,8 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HighlightAnswer();
+
         if (gradeComplete)
         {
             ShowReportCard();
@@ -498,5 +500,37 @@ public class Classroom : MonoBehaviour
         learningPanel.SetActive(true);
         learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
         confirmButton.SetActive(false);
+    }
+
+    public void HighlightAnswer()
+    {
+        if (answerToggles[0].isOn)
+        {
+            answerTexts[0].color = Color.white;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if(answerToggles[1].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.white;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[2].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.white;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[3].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.white;
+        }
     }
 }
