@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: Smarty Pants
-  decription: Pass Grade 3
+  decription: Unlock Grade 3
   grade: 3
   achievementThreshold: 0

@@ -31,6 +31,9 @@ public class UITweening : MonoBehaviour
 
     [SerializeField] ScrollRect achievementScroll;
 
+    [SerializeField] GameObject hallway;
+    [SerializeField] GameObject classroom;
+
     public bool isPanelOpen { get; private set; } = false;
 
     public void ButtonTweenOut() 
@@ -179,7 +182,14 @@ public class UITweening : MonoBehaviour
 
     public void QuitPanelMain()
     {
-        LevelManager.Instance.LoadScene("Hub");
+        if (hallway.activeInHierarchy)
+        {
+            LevelManager.Instance.LoadScene("Hub");
+        }
+        else if (classroom.activeInHierarchy)
+        {
+            LevelManager.Instance.LoadScene("Main");
+        }    
     }
 
     public void QuitPanelTweenIn()

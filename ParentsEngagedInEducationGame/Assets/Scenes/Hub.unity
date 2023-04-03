@@ -924,6 +924,8 @@ MonoBehaviour:
   editNamePanelDuration: 0.4
   achievementsPanelDuration: 0.4
   achievementScroll: {fileID: 1363440989}
+  hallway: {fileID: 0}
+  classroom: {fileID: 0}
 --- !u!1 &215098484
 GameObject:
   m_ObjectHideFlags: 0
@@ -7932,7 +7934,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -59417.63
+      value: -60282.64
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}

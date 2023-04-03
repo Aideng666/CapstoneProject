@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: Genius
-  decription: Pass Grade 5
+  decription: Unlock Grade 5
   grade: 5
   achievementThreshold: 0
