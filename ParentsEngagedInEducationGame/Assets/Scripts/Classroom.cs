@@ -76,9 +76,10 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //HighlightAnswer();
+
         if (gradeComplete && !reportCardShown)
         {
-            HighlightAnswer();
             ShowReportCard();
 
             reportCardShown = true;
