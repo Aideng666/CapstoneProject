@@ -40,10 +40,15 @@ public class QuestionReader : MonoBehaviour
     {
         string[] fileEntries = file.text.Split('\n');
 
+        print($"Number of Questions: {fileEntries.Length}");
+
         //Reads each line and seperates the values properly
         for (int i = 1; i < fileEntries.Length; i++)
         {
             string[] entrySplit = fileEntries[i].Split(',');
+
+            print($"Number of Indices: {entrySplit.Length}");
+            print(i);
 
             string question = entrySplit[0];
             string learningTip = entrySplit[7];
