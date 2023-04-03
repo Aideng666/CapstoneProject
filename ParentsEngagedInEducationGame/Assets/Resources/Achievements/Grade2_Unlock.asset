@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: Hardworker
-  decription: Pass Grade 2
+  decription: Unlock Grade 2
   grade: 2
   achievementThreshold: 0
