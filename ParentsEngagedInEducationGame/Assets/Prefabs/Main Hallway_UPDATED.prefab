@@ -291,7 +291,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: a2d86246df113484da96868088aec3d7, type: 2}
   - {fileID: 2100000, guid: 07b7a5014046cde499ae2bb2d28ff982, type: 2}
   - {fileID: 2100000, guid: eafd20ac033853e4b8044da6424ce1ac, type: 2}
-  - {fileID: 5138222690977611775, guid: d970e440745d16148be232df6bdbc387, type: 3}
+  - {fileID: 2100000, guid: 636af5bb01a186e4698fe178fffb7011, type: 2}
   - {fileID: 6094618319959305229, guid: d970e440745d16148be232df6bdbc387, type: 3}
   - {fileID: 225577319390456775, guid: d970e440745d16148be232df6bdbc387, type: 3}
   - {fileID: 2100000, guid: addacf3c4549cfc479b398b632723316, type: 2}

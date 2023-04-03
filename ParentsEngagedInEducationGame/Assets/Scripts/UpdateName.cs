@@ -79,8 +79,6 @@ public class UpdateName : MonoBehaviour
 
     public void DeletePlayerPrefs()
     {
-        PlayerPrefs.DeleteKey("username");
-        PlayerPrefs.DeleteKey("hasSetName");
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("GradesUnlocked", 1);
     }

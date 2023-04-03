@@ -30,6 +30,7 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject answerResultText;
 
     [SerializeField] GameObject confirmButton;
+    [SerializeField] GameObject[] scienceSummary;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -39,6 +40,7 @@ public class Classroom : MonoBehaviour
 
     int currentQuestionIndex = 0;
     bool beginGrade = false;
+    bool reportCardShown = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
     int correctAnswersThisAttempt;
@@ -60,6 +62,7 @@ public class Classroom : MonoBehaviour
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        reportCardShown = false;
         answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
@@ -73,9 +76,13 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        //HighlightAnswer();
+
+        if (gradeComplete && !reportCardShown)
         {
             ShowReportCard();
+
+            reportCardShown = true;
         }    
 
         if (beginGrade && !gradeComplete)
@@ -125,7 +132,23 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }       
+        }   
+        
+        // Hide science for Kindergarten and Grade 1 as there are no science questions
+        if (selectedGrade == 0 || selectedGrade == 1)
+        {
+            foreach(GameObject sci in scienceSummary)
+            {
+                sci.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject sci in scienceSummary)
+            {
+                sci.SetActive(true);
+            }
+        }
     }
 
     public void ConfirmAnswer()
@@ -258,8 +281,8 @@ public class Classroom : MonoBehaviour
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
-        {          
-            Hallway.Instance.UnlockNextGrade();          
+        {
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);
         }
 
         if (percentage >= 0.5f)
@@ -267,8 +290,6 @@ public class Classroom : MonoBehaviour
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
             AudioManager.Instance.Play("Congratz");
             AudioManager.Instance.Stop("Question");
-
-
         }
         else if (percentage < 0.5f)
         {
@@ -483,5 +504,37 @@ public class Classroom : MonoBehaviour
         learningPanel.SetActive(true);
         learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
         confirmButton.SetActive(false);
+    }
+
+    public void HighlightAnswer()
+    {
+        if (answerToggles[0].isOn)
+        {
+            answerTexts[0].color = Color.white;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if(answerToggles[1].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.white;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[2].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.white;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[3].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.white;
+        }
     }
 }

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: 'Brilliance '
-  decription: Pass Grade 4
+  decription: Unlock Grade 4
   grade: 4
   achievementThreshold: 0
