@@ -39,6 +39,7 @@ public class Classroom : MonoBehaviour
 
     int currentQuestionIndex = 0;
     bool beginGrade = false;
+    bool reportCardShown = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
     int correctAnswersThisAttempt;
@@ -60,6 +61,7 @@ public class Classroom : MonoBehaviour
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        reportCardShown = false;
         answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
@@ -73,9 +75,11 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        if (gradeComplete && !reportCardShown)
         {
             ShowReportCard();
+
+            reportCardShown = true;
         }    
 
         if (beginGrade && !gradeComplete)
@@ -258,8 +262,8 @@ public class Classroom : MonoBehaviour
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
-        {          
-            Hallway.Instance.UnlockNextGrade();          
+        {
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);
         }
 
         if (percentage >= 0.5f)
