@@ -110,11 +110,31 @@ public class Hallway : MonoBehaviour
             {
                 unlockedDoors[door] = true;
 
-                door.UnlockStar();
+                //door.UnlockStar();
 
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
                 return;
+            }
+        }
+    }
+
+    public void UnlockGrade(int grade)
+    {
+        foreach (Door door in doors)
+        {
+            if (door.GetGrade() == grade)
+            {
+                if (PlayerPrefs.GetInt("GradesUnlocked") == grade)
+                {
+                    unlockedDoors[door] = true;
+
+                    //door.UnlockStar();
+
+                    PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
+
+                    return;
+                }
             }
         }
     }
