@@ -61,6 +61,7 @@ public class Hallway : MonoBehaviour
         if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
+            InputHandler.Instance.DetectMouseDrag();
 
             selectedDoor = InputHandler.Instance.DetectDoorTap();
         }
