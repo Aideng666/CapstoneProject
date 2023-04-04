@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {
@@ -28,33 +29,35 @@ public class LevelManager : MonoBehaviour
 
     public async void LoadScene(string sceneName)
     {
-        target = 0;
-        progressBar.fillAmount = 0;
+        //target = 0;
+        //progressBar.fillAmount = 0;
 
-        var scene = SceneManager.LoadSceneAsync(sceneName);
-        scene.allowSceneActivation = false;
+        //var scene = SceneManager.LoadSceneAsync(sceneName);
+        //scene.allowSceneActivation = false;
 
-        loadingCanvas.SetActive(true);
+        //loadingCanvas.SetActive(true);
 
-        do {
-            await Task.Delay(2000);
-            target = scene.progress;
-        } while (scene.progress < 0.9f);
+        //do {
+        //    await Task.Delay(2000);
+        //    target = scene.progress;
+        //} while (scene.progress < 0.9f);
 
-        target = 1;
+        //target = 1;
 
-        await Task.Delay(3000);
+        //await Task.Delay(3000);
 
-        scene.allowSceneActivation = true;
+        //scene.allowSceneActivation = true;
 
-        await Task.Delay(60);
+        //await Task.Delay(60);
 
-        loadingCanvas.SetActive(false);
+        //loadingCanvas.SetActive(false);
+
+        SceneManager.LoadScene(sceneName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
+        //progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
     }
 }
