@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UITweening : MonoBehaviour
 {
@@ -196,6 +197,8 @@ public class UITweening : MonoBehaviour
         achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
 
+        achievementScroll.verticalNormalizedPosition = 1;
+
         isPanelOpen = false;
     }
 
@@ -203,11 +206,11 @@ public class UITweening : MonoBehaviour
     {
         if (hallway.activeInHierarchy)
         {
-            LevelManager.Instance.LoadScene("Hub");
+            SceneManager.LoadScene("Hub");
         }
         else if (classroom.activeInHierarchy)
         {
-            LevelManager.Instance.LoadScene("Main");
+            SceneManager.LoadScene("Main");
         }    
     }
 
