@@ -28,8 +28,8 @@ public class Hallway : MonoBehaviour
             AchievementManager.Instance.CheckAchievements();
         }
 
-        //Camera cam = Camera.main;
-        //cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+        Camera cam = Camera.main;
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
     }
 
     // Start is called before the first frame update
@@ -61,6 +61,7 @@ public class Hallway : MonoBehaviour
         if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
+            InputHandler.Instance.DetectMouseDrag();
 
             selectedDoor = InputHandler.Instance.DetectDoorTap();
         }

@@ -47,6 +47,8 @@ public class Classroom : MonoBehaviour
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
 
+    Camera cam;
+
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
 
@@ -73,14 +75,14 @@ public class Classroom : MonoBehaviour
 
         confirmButton.SetActive(false);
 
-
-        //Camera cam = Camera.main;
-        //cam.transform.position = new Vector3(0, cam.transform.position.y, cam.transform.position.z);
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+
         UpdateGradeLabel();
         //HighlightAnswer();
 
