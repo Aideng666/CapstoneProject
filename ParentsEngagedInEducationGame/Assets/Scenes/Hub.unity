@@ -306,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 91307458}
   - component: {fileID: 91307457}
+  - component: {fileID: 91307459}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -390,6 +391,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &91307459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91307456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &92392442
 GameObject:
   m_ObjectHideFlags: 0
@@ -5616,7 +5637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1488899067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7934,7 +7955,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60282.64
+      value: -60654.434
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
