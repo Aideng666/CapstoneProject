@@ -31,6 +31,7 @@ public class Classroom : MonoBehaviour
 
     [SerializeField] GameObject confirmButton;
     [SerializeField] GameObject[] scienceSummary;
+    [SerializeField] TextMeshProUGUI gradeLabel;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -80,6 +81,7 @@ public class Classroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateGradeLabel();
         //HighlightAnswer();
 
         if (gradeComplete && !reportCardShown)
@@ -541,6 +543,41 @@ public class Classroom : MonoBehaviour
             answerTexts[1].color = Color.black;
             answerTexts[2].color = Color.black;
             answerTexts[3].color = Color.white;
+        }
+    }
+
+    public void UpdateGradeLabel()
+    {
+        switch (selectedGrade)
+        {
+            case 0:
+                gradeLabel.text = "Kindergarten";
+                break;
+
+            case 1:
+                gradeLabel.text = "Grade 1";
+                break;
+            case 2:
+                gradeLabel.text = "Grade 2";
+                break;
+            case 3:
+                gradeLabel.text = "Grade 3";
+                break;
+            case 4:
+                gradeLabel.text = "Grade 4";
+                break;
+            case 5:
+                gradeLabel.text = "Grade 5";
+                break;
+            case 6:
+                gradeLabel.text = "Grade 6";
+                break;
+            case 7:
+                gradeLabel.text = "Grade 7";
+                break;
+            case 8:
+                gradeLabel.text = "Grade 8";
+                break;
         }
     }
 }
