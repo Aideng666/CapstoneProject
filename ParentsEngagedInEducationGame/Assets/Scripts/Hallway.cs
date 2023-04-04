@@ -28,8 +28,8 @@ public class Hallway : MonoBehaviour
             AchievementManager.Instance.CheckAchievements();
         }
 
-        //Camera cam = Camera.main;
-        //cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+        Camera cam = Camera.main;
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
     }
 
     // Start is called before the first frame update
