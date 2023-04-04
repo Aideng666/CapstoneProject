@@ -71,6 +71,10 @@ public class Classroom : MonoBehaviour
         answeredQuestions = new Dictionary<Question, bool>();
 
         confirmButton.SetActive(false);
+
+
+        //Camera cam = Camera.main;
+        //cam.transform.position = new Vector3(0, cam.transform.position.y, cam.transform.position.z);
     }
 
     // Update is called once per frame
