@@ -17,7 +17,14 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1)
+        {
+            star.fillAmount = 1f;
+        }
+        else
+        {
+            star.fillAmount = 0f;
+        }
     }
 
     public void EnterGrade()
@@ -30,10 +37,5 @@ public class Door : MonoBehaviour
     public int GetGrade()
     {
         return grade;
-    }
-
-    public void UnlockStar()
-    {
-        star.fillAmount = 1f;
     }
 }
