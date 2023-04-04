@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade8_5InARow
   m_EditorClassIdentifier: 
   achievementType: 1
-  decription: Get 5 Questions Correct in a row in grade n
+  name: Hot Streak 9
+  decription: Get 5 questions correct in a row in Grade 8
   grade: 8
   achievementThreshold: 5

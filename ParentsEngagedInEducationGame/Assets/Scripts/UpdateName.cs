@@ -49,7 +49,7 @@ public class UpdateName : MonoBehaviour
     {
         username = inputField.text;
         nameText.text = username;
-        //editNameButton.SetActive(true);
+        editNameButton.SetActive(true);
         editNameButton.transform.localScale = new Vector3(1f, 1f, 1f);
         PlayerPrefs.SetString("username", username);
         PlayerPrefs.SetInt("hasSetName", 1);
@@ -79,7 +79,7 @@ public class UpdateName : MonoBehaviour
 
     public void DeletePlayerPrefs()
     {
-        PlayerPrefs.DeleteKey("username");
-        PlayerPrefs.DeleteKey("hasSetName");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("GradesUnlocked", 1);
     }
 }

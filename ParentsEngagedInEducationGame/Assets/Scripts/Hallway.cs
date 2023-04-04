@@ -27,6 +27,9 @@ public class Hallway : MonoBehaviour
         {
             AchievementManager.Instance.CheckAchievements();
         }
+
+        Camera cam = Camera.main;
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
     }
 
     // Start is called before the first frame update
@@ -58,6 +61,7 @@ public class Hallway : MonoBehaviour
         if (!tweenScript.isPanelOpen)
         {
             InputHandler.Instance.DetectDrag();
+            InputHandler.Instance.DetectMouseDrag();
 
             selectedDoor = InputHandler.Instance.DetectDoorTap();
         }
@@ -92,7 +96,7 @@ public class Hallway : MonoBehaviour
 
     IEnumerator DelayGradeEntry(Door door)
     {
-        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1 || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        while (door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1.3f || door.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             yield return null;
         }
@@ -115,6 +119,26 @@ public class Hallway : MonoBehaviour
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
                 return;
+            }
+        }
+    }
+
+    public void UnlockGrade(int grade)
+    {
+        foreach (Door door in doors)
+        {
+            if (door.GetGrade() == grade)
+            {
+                if (PlayerPrefs.GetInt("GradesUnlocked") == grade)
+                {
+                    unlockedDoors[door] = true;
+
+                    //door.UnlockStar();
+
+                    PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
+
+                    return;
+                }
             }
         }
     }

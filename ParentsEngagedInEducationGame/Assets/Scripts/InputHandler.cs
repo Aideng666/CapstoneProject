@@ -8,6 +8,8 @@ public class InputHandler : MonoBehaviour
 
     public static InputHandler Instance { get; private set; }
 
+    Vector3 previousMousePos = Vector3.zero;
+
 
     private void Awake()
     {
@@ -54,9 +56,34 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    public void DetectMouseDrag()
+    {
+        //Detects dragging mouse side to side for camera movement
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 deltaPosition = previousMousePos - Input.mousePosition;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            float velocity = Vector3.Distance(mouseWorldPos, Camera.main.ScreenToWorldPoint(Input.mousePosition - deltaPosition)) / Time.deltaTime;
+
+            if (deltaPosition.x < 0)
+            {
+                mainCam.SetVelocity(velocity / 2, 0);
+            }
+            if (deltaPosition.x > 0)
+            {
+                mainCam.SetVelocity(velocity / 2, 1);
+            }
+
+        }
+
+        previousMousePos = Input.mousePosition;
+    }
+
     public Door DetectDoorTap()
     {
         Door tappedDoor = null;
+        Ray ray = new Ray();
 
         if (Input.touches.Length == 1)
         {
@@ -65,7 +92,7 @@ public class InputHandler : MonoBehaviour
             //Detects tapping on a door to enter the selected grade
             if (touch.phase == TouchPhase.Began)
             {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                ray = Camera.main.ScreenPointToRay(touch.position);
 
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
@@ -77,6 +104,21 @@ public class InputHandler : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                print(hit.collider.name);
+
+                if (hit.collider.CompareTag("Door"))
+                {
+                    tappedDoor = hit.collider.GetComponent<Door>();
+                }
+            }
+        }
+
 
         return tappedDoor;
     }

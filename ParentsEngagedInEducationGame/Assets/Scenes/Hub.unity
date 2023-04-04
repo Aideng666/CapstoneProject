@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -306,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 91307458}
   - component: {fileID: 91307457}
+  - component: {fileID: 91307459}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -390,6 +391,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &91307459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91307456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &92392442
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,6 +895,7 @@ MonoBehaviour:
   logoImg: {fileID: 0}
   titleCanvasGroup: {fileID: 0}
   titleCanvasMainGroup: {fileID: 0}
+  testText: {fileID: 0}
   startFadeTime: 1
 --- !u!4 &192548032
 Transform:
@@ -923,6 +945,9 @@ MonoBehaviour:
   resetPanelDuration: 0.4
   editNamePanelDuration: 0.4
   achievementsPanelDuration: 0.4
+  achievementScroll: {fileID: 1363440989}
+  hallway: {fileID: 0}
+  classroom: {fileID: 0}
 --- !u!1 &215098484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5114,6 +5139,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347449879}
   m_CullTransparentMesh: 1
+--- !u!114 &1363440989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3902187674788466584, guid: 479ddad75e40e354198b139b9116fe2f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3902187673189396971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1399863835
 GameObject:
   m_ObjectHideFlags: 0
@@ -5601,7 +5638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1488899067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7919,7 +7956,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60225.49
+      value: -64945.414
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}

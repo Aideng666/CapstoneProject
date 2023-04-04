@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade2_Unlock
   m_EditorClassIdentifier: 
   achievementType: 2
-  decription: Unlock the door for grade n
+  name: Hardworker
+  decription: Unlock Grade 2
   grade: 2
   achievementThreshold: 0

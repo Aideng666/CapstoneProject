@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade3_Unlock
   m_EditorClassIdentifier: 
   achievementType: 2
-  decription: Unlock the door for grade n
+  name: Smarty Pants
+  decription: Unlock Grade 3
   grade: 3
   achievementThreshold: 0

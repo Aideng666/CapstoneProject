@@ -30,6 +30,8 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject answerResultText;
 
     [SerializeField] GameObject confirmButton;
+    [SerializeField] GameObject[] scienceSummary;
+    [SerializeField] TextMeshProUGUI gradeLabel;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -39,10 +41,13 @@ public class Classroom : MonoBehaviour
 
     int currentQuestionIndex = 0;
     bool beginGrade = false;
+    bool reportCardShown = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
+
+    Camera cam;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -60,6 +65,7 @@ public class Classroom : MonoBehaviour
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        reportCardShown = false;
         answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
@@ -68,14 +74,23 @@ public class Classroom : MonoBehaviour
         answeredQuestions = new Dictionary<Question, bool>();
 
         confirmButton.SetActive(false);
+
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+
+        UpdateGradeLabel();
+        //HighlightAnswer();
+
+        if (gradeComplete && !reportCardShown)
         {
             ShowReportCard();
+
+            reportCardShown = true;
         }    
 
         if (beginGrade && !gradeComplete)
@@ -125,7 +140,23 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }       
+        }   
+        
+        // Hide science for Kindergarten and Grade 1 as there are no science questions
+        if (selectedGrade == 0 || selectedGrade == 1)
+        {
+            foreach(GameObject sci in scienceSummary)
+            {
+                sci.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject sci in scienceSummary)
+            {
+                sci.SetActive(true);
+            }
+        }
     }
 
     public void ConfirmAnswer()
@@ -145,6 +176,8 @@ public class Classroom : MonoBehaviour
 
         if (answer != -1)
         {         
+            learningPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = questionsToAsk[currentQuestionIndex]._learningTip;
+
             if (answer == correctAnswerIndex)
             {
                 //print("Correct!");
@@ -257,12 +290,16 @@ public class Classroom : MonoBehaviour
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
-            Hallway.Instance.UnlockNextGrade();
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);
+        }
+
+        if (percentage >= 0.5f)
+        {
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
             AudioManager.Instance.Play("Congratz");
             AudioManager.Instance.Stop("Question");
 
-
+            //Hallway.Instance.GetDoors()[selectedGrade].UnlockStar();
         }
         else if (percentage < 0.5f)
         {
@@ -477,5 +514,72 @@ public class Classroom : MonoBehaviour
         learningPanel.SetActive(true);
         learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
         confirmButton.SetActive(false);
+    }
+
+    public void HighlightAnswer()
+    {
+        if (answerToggles[0].isOn)
+        {
+            answerTexts[0].color = Color.white;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if(answerToggles[1].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.white;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[2].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.white;
+            answerTexts[3].color = Color.black;
+        }
+        else if (answerToggles[3].isOn)
+        {
+            answerTexts[0].color = Color.black;
+            answerTexts[1].color = Color.black;
+            answerTexts[2].color = Color.black;
+            answerTexts[3].color = Color.white;
+        }
+    }
+
+    public void UpdateGradeLabel()
+    {
+        switch (selectedGrade)
+        {
+            case 0:
+                gradeLabel.text = "Kindergarten";
+                break;
+
+            case 1:
+                gradeLabel.text = "Grade 1";
+                break;
+            case 2:
+                gradeLabel.text = "Grade 2";
+                break;
+            case 3:
+                gradeLabel.text = "Grade 3";
+                break;
+            case 4:
+                gradeLabel.text = "Grade 4";
+                break;
+            case 5:
+                gradeLabel.text = "Grade 5";
+                break;
+            case 6:
+                gradeLabel.text = "Grade 6";
+                break;
+            case 7:
+                gradeLabel.text = "Grade 7";
+                break;
+            case 8:
+                gradeLabel.text = "Grade 8";
+                break;
+        }
     }
 }

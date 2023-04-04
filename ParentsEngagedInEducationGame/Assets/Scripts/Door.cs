@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Door : MonoBehaviour
 {
     [SerializeField] int grade; // 0 = Kindergarten
-    //[SerializeField] Image star;
+    [SerializeField] Image star;
     
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,14 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1)
+        {
+            star.fillAmount = 1f;
+        }
+        else
+        {
+            star.fillAmount = 0f;
+        }
     }
 
     public void EnterGrade()
@@ -31,9 +38,4 @@ public class Door : MonoBehaviour
     {
         return grade;
     }
-
-    //public void UnlockStar()
-    //{
-    //    star.fillAmount = 1f;
-    //}
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grade8_Unlock
   m_EditorClassIdentifier: 
   achievementType: 2
-  decription: Unlock the door for grade n
+  name: Honor Roll
+  decription: Unlock Grade 8
   grade: 8
   achievementThreshold: 0

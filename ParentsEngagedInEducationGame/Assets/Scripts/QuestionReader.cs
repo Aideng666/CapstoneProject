@@ -6,7 +6,7 @@ using System;
 
 public class QuestionReader : MonoBehaviour
 {
-    [SerializeField] TextAsset file;
+    //[SerializeField] TextAsset file;
 
     public List<Question> questionList { get; private set; }
     public List<Question>[] questionsByGrade { get; private set; }
@@ -38,6 +38,8 @@ public class QuestionReader : MonoBehaviour
 
     void ReadCSV()
     {
+        TextAsset file = Resources.Load("CurriculumQuestions") as TextAsset;
+
         string[] fileEntries = file.text.Split('\n');
 
         //Reads each line and seperates the values properly
@@ -72,6 +74,8 @@ public class QuestionReader : MonoBehaviour
 
             questionList.Add(new Question(question, learningTip, grade, subject, correctAnswer, wrongAnswers));
         }
+
+
     }
 
     void SplitQuestions()
