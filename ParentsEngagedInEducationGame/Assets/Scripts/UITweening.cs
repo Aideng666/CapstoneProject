@@ -19,6 +19,8 @@ public class UITweening : MonoBehaviour
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsCloseButtonTrans;
     [SerializeField] Transform quitPanel;
+    [SerializeField] Transform quitHubPanel;
+    [SerializeField] Transform quitHubButton;
 
     [SerializeField] Transform[] answerButtonTrans;
     [SerializeField] GameObject questionPanel;
@@ -235,5 +237,30 @@ public class UITweening : MonoBehaviour
         }
 
         isPanelOpen = false;
+    }
+
+    public void QuitPanelHubTweenIn()
+    {
+        settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        editNameButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        playButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubButton.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubPanel.DOScale(1f, startDuration).SetEase(Ease.InSine);
+    }
+
+    public void QuitPanelHubTweenOut()
+    {
+        settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        quitHubPanel.DOScale(0f, endDuration).SetEase(Ease.OutSine);
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
