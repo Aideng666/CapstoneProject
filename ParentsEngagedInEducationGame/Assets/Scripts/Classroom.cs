@@ -392,23 +392,19 @@ public class Classroom : MonoBehaviour
 
     public void Continue()
     {
-        //if (selectedGrade == 8 && gradeComplete)
-        //{
-        //Debug.Log("GRADE 8 GRADUATION");
-        //questionPanel.SetActive(false);
-        //answersPanel.SetActive(false);
-        //SceneManager.LoadScene("Graduation");
-        //ResetActives();
-        //}
-        //else
-        //{ 
-        ResetActives();
-
+        if (selectedGrade == 8 && gradeComplete)
+        {
             questionPanel.SetActive(false);
             answersPanel.SetActive(false);
-
+            SceneManager.LoadScene("Graduation");
+        }
+        else
+        { 
+            ResetActives();
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
             GameManager.Instance.Continue();
-        //}          
+        }          
     }
 
     public void InitClassroom(int grade)
