@@ -62,7 +62,7 @@ public class MenuAudio : MonoBehaviour
     }
     public static void StartSound()
     {
-        AudioManager.Instance.Play("Bells");
+        //AudioManager.Instance.Play("Bells");
         AudioManager.Instance.Stop("Menu");
     }
 
