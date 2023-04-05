@@ -114,8 +114,6 @@ public class Hallway : MonoBehaviour
             {
                 unlockedDoors[door] = true;
 
-                //door.UnlockStar();
-
                 PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 
                 return;
@@ -125,6 +123,11 @@ public class Hallway : MonoBehaviour
 
     public void UnlockGrade(int grade)
     {
+        //if (doors[doors.Count-1].GetGrade() == 9)
+        //{
+        //    doors[doors.Count-1].FillStar();
+        //}
+
         foreach (Door door in doors)
         {
             if (door.GetGrade() == grade)
@@ -132,8 +135,6 @@ public class Hallway : MonoBehaviour
                 if (PlayerPrefs.GetInt("GradesUnlocked") == grade)
                 {
                     unlockedDoors[door] = true;
-
-                    //door.UnlockStar();
 
                     PlayerPrefs.SetInt("GradesUnlocked", PlayerPrefs.GetInt("GradesUnlocked") + 1);
 

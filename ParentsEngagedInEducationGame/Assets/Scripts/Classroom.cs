@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Classroom : MonoBehaviour
 {
@@ -84,7 +85,6 @@ public class Classroom : MonoBehaviour
         cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
 
         UpdateGradeLabel();
-        //HighlightAnswer();
 
         if (gradeComplete && !reportCardShown)
         {
@@ -180,7 +180,6 @@ public class Classroom : MonoBehaviour
 
             if (answer == correctAnswerIndex)
             {
-                //print("Correct!");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
 
                 PlayAnswerResultSequence();
@@ -195,7 +194,6 @@ public class Classroom : MonoBehaviour
             }
             else
             {
-                //print("Incorrect");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 PlayAnswerResultSequence();
@@ -290,7 +288,7 @@ public class Classroom : MonoBehaviour
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
-            Hallway.Instance.UnlockGrade(selectedGrade + 1);
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);                       
         }
 
         if (percentage >= 0.5f)
@@ -394,12 +392,23 @@ public class Classroom : MonoBehaviour
 
     public void Continue()
     {
+        //if (selectedGrade == 8 && gradeComplete)
+        //{
+        //Debug.Log("GRADE 8 GRADUATION");
+        //questionPanel.SetActive(false);
+        //answersPanel.SetActive(false);
+        //SceneManager.LoadScene("Graduation");
+        //ResetActives();
+        //}
+        //else
+        //{ 
         ResetActives();
 
-        questionPanel.SetActive(false);
-        answersPanel.SetActive(false);
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
 
-        GameManager.Instance.Continue();
+            GameManager.Instance.Continue();
+        //}          
     }
 
     public void InitClassroom(int grade)
@@ -555,7 +564,6 @@ public class Classroom : MonoBehaviour
             case 0:
                 gradeLabel.text = "Kindergarten";
                 break;
-
             case 1:
                 gradeLabel.text = "Grade 1";
                 break;
