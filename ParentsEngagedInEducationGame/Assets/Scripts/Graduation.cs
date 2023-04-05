@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class Graduation : MonoBehaviour
@@ -25,6 +25,6 @@ public class Graduation : MonoBehaviour
 
     public void Continue()
     {
-        LevelManager.Instance.LoadScene("Hub");
+        SceneManager.LoadScene("Hub");
     }
 }

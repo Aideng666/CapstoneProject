@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpdateName : MonoBehaviour
 {
@@ -39,9 +40,10 @@ public class UpdateName : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
-            MenuAudio.StartSound();
-            LevelManager.Instance.LoadScene("Main");
-            hubCanvasObj.SetActive(false);
+            //MenuAudio.StartSound();
+            //LevelManager.Instance.LoadScene("Main");
+            //hubCanvasObj.SetActive(false);
+            SceneManager.LoadScene("Main");
         }
     }
 
