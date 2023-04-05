@@ -31,6 +31,7 @@ public class Classroom : MonoBehaviour
 
     [SerializeField] GameObject confirmButton;
     [SerializeField] GameObject[] scienceSummary;
+    [SerializeField] TextMeshProUGUI gradeLabel;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -45,6 +46,8 @@ public class Classroom : MonoBehaviour
     bool gradeComplete;
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
+
+    Camera cam;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -71,11 +74,16 @@ public class Classroom : MonoBehaviour
         answeredQuestions = new Dictionary<Question, bool>();
 
         confirmButton.SetActive(false);
+
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+
+        UpdateGradeLabel();
         //HighlightAnswer();
 
         if (gradeComplete && !reportCardShown)
@@ -290,6 +298,8 @@ public class Classroom : MonoBehaviour
             reportCardResultText.GetComponent<TextMeshProUGUI>().text = "Grade Complete!";
             AudioManager.Instance.Play("Congratz");
             AudioManager.Instance.Stop("Question");
+
+            //Hallway.Instance.GetDoors()[selectedGrade].UnlockStar();
         }
         else if (percentage < 0.5f)
         {
@@ -535,6 +545,41 @@ public class Classroom : MonoBehaviour
             answerTexts[1].color = Color.black;
             answerTexts[2].color = Color.black;
             answerTexts[3].color = Color.white;
+        }
+    }
+
+    public void UpdateGradeLabel()
+    {
+        switch (selectedGrade)
+        {
+            case 0:
+                gradeLabel.text = "Kindergarten";
+                break;
+
+            case 1:
+                gradeLabel.text = "Grade 1";
+                break;
+            case 2:
+                gradeLabel.text = "Grade 2";
+                break;
+            case 3:
+                gradeLabel.text = "Grade 3";
+                break;
+            case 4:
+                gradeLabel.text = "Grade 4";
+                break;
+            case 5:
+                gradeLabel.text = "Grade 5";
+                break;
+            case 6:
+                gradeLabel.text = "Grade 6";
+                break;
+            case 7:
+                gradeLabel.text = "Grade 7";
+                break;
+            case 8:
+                gradeLabel.text = "Grade 8";
+                break;
         }
     }
 }
