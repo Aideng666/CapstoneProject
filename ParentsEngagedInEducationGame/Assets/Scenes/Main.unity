@@ -5368,7 +5368,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.8
+  orthographic size: 2.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5392,7 +5392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.45, z: -5.0001}
+  m_LocalPosition: {x: -2, y: 1.19, z: -5.0001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9997,7 +9997,7 @@ PrefabInstance:
     - target: {fileID: 3902187672783881465, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -435692.9
+      value: -446287.38
       objectReference: {fileID: 0}
     - target: {fileID: 3902187673860021969, guid: 479ddad75e40e354198b139b9116fe2f,
         type: 3}
@@ -11211,6 +11211,8 @@ MonoBehaviour:
   achievementsPanel: {fileID: 507423298}
   achievementsCloseButtonTrans: {fileID: 1747691778}
   quitPanel: {fileID: 382885344}
+  quitHubPanel: {fileID: 0}
+  quitHubButton: {fileID: 0}
   answerButtonTrans:
   - {fileID: 1220403660}
   - {fileID: 1816465736}
