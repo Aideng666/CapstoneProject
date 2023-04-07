@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class Classroom : MonoBehaviour
 {
+    //UI References
     [Header("Report Card Panel")]
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
@@ -59,6 +60,7 @@ public class Classroom : MonoBehaviour
         Instance = this;
     }
 
+    //Resets the classroom environment when it becomes enables
     private void OnEnable()
     {
         questionPanel.SetActive(false);
@@ -84,7 +86,6 @@ public class Classroom : MonoBehaviour
         cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
 
         UpdateGradeLabel();
-        //HighlightAnswer();
 
         if (gradeComplete && !reportCardShown)
         {
@@ -95,6 +96,7 @@ public class Classroom : MonoBehaviour
 
         if (beginGrade && !gradeComplete)
         {
+            //Finishes the grade after answering all necessary questions
             if (currentQuestionIndex >= questionsToAsk.Length || correctAnswersThisAttempt >= 5)
             {          
                 gradeComplete = true;
@@ -107,8 +109,10 @@ public class Classroom : MonoBehaviour
                 return;
             }        
 
+            //Current question to ask in the game
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
+            //Opens the panel to view the question and answer options
             if (!waitingForAnswer)
             {
                 questionPanel.SetActive(true);
@@ -159,6 +163,7 @@ public class Classroom : MonoBehaviour
         }
     }
 
+    //When confirming the answer in game this checks if the selected answer was correct and plays the UI sequence
     public void ConfirmAnswer()
     {
         confirmButton.SetActive(false);
@@ -278,6 +283,7 @@ public class Classroom : MonoBehaviour
     {
         int questionsCorrect = 0;
 
+        //Checks for every answer and if it was correct
         foreach (KeyValuePair<Question, bool> questionAnswered in answeredQuestions)
         {
             if (questionAnswered.Value)
@@ -286,6 +292,7 @@ public class Classroom : MonoBehaviour
             }
         }
 
+        //Calculates pass or fail and if the next grade should be unlocked or not
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
@@ -402,6 +409,7 @@ public class Classroom : MonoBehaviour
         GameManager.Instance.Continue();
     }
 
+    //Creates the classroom entering a grade for it to be ready to be played in
     public void InitClassroom(int grade)
     {
         List<Question> questionBank = QuestionReader.Instance.questionsByGrade[grade];
@@ -410,18 +418,6 @@ public class Classroom : MonoBehaviour
         beginGrade = false;
         selectedGrade = grade;
         letterGradeText.text = "";
-
-        //Loops through every questions and selects every questions from the given grade to be in the question bank
-        //foreach (QuestionScriptableObject question in GetScriptableObjects<QuestionScriptableObject>("Questions"))
-        //{
-        //    if (question.grade == grade)
-        //    {
-        //        questionBank.Add(question);
-
-        //        print("Adding Question To Bank");
-        //    }
-        //}
-
 
         //loops through the question bank and picks out a select amount at random to be part of the current round of the game
         for (int i = 0; i < totalQuestionNum; i++)
@@ -451,7 +447,7 @@ public class Classroom : MonoBehaviour
         beginGrade = true;
     }
 
-
+    //Global function for finding all instances of any scriptable object type
     public static T[] GetScriptableObjects<T>(string folderName) where T : ScriptableObject
     {
         T[] instanceList = Resources.LoadAll<T>(folderName);
@@ -459,6 +455,7 @@ public class Classroom : MonoBehaviour
         return instanceList;
     }
 
+    //Tweens the report card UI
     public void PlayReportCardSequence(GameObject reportCardPanel)
     {
         Sequence sequence = DOTween.Sequence();
@@ -477,6 +474,7 @@ public class Classroom : MonoBehaviour
             .AppendInterval(1f);
     }
 
+    //Tweens the answer result UI
     public void PlayAnswerResultSequence()
     {
         Sequence sequence = DOTween.Sequence();
@@ -493,6 +491,7 @@ public class Classroom : MonoBehaviour
             .Append(learningPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
     }
 
+    //Goes to the next questions
     public void ResumeFromLearningTip()
     {      
         learningPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
@@ -516,37 +515,37 @@ public class Classroom : MonoBehaviour
         confirmButton.SetActive(false);
     }
 
-    public void HighlightAnswer()
-    {
-        if (answerToggles[0].isOn)
-        {
-            answerTexts[0].color = Color.white;
-            answerTexts[1].color = Color.black;
-            answerTexts[2].color = Color.black;
-            answerTexts[3].color = Color.black;
-        }
-        else if(answerToggles[1].isOn)
-        {
-            answerTexts[0].color = Color.black;
-            answerTexts[1].color = Color.white;
-            answerTexts[2].color = Color.black;
-            answerTexts[3].color = Color.black;
-        }
-        else if (answerToggles[2].isOn)
-        {
-            answerTexts[0].color = Color.black;
-            answerTexts[1].color = Color.black;
-            answerTexts[2].color = Color.white;
-            answerTexts[3].color = Color.black;
-        }
-        else if (answerToggles[3].isOn)
-        {
-            answerTexts[0].color = Color.black;
-            answerTexts[1].color = Color.black;
-            answerTexts[2].color = Color.black;
-            answerTexts[3].color = Color.white;
-        }
-    }
+    //public void HighlightAnswer()
+    //{
+    //    if (answerToggles[0].isOn)
+    //    {
+    //        answerTexts[0].color = Color.white;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if(answerToggles[1].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.white;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if (answerToggles[2].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.white;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if (answerToggles[3].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.white;
+    //    }
+    //}
 
     public void UpdateGradeLabel()
     {

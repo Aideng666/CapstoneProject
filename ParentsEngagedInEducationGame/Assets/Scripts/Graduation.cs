@@ -9,6 +9,7 @@ public class Graduation : MonoBehaviour
     [SerializeField] Transform[] stars;
 
     // Start is called before the first frame update
+    //Plays the graduation stars sequence
     void Start()
     {
         Sequence sequence = DOTween.Sequence();
@@ -19,6 +20,7 @@ public class Graduation : MonoBehaviour
         }
     }
 
+    //Returns to the hub menu
     public void Continue()
     {
         SceneManager.LoadScene("Hub");

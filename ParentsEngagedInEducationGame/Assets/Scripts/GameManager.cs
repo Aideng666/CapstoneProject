@@ -21,15 +21,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void OnDestroy()
-    {
-        //print("Removed PlayerPrefs, THIS IS TEMPORARY");
-
-        //Temp
-        //PlayerPrefs.DeleteAll();
-        //PlayerPrefs.SetInt("GradesUnlocked", 1);
-    }
-
+    //Enters the classroom environment
     public void EnterClassroom(int grade)
     {
         hallwayEnvironment.gameObject.SetActive(false);
@@ -42,6 +34,7 @@ public class GameManager : MonoBehaviour
         currentGamestate = GameStates.Classroom;
     }
 
+    //Restarts the classroom grade from the start with a new random set of questions
     public void ReplayLevel(int grade)
     {
         classroomEnvironment.gameObject.SetActive(false);
@@ -53,6 +46,7 @@ public class GameManager : MonoBehaviour
         currentGamestate = GameStates.Classroom;
     }
 
+    //Continues from the grade complete screen back to the hallway
     public void Continue()
     {
         classroomEnvironment.gameObject.SetActive(false);
