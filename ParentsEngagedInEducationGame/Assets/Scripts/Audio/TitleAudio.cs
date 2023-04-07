@@ -8,8 +8,10 @@ public class TitleAudio : MonoBehaviour
 
     private void Start()
     {
+        //set the volume of the initial start button
         start.volume = PlayerPrefs.GetFloat("SFXVolume");
     }
+    //play the start sound
     public void pressed()
     {
         start.Play();
