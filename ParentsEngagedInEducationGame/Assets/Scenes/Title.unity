@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -460,7 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b951d7a7494c3a47834a9af3537209c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  file: {fileID: 4900000, guid: 4901c318e2ff01544929131044820d0b, type: 3}
 --- !u!1 &465158566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,6 +1720,7 @@ MonoBehaviour:
   logoImg: {fileID: 1462202408}
   titleCanvasGroup: {fileID: 785331300}
   titleCanvasMainGroup: {fileID: 465158568}
+  testText: {fileID: 0}
   startFadeTime: 2
 --- !u!4 &1470768099
 Transform:
