@@ -81,6 +81,7 @@ public class Hallway : MonoBehaviour
                         selectedDoor.GetComponent<Animator>().SetTrigger("DoorOpened");
                         StartCoroutine(DelayGradeEntry(selectedDoor));
                         AudioManager.Instance.Stop("Hallway");
+                        //play door opening sound
                         AudioManager.Instance.Play("Door Open");
 
                     }

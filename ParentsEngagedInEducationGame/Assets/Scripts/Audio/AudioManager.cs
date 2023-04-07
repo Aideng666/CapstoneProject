@@ -9,46 +9,13 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
-    //[SerializeField] Toggle muteToggle;
 
-    //float musicSlider;
-    //float sfxSlider;
-
-    float[] savedVolumes;
     public static AudioManager Instance { get; set; }
-
-    //public static AudioManager _instance;
-
-    //public static AudioManager Instance {
-    //    get
-    //    {
-    //        if (_instance = null)
-    //        {
-    //            _instance = GameObject.FindObjectOfType<AudioManager>();
-
-    //            DontDestroyOnLoad(_instance.gameObject);
-    //        }
-    //        return _instance; 
-    //    }        
-    // }
 
     // Start is called before the first frame update
     void Awake()
     {
-        //Manage the singleton
-        
-        /*if (_instance == null)
-        //{
-        //    _instance = this;
-        //    DontDestroyOnLoad(this);
-        //}
-        //else
-        //{
-        //    if (this != _instance)
-        //        Destroy(this.gameObject);
-        //}
-        */
-
+        //Initializes instance of the class
         Instance = this;
         foreach (Sound s in sounds)
         {
@@ -64,29 +31,9 @@ public class AudioManager : MonoBehaviour
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
 
-        //if (PlayerPrefs.GetFloat("MusicVolume") == 0)
-        //{
-        //    musicSlider.value = 0.5f;
-        //}
-
-        //if (PlayerPrefs.GetFloat("SFXVolume") == 0)
-        //{
-        //    sfxSlider.value = 0.7f;
-        //}
-
-        //if (PlayerPrefs.GetInt("Mute") == 0)
-        //{
-        //    muteToggle.isOn = false;
-        //}
-        //else
-        //{
-        //    muteToggle.isOn = true;
-        //}
-
-        savedVolumes = new float[sounds.Length];
+        //sets the initial value on the music and sound effect slider to the Player Prefab saved sound settings
         musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
         sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
-        //muteToggle.onValueChanged.AddListener(delegate { ToggleMute(); });
     }
 
     public void Play(string name)
@@ -133,6 +80,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume()
     {
+        //The first 2 sounds in the audiomanager gameobject are the music tracks
         sounds[0].source.volume = musicSlider.value;
         sounds[1].source.volume = musicSlider.value;
 
@@ -146,15 +94,16 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume()
     {
+        //The first 2 sounds in the audiomanager gameobject are the music tracks
+        
+        //The rest of the sounds in the list are sound effects
+        //This sets the volume for the sound effects
         for (int i = 2; i < sounds.Length; i++)
         {
             sounds[i].source.volume = sfxSlider.value;
         }
 
         PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
-
-       
-        //dirtyTen   = true;
 
     }
 
@@ -163,37 +112,8 @@ public class AudioManager : MonoBehaviour
         return sfxSlider.value;
     }
 
-    //public void ToggleMute()
-    //{
 
-    //    //dirtyTen = true;
-
-    //    if (muteToggle.isOn)
-    //    {
-    //        for (int i = 0; i < sounds.Length; i++)
-    //        {
-    //            savedVolumes[i] = sounds[i].source.volume;
-    //            sounds[i].source.mute = true;
-    //        }
-
-    //        PlayerPrefs.SetInt("Mute", 1);
-    //    }
-    //    else
-    //    {
-    //        for (int i = 0; i < sounds.Length; i++)
-    //        {
-    //            sounds[i].source.mute = false; //savedVolumes[i];
-    //        }
-
-    //        PlayerPrefs.SetInt("Mute", 0);
-    //    }
-    //}
-
-    //public bool isMute()
-    //{
-    //    return muteToggle.isOn;
-    //}
-
+    //Reset the volume settings to a preset default value
     public void Reset()
     {
         sfxSlider.value=0.7f;
