@@ -78,4 +78,10 @@ public class UpdateName : MonoBehaviour
 
         nameText.text = PlayerPrefs.GetString("username");
     }
+
+    public void DeletePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("GradesUnlocked", 1);
+    }
 }
