@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
 
     Vector3 previousMousePos = Vector3.zero;
 
-
+    //Creates the instance if it does not already exist
     private void Awake()
     {
         if (Instance != null)
@@ -21,18 +21,9 @@ public class InputHandler : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Detects the finger dragging on the screen and moves the camera left and right along the hallway accordingly
+    /// </summary>
     public void DetectDrag()
     {
         foreach (Touch touch in Input.touches)
@@ -56,6 +47,9 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Detects mouse click and drag and moves the camera left and right along the hallway accordingly
+    /// </summary>
     public void DetectMouseDrag()
     {
         //Detects dragging mouse side to side for camera movement
@@ -80,6 +74,10 @@ public class InputHandler : MonoBehaviour
         previousMousePos = Input.mousePosition;
     }
 
+    /// <summary>
+    /// Detects a finger tapping on any door and either opens it or indicates that it is locked if it is
+    /// </summary>
+    /// returns the door that was tapped if a door was detected
     public Door DetectDoorTap()
     {
         Door tappedDoor = null;
@@ -110,8 +108,6 @@ public class InputHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                print(hit.collider.name);
-
                 if (hit.collider.CompareTag("Door"))
                 {
                     tappedDoor = hit.collider.GetComponent<Door>();

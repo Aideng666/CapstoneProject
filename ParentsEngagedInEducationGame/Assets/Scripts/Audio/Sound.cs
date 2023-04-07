@@ -8,7 +8,8 @@ public class Sound
 {
     public AudioClip clip;
 
-    public string name;
+    //name of the sound clip
+    public string name; 
 
     [Range(0f, 1f)]
     public float volume;

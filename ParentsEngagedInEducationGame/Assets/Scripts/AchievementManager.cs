@@ -36,7 +36,6 @@ public class AchievementManager : MonoBehaviour
     void Start()
     {
         questions = QuestionReader.Instance.questionList;
-        //questions = Classroom.GetScriptableObjects<QuestionScriptableObject>("Questions");
         achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
         //Checks each question to see if it has previously been answered correctly
@@ -91,8 +90,6 @@ public class AchievementManager : MonoBehaviour
                 if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
                 {
                     PlayerPrefs.SetInt(achievement.name, 1);
-
-                    print($"You Got The Achievement for {achievement.name}");
                 }
             }
         }

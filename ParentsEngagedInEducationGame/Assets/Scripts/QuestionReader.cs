@@ -6,8 +6,6 @@ using System;
 
 public class QuestionReader : MonoBehaviour
 {
-    //[SerializeField] TextAsset file;
-
     public List<Question> questionList { get; private set; }
     public List<Question>[] questionsByGrade { get; private set; }
 
@@ -23,6 +21,7 @@ public class QuestionReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Initializes question lists
         questionList = new List<Question>();
         questionsByGrade = new List<Question>[9];
 
@@ -36,6 +35,7 @@ public class QuestionReader : MonoBehaviour
         SplitQuestions();
     }
 
+    //Reads from a CSV file to get every question from a spreadsheet and saves them into the lists
     void ReadCSV()
     {
         TextAsset file = Resources.Load("CurriculumQuestions") as TextAsset;
@@ -74,10 +74,9 @@ public class QuestionReader : MonoBehaviour
 
             questionList.Add(new Question(question, learningTip, grade, subject, correctAnswer, wrongAnswers));
         }
-
-
     }
 
+    //Splits the questions into their respective grade lists
     void SplitQuestions()
     {
         for (int i = 0; i < questionsByGrade.Length; i++)
