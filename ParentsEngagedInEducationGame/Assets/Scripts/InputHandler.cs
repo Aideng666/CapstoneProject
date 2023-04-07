@@ -108,8 +108,6 @@ public class InputHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                print(hit.collider.name);
-
                 if (hit.collider.CompareTag("Door"))
                 {
                     tappedDoor = hit.collider.GetComponent<Door>();

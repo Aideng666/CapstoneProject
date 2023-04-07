@@ -28,6 +28,16 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = s.group;
         }
 
+        if (!PlayerPrefs.HasKey("MusicVolume"))
+        {
+            PlayerPrefs.SetFloat("MusicVolume", 0.2f);
+        }
+
+        if (!PlayerPrefs.HasKey("SFXVolume"))
+        {
+            PlayerPrefs.SetFloat("SFXVolume", 0.5f);
+        }
+
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
 
@@ -116,8 +126,8 @@ public class AudioManager : MonoBehaviour
     //Reset the volume settings to a preset default value
     public void Reset()
     {
-        sfxSlider.value=0.7f;
-        musicSlider.value=0.5f;
+        sfxSlider.value=0.5f;
+        musicSlider.value=0.2f;
         SetMusicVolume();
         SetSFXVolume();
     }
