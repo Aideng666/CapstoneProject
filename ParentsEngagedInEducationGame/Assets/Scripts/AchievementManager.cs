@@ -90,6 +90,9 @@ public class AchievementManager : MonoBehaviour
                 if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
                 {
                     PlayerPrefs.SetInt(achievement.name, 1);
+
+                    //Play the achievement pop up here
+                    FindObjectOfType<UITweening>().ToggleAchievementPopup(achievement.name, achievement.decription);
                 }
             }
         }
