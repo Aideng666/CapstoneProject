@@ -143,11 +143,6 @@ public class Classroom : MonoBehaviour
                     answerIndices.RemoveAt(randomIndex);
                 }
 
-                //answerTexts[0].text = $"A) {currentQuestion.mcAnswers[0]}";
-                //answerTexts[1].text = $"B) {currentQuestion.mcAnswers[1]}";
-                //answerTexts[2].text = $"C) {currentQuestion.mcAnswers[2]}";
-                //answerTexts[3].text = $"D) {currentQuestion.mcAnswers[3]}";
-
                 waitingForAnswer = true;
             }
         }   
