@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UITweening : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UITweening : MonoBehaviour
     [SerializeField] GameObject editNamePanel;
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsCloseButtonTrans;
+    [SerializeField] Transform achievementPopupPanel;
     [SerializeField] Transform quitPanel;
     //[SerializeField] Transform quitHubPanel;
     //[SerializeField] Transform quitHubButton;
@@ -177,6 +179,16 @@ public class UITweening : MonoBehaviour
         //quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
 
         achievementScroll.verticalNormalizedPosition = 1;
+    }
+
+    public void ToggleAchievementPopup(string achievementName, string description)
+    {
+        achievementPopupPanel.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = achievementName;
+        achievementPopupPanel.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = description;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(achievementPopupPanel.transform.DOScale(1, achievementsPanelDuration)).AppendInterval(2f).Append(achievementPopupPanel.transform.DOScale(0, achievementsPanelDuration));
     }
 
     /// <summary>
