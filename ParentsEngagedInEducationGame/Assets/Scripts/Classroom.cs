@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Classroom : MonoBehaviour
 {
+    [SerializeField] Animator teacher;
+
     //UI References
     [Header("Report Card Panel")]
     [SerializeField] TextMeshProUGUI mathMarkText;
@@ -48,6 +50,9 @@ public class Classroom : MonoBehaviour
     bool gradeComplete;
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
+
+    float answerResultDuration = 0.8f;
+    float answerResultTweenDuration = 0.5f;
 
     Camera cam;
 
@@ -188,13 +193,15 @@ public class Classroom : MonoBehaviour
             {
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
 
-                PlayAnswerResultSequence();
-
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
                 correctAnswersThisAttempt++;
 
                 AudioManager.Instance.Play("Correct");
+                teacher.SetTrigger("Correct");
+                StartCoroutine(PlayTeacherLearningTipPose());
+
+                PlayAnswerResultSequence();
 
                 AchievementManager.Instance.AnswerQuestion(currentQuestion, true, selectedGrade);
             }
@@ -202,9 +209,11 @@ public class Classroom : MonoBehaviour
             {
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
-                PlayAnswerResultSequence();
-
                 AudioManager.Instance.Play("Incorrect");
+                teacher.SetTrigger("Incorrect");
+                StartCoroutine(PlayTeacherLearningTipPose());
+
+                PlayAnswerResultSequence();
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
@@ -489,17 +498,26 @@ public class Classroom : MonoBehaviour
         sequence.Append(questionPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
             .Append(answersPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
             // Pop in the result text                  
-            .Append(answerResultText.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine))
-            // Linger for 1/2 frame
-            .AppendInterval(0.8f)
+            .Append(answerResultText.transform.DOScale(1f, answerResultTweenDuration).SetEase(Ease.InSine))
+            // Linger for 0.8 seconds
+            .AppendInterval(answerResultDuration)
             // Pop out the result text
-            .Append(answerResultText.transform.DOScale(0f, 0.5f).SetEase(Ease.InSine))
+            .Append(answerResultText.transform.DOScale(0f, answerResultTweenDuration).SetEase(Ease.InSine))
             .Append(learningPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
+    }
+
+    IEnumerator PlayTeacherLearningTipPose()
+    {
+        yield return new WaitForSeconds(answerResultDuration + (answerResultTweenDuration * 2));
+
+        teacher.SetTrigger("LearningTip");
     }
 
     //Goes to the next questions
     public void ResumeFromLearningTip()
-    {      
+    {
+        teacher.SetTrigger("Question");
+
         learningPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
         questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);
         answersPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);                   
