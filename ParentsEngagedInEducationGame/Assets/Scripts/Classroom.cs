@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Classroom : MonoBehaviour
 {
@@ -185,7 +186,6 @@ public class Classroom : MonoBehaviour
 
             if (answer == correctAnswerIndex)
             {
-                //print("Correct!");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
 
                 PlayAnswerResultSequence();
@@ -200,7 +200,6 @@ public class Classroom : MonoBehaviour
             }
             else
             {
-                //print("Incorrect");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 PlayAnswerResultSequence();
@@ -297,7 +296,7 @@ public class Classroom : MonoBehaviour
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
         {
-            Hallway.Instance.UnlockGrade(selectedGrade + 1);
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);                       
         }
 
         if (percentage >= 0.5f)
@@ -401,12 +400,19 @@ public class Classroom : MonoBehaviour
 
     public void Continue()
     {
-        ResetActives();
-
-        questionPanel.SetActive(false);
-        answersPanel.SetActive(false);
-
-        GameManager.Instance.Continue();
+        if (selectedGrade == 8 && gradeComplete)
+        {
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
+            SceneManager.LoadScene("Graduation");
+        }
+        else
+        { 
+            ResetActives();
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
+            GameManager.Instance.Continue();
+        }          
     }
 
     //Creates the classroom entering a grade for it to be ready to be played in
@@ -554,7 +560,6 @@ public class Classroom : MonoBehaviour
             case 0:
                 gradeLabel.text = "Kindergarten";
                 break;
-
             case 1:
                 gradeLabel.text = "Grade 1";
                 break;

@@ -12,7 +12,8 @@ public class Door : MonoBehaviour
     void Update()
     {
         //If a grade has been completed it will fill the star on top of the door
-        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1)
+        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1 || 
+            (grade == 8 && PlayerPrefs.GetInt("GradesUnlocked") > grade))
         {
             star.fillAmount = 1f;
         }
@@ -33,5 +34,10 @@ public class Door : MonoBehaviour
     public int GetGrade()
     {
         return grade;
+    }
+
+    public void FillStar()
+    {
+        star.fillAmount = 1f;
     }
 }

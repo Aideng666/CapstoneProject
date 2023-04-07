@@ -90,8 +90,6 @@ public class AchievementManager : MonoBehaviour
                 if (!PlayerPrefs.HasKey(achievement.name) && achievement.CheckCondition())
                 {
                     PlayerPrefs.SetInt(achievement.name, 1);
-
-                    print($"You Got The Achievement for {achievement.name}");
                 }
             }
         }
