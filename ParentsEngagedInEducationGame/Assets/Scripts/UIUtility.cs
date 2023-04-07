@@ -19,6 +19,8 @@ public class UIUtility : MonoBehaviour
     Tween fadeTween;
     public float startFadeTime = 1f;
 
+
+    //Sets the fade based on the currect scene
     void Start()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1))

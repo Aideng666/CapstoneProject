@@ -36,7 +36,6 @@ public class AchievementManager : MonoBehaviour
     void Start()
     {
         questions = QuestionReader.Instance.questionList;
-        //questions = Classroom.GetScriptableObjects<QuestionScriptableObject>("Questions");
         achievements = Classroom.GetScriptableObjects<AchievementObject>("Achievements");
 
         //Checks each question to see if it has previously been answered correctly
