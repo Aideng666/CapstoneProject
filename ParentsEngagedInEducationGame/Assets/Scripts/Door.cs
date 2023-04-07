@@ -7,17 +7,13 @@ public class Door : MonoBehaviour
 {
     [SerializeField] int grade; // 0 = Kindergarten
     [SerializeField] Image star;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1)
+        //If a grade has been completed it will fill the star on top of the door
+        if (PlayerPrefs.GetInt("GradesUnlocked") > grade + 1 || 
+            (grade == 8 && PlayerPrefs.GetInt("GradesUnlocked") > grade))
         {
             star.fillAmount = 1f;
         }
@@ -27,6 +23,7 @@ public class Door : MonoBehaviour
         }
     }
 
+    //Enters the selected grade's classroom
     public void EnterGrade()
     {
         GetComponent<Animator>().SetTrigger("DoorOpened");
@@ -37,5 +34,10 @@ public class Door : MonoBehaviour
     public int GetGrade()
     {
         return grade;
+    }
+
+    public void FillStar()
+    {
+        star.fillAmount = 1f;
     }
 }

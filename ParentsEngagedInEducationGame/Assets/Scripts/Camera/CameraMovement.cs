@@ -41,6 +41,7 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    //For the input detection script to set the camera velocity
     public void SetVelocity(float vel, int xDir /*0 = left | 1 = right*/)
     {
         if (xDir == 0)

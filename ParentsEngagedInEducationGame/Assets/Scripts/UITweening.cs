@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UITweening : MonoBehaviour
 {
+    //UI References
     [SerializeField] Transform settingsButtonTrans;
     [SerializeField] Transform achievementButtonTrans;
     [SerializeField] Transform editNameButtonTrans;
@@ -18,6 +20,8 @@ public class UITweening : MonoBehaviour
     [SerializeField] Transform achievementsPanel;
     [SerializeField] Transform achievementsCloseButtonTrans;
     [SerializeField] Transform quitPanel;
+    [SerializeField] Transform quitHubPanel;
+    [SerializeField] Transform quitHubButton;
 
     [SerializeField] Transform[] answerButtonTrans;
     [SerializeField] GameObject questionPanel;
@@ -36,118 +40,150 @@ public class UITweening : MonoBehaviour
 
     public bool isPanelOpen { get; private set; } = false;
 
+    /// <summary>
+    /// Animates the buttons out making them inactive
+    /// </summary>
     public void ButtonTweenOut() 
     {
-        print("Button Out");
         settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         editNameButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         playButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubButton.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         SettingsPanelTweenIn();
     }
 
+    /// <summary>
+    /// animates the buttons making them active
+    /// </summary>
     public void ButtonTweenIn()
     {
-        print("Button In");
         settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
         SettingsPanelTweenOut();
     }
 
+    /// <summary>
+    /// Animates the settings panel opening
+    /// </summary>
     public void SettingsPanelTweenIn()
     {
-        print("Settings In");
         settingsCloseButtonTrans.transform.DOScale(1f, startDuration).SetEase(Ease.InSine);
         settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
+    /// <summary>
+    /// Animates the settings panel closing
+    /// </summary>
     public void SettingsPanelTweenOut()
     {
-        print("Settings Out");
         settingsCloseButtonTrans.transform.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);      
     }
 
-   public void CreditsPanelTweenIn()
+    /// <summary>
+    /// Animates the credits panel opening
+    /// </summary>
+    public void CreditsPanelTweenIn()
    {
-        print("Credits In");
         settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
         creditsPanel.transform.DOScale(1f, creditsPanelDuration).SetEase(Ease.InSine);
-   }    
+   }
 
+    /// <summary>
+    /// Animates the credits panel closing
+    /// </summary>
     public void CreditsPanelTweenOut()
     {
-        print("Credits Out");
         creditsPanel.transform.DOScale(0f, creditsPanelDuration).SetEase(Ease.OutSine);
         settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
+    /// <summary>
+    /// Animates the reset panel opening
+    /// </summary>
     public void ResetPanelTweenIn()
     {
-        print("Reset In");
         resetPanel.transform.DOScale(1f, resetPanelDuration).SetEase(Ease.InSine);
         settingsPanel.transform.DOScale(0f, resetPanelDuration).SetEase(Ease.OutSine);
     }
 
+    /// <summary>
+    /// Animates the reset panel closing
+    /// </summary>
     public void ResetPanelTweenOut()
     {
-        print("Reset Out");
         resetPanel.transform.DOScale(0f, resetPanelDuration).SetEase(Ease.OutSine);
         settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);  
     }
 
+    /// <summary>
+    /// Animates the name panel opening
+    /// </summary>
     public void EditNamePanelTweenIn()
     {
         if (editNameButtonTrans != null)
         {
-            print("Edit In");
             settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
             achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
             editNameButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
             playButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
             editNamePanel.transform.DOScale(1f, editNamePanelDuration).SetEase(Ease.InSine);
+            quitHubButton.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         }
     }
 
+    /// <summary>
+    /// Animates the name panel closing
+    /// </summary>
     public void EditNamePanelTweenOut()
     {
-        print("Edit Out");
         settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         editNamePanel.transform.DOScale(0f, editNamePanelDuration).SetEase(Ease.OutSine);
+        quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
     }
 
+    /// <summary>
+    /// Animates the achievements panel opening
+    /// </summary>
     public void AchievementsPanelTweenIn()
     {
-        print("Achievements In");
         settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         editNameButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         playButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementsPanel.DOScale(1f, achievementsPanelDuration).SetEase(Ease.InSine);
         achievementsCloseButtonTrans.DOScale(1f, startDuration).SetEase(Ease.InSine);
+        quitHubButton.DOScale(0f, startDuration).SetEase(Ease.OutSine);
     }
 
+    /// <summary>
+    /// Animates the achievements panel closing
+    /// </summary>
     public void AchievementsPanelTweenOut()
     {
-        print("Achievements Out");
         settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
         achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
 
         achievementScroll.verticalNormalizedPosition = 1;
     }
 
+    /// <summary>
+    /// Animates the MainSettings panel in
+    /// </summary>
     public void SettingsMainTweenIn()
     {
-        print("Settings Main In");
         settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         settingsPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
@@ -161,9 +197,11 @@ public class UITweening : MonoBehaviour
         isPanelOpen = true;
     }
 
+    /// <summary>
+    /// Animates the MainSettings panel out
+    /// </summary>
     public void SettingsMainTweenOut()
     {
-        print("Settings Main Out");
         settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
         achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
@@ -177,9 +215,11 @@ public class UITweening : MonoBehaviour
         isPanelOpen = false;
     }
 
+    /// <summary>
+    /// Animates the MainAchievement panel in
+    /// </summary>
     public void AchievementsPanelMainTweenIn()
     {
-        print("AchievementsMain In");
         settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
         achievementsPanel.DOScale(1f, achievementsPanelDuration).SetEase(Ease.InSine);
@@ -188,39 +228,50 @@ public class UITweening : MonoBehaviour
         isPanelOpen = true;       
     }
 
+    /// <summary>
+    /// Animates the MainAchievement panel out
+    /// </summary>
     public void AchievementsPanelMainTweenOut()
     {
-        print("AchievementsMain Out");
         settingsButtonTrans.DOScale(0.71721f, startDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0.71721f, startDuration).SetEase(Ease.InSine);
         achievementsPanel.DOScale(0f, achievementsPanelDuration).SetEase(Ease.OutSine);
         achievementsCloseButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
 
+        achievementScroll.verticalNormalizedPosition = 1;
+
         isPanelOpen = false;
     }
 
+    /// <summary>
+    /// Activates the quit depending on the scene
+    /// </summary>
     public void QuitPanelMain()
     {
         if (hallway.activeInHierarchy)
         {
-            LevelManager.Instance.LoadScene("Hub");
+            SceneManager.LoadScene("Hub");
         }
         else if (classroom.activeInHierarchy)
         {
-            LevelManager.Instance.LoadScene("Main");
+            SceneManager.LoadScene("Main");
         }    
     }
 
+    /// <summary>
+    /// Animates the Quit panel in
+    /// </summary>
     public void QuitPanelTweenIn()
     {
-        print("Quit In");
         settingsPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
         quitPanel.transform.DOScale(1f, settingsPanelDuration).SetEase(Ease.InSine);
     }
 
+    /// <summary>
+    /// Animates the Quit panel out
+    /// </summary>
     public void QuitPanelTweenOut()
     {
-        print("Quit Out");
         settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
         quitPanel.transform.DOScale(0f, settingsPanelDuration).SetEase(Ease.OutSine);
@@ -232,5 +283,37 @@ public class UITweening : MonoBehaviour
         }
 
         isPanelOpen = false;
+    }
+
+    /// <summary>
+    /// Animates the hubs quit panel in
+    /// </summary>
+    public void QuitPanelHubTweenIn()
+    {
+        settingsButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        achievementButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        editNameButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        playButtonTrans.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubButton.DOScale(0f, startDuration).SetEase(Ease.OutSine);
+        quitHubPanel.DOScale(1f, startDuration).SetEase(Ease.InSine);
+    }
+
+    /// <summary>
+    /// Animates the hubs quit panel out
+    /// </summary>
+    public void QuitPanelHubTweenOut()
+    {
+        settingsButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        achievementButtonTrans.DOScale(0.71721f, endDuration).SetEase(Ease.InSine);
+        editNameButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        playButtonTrans.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        quitHubButton.DOScale(1f, endDuration).SetEase(Ease.InSine);
+        quitHubPanel.DOScale(0f, endDuration).SetEase(Ease.OutSine);
+    }
+
+    // For Mobile Release Quit
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }
