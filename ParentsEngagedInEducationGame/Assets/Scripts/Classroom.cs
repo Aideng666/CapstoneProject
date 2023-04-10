@@ -4,9 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class Classroom : MonoBehaviour
 {
+    [SerializeField] Animator teacher;
+
+    //UI References
     [Header("Report Card Panel")]
     [SerializeField] TextMeshProUGUI mathMarkText;
     [SerializeField] TextMeshProUGUI scienceMarkText;
@@ -30,6 +34,8 @@ public class Classroom : MonoBehaviour
     [SerializeField] GameObject answerResultText;
 
     [SerializeField] GameObject confirmButton;
+    [SerializeField] GameObject[] scienceSummary;
+    [SerializeField] TextMeshProUGUI gradeLabel;
 
     //List<QuestionScriptableObject> questionBank;
     //QuestionScriptableObject[] questionsToAsk;
@@ -39,10 +45,16 @@ public class Classroom : MonoBehaviour
 
     int currentQuestionIndex = 0;
     bool beginGrade = false;
+    bool reportCardShown = false;
     bool waitingForAnswer = false;
     bool gradeComplete;
     int correctAnswersThisAttempt;
     int correctAnswerIndex;
+
+    float answerResultDuration = 0.8f;
+    float answerResultTweenDuration = 0.5f;
+
+    Camera cam;
 
     public int selectedGrade { get; private set; }
     public int correctAnswerStreak { get; private set; }
@@ -54,12 +66,14 @@ public class Classroom : MonoBehaviour
         Instance = this;
     }
 
+    //Resets the classroom environment when it becomes enables
     private void OnEnable()
     {
         questionPanel.SetActive(false);
         shadePanel.SetActive(false);
         waitingForAnswer = false;
         gradeComplete = false;
+        reportCardShown = false;
         answersPanel.SetActive(false);
         correctAnswerStreak = 0;
         currentQuestionIndex = 0;
@@ -68,18 +82,27 @@ public class Classroom : MonoBehaviour
         answeredQuestions = new Dictionary<Question, bool>();
 
         confirmButton.SetActive(false);
+
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gradeComplete)
+        cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
+
+        UpdateGradeLabel();
+
+        if (gradeComplete && !reportCardShown)
         {
             ShowReportCard();
+
+            reportCardShown = true;
         }    
 
         if (beginGrade && !gradeComplete)
         {
+            //Finishes the grade after answering all necessary questions
             if (currentQuestionIndex >= questionsToAsk.Length || correctAnswersThisAttempt >= 5)
             {          
                 gradeComplete = true;
@@ -92,8 +115,10 @@ public class Classroom : MonoBehaviour
                 return;
             }        
 
+            //Current question to ask in the game
             Question currentQuestion = questionsToAsk[currentQuestionIndex];
 
+            //Opens the panel to view the question and answer options
             if (!waitingForAnswer)
             {
                 questionPanel.SetActive(true);
@@ -125,9 +150,26 @@ public class Classroom : MonoBehaviour
 
                 waitingForAnswer = true;
             }
-        }       
+        }   
+        
+        // Hide science for Kindergarten and Grade 1 as there are no science questions
+        if (selectedGrade == 0 || selectedGrade == 1)
+        {
+            foreach(GameObject sci in scienceSummary)
+            {
+                sci.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject sci in scienceSummary)
+            {
+                sci.SetActive(true);
+            }
+        }
     }
 
+    //When confirming the answer in game this checks if the selected answer was correct and plays the UI sequence
     public void ConfirmAnswer()
     {
         confirmButton.SetActive(false);
@@ -149,27 +191,29 @@ public class Classroom : MonoBehaviour
 
             if (answer == correctAnswerIndex)
             {
-                //print("Correct!");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Correct!";
-
-                PlayAnswerResultSequence();
 
                 answeredQuestions.Add(currentQuestion, true);
                 correctAnswerStreak++;
                 correctAnswersThisAttempt++;
 
                 AudioManager.Instance.Play("Correct");
+                teacher.SetTrigger("Correct");
+                StartCoroutine(PlayTeacherLearningTipPose());
+
+                PlayAnswerResultSequence();
 
                 AchievementManager.Instance.AnswerQuestion(currentQuestion, true, selectedGrade);
             }
             else
             {
-                //print("Incorrect");
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
-                PlayAnswerResultSequence();
-
                 AudioManager.Instance.Play("Incorrect");
+                teacher.SetTrigger("Incorrect");
+                StartCoroutine(PlayTeacherLearningTipPose());
+
+                PlayAnswerResultSequence();
 
                 answeredQuestions.Add(currentQuestion, false);
                 correctAnswerStreak = 0;
@@ -247,6 +291,7 @@ public class Classroom : MonoBehaviour
     {
         int questionsCorrect = 0;
 
+        //Checks for every answer and if it was correct
         foreach (KeyValuePair<Question, bool> questionAnswered in answeredQuestions)
         {
             if (questionAnswered.Value)
@@ -255,11 +300,12 @@ public class Classroom : MonoBehaviour
             }
         }
 
+        //Calculates pass or fail and if the next grade should be unlocked or not
         float percentage = (float)questionsCorrect / (float)answeredQuestions.Count;
 
         if (percentage >= 0.5f && selectedGrade == PlayerPrefs.GetInt("GradesUnlocked") - 1)
-        {          
-            Hallway.Instance.UnlockNextGrade();          
+        {
+            Hallway.Instance.UnlockGrade(selectedGrade + 1);                       
         }
 
         if (percentage >= 0.5f)
@@ -268,7 +314,7 @@ public class Classroom : MonoBehaviour
             AudioManager.Instance.Play("Congratz");
             AudioManager.Instance.Stop("Question");
 
-
+            //Hallway.Instance.GetDoors()[selectedGrade].UnlockStar();
         }
         else if (percentage < 0.5f)
         {
@@ -363,14 +409,22 @@ public class Classroom : MonoBehaviour
 
     public void Continue()
     {
-        ResetActives();
-
-        questionPanel.SetActive(false);
-        answersPanel.SetActive(false);
-
-        GameManager.Instance.Continue();
+        if (selectedGrade == 8 && gradeComplete)
+        {
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
+            SceneManager.LoadScene("Graduation");
+        }
+        else
+        { 
+            ResetActives();
+            questionPanel.SetActive(false);
+            answersPanel.SetActive(false);
+            GameManager.Instance.Continue();
+        }          
     }
 
+    //Creates the classroom entering a grade for it to be ready to be played in
     public void InitClassroom(int grade)
     {
         List<Question> questionBank = QuestionReader.Instance.questionsByGrade[grade];
@@ -379,18 +433,6 @@ public class Classroom : MonoBehaviour
         beginGrade = false;
         selectedGrade = grade;
         letterGradeText.text = "";
-
-        //Loops through every questions and selects every questions from the given grade to be in the question bank
-        //foreach (QuestionScriptableObject question in GetScriptableObjects<QuestionScriptableObject>("Questions"))
-        //{
-        //    if (question.grade == grade)
-        //    {
-        //        questionBank.Add(question);
-
-        //        print("Adding Question To Bank");
-        //    }
-        //}
-
 
         //loops through the question bank and picks out a select amount at random to be part of the current round of the game
         for (int i = 0; i < totalQuestionNum; i++)
@@ -420,7 +462,7 @@ public class Classroom : MonoBehaviour
         beginGrade = true;
     }
 
-
+    //Global function for finding all instances of any scriptable object type
     public static T[] GetScriptableObjects<T>(string folderName) where T : ScriptableObject
     {
         T[] instanceList = Resources.LoadAll<T>(folderName);
@@ -428,6 +470,7 @@ public class Classroom : MonoBehaviour
         return instanceList;
     }
 
+    //Tweens the report card UI
     public void PlayReportCardSequence(GameObject reportCardPanel)
     {
         Sequence sequence = DOTween.Sequence();
@@ -446,6 +489,7 @@ public class Classroom : MonoBehaviour
             .AppendInterval(1f);
     }
 
+    //Tweens the answer result UI
     public void PlayAnswerResultSequence()
     {
         Sequence sequence = DOTween.Sequence();
@@ -454,16 +498,26 @@ public class Classroom : MonoBehaviour
         sequence.Append(questionPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
             .Append(answersPanel.transform.DOScale(0f, 0f).SetEase(Ease.OutSine))
             // Pop in the result text                  
-            .Append(answerResultText.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine))
-            // Linger for 1/2 frame
-            .AppendInterval(0.8f)
+            .Append(answerResultText.transform.DOScale(1f, answerResultTweenDuration).SetEase(Ease.InSine))
+            // Linger for 0.8 seconds
+            .AppendInterval(answerResultDuration)
             // Pop out the result text
-            .Append(answerResultText.transform.DOScale(0f, 0.5f).SetEase(Ease.InSine))
+            .Append(answerResultText.transform.DOScale(0f, answerResultTweenDuration).SetEase(Ease.InSine))
             .Append(learningPanel.transform.DOScale(1f, 0.5f).SetEase(Ease.InSine));
     }
 
+    IEnumerator PlayTeacherLearningTipPose()
+    {
+        yield return new WaitForSeconds(answerResultDuration + (answerResultTweenDuration * 2));
+
+        teacher.SetTrigger("LearningTip");
+    }
+
+    //Goes to the next questions
     public void ResumeFromLearningTip()
-    {      
+    {
+        teacher.SetTrigger("Question");
+
         learningPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
         questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);
         answersPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);                   
@@ -483,5 +537,71 @@ public class Classroom : MonoBehaviour
         learningPanel.SetActive(true);
         learningPanel.transform.localScale = new Vector3(0f, 0f, 0f);
         confirmButton.SetActive(false);
+    }
+
+    //public void HighlightAnswer()
+    //{
+    //    if (answerToggles[0].isOn)
+    //    {
+    //        answerTexts[0].color = Color.white;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if(answerToggles[1].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.white;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if (answerToggles[2].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.white;
+    //        answerTexts[3].color = Color.black;
+    //    }
+    //    else if (answerToggles[3].isOn)
+    //    {
+    //        answerTexts[0].color = Color.black;
+    //        answerTexts[1].color = Color.black;
+    //        answerTexts[2].color = Color.black;
+    //        answerTexts[3].color = Color.white;
+    //    }
+    //}
+
+    public void UpdateGradeLabel()
+    {
+        switch (selectedGrade)
+        {
+            case 0:
+                gradeLabel.text = "Kindergarten";
+                break;
+            case 1:
+                gradeLabel.text = "Grade 1";
+                break;
+            case 2:
+                gradeLabel.text = "Grade 2";
+                break;
+            case 3:
+                gradeLabel.text = "Grade 3";
+                break;
+            case 4:
+                gradeLabel.text = "Grade 4";
+                break;
+            case 5:
+                gradeLabel.text = "Grade 5";
+                break;
+            case 6:
+                gradeLabel.text = "Grade 6";
+                break;
+            case 7:
+                gradeLabel.text = "Grade 7";
+                break;
+            case 8:
+                gradeLabel.text = "Grade 8";
+                break;
+        }
     }
 }

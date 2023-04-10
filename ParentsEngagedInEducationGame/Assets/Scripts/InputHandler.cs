@@ -8,7 +8,9 @@ public class InputHandler : MonoBehaviour
 
     public static InputHandler Instance { get; private set; }
 
+    Vector3 previousMousePos = Vector3.zero;
 
+    //Creates the instance if it does not already exist
     private void Awake()
     {
         if (Instance != null)
@@ -19,18 +21,9 @@ public class InputHandler : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Detects the finger dragging on the screen and moves the camera left and right along the hallway accordingly
+    /// </summary>
     public void DetectDrag()
     {
         foreach (Touch touch in Input.touches)
@@ -54,9 +47,41 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Detects mouse click and drag and moves the camera left and right along the hallway accordingly
+    /// </summary>
+    public void DetectMouseDrag()
+    {
+        //Detects dragging mouse side to side for camera movement
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 deltaPosition = previousMousePos - Input.mousePosition;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            float velocity = Vector3.Distance(mouseWorldPos, Camera.main.ScreenToWorldPoint(Input.mousePosition - deltaPosition)) / Time.deltaTime;
+
+            if (deltaPosition.x < 0)
+            {
+                mainCam.SetVelocity(velocity / 2, 0);
+            }
+            if (deltaPosition.x > 0)
+            {
+                mainCam.SetVelocity(velocity / 2, 1);
+            }
+
+        }
+
+        previousMousePos = Input.mousePosition;
+    }
+
+    /// <summary>
+    /// Detects a finger tapping on any door and either opens it or indicates that it is locked if it is
+    /// </summary>
+    /// returns the door that was tapped if a door was detected
     public Door DetectDoorTap()
     {
         Door tappedDoor = null;
+        Ray ray = new Ray();
 
         if (Input.touches.Length == 1)
         {
@@ -65,7 +90,7 @@ public class InputHandler : MonoBehaviour
             //Detects tapping on a door to enter the selected grade
             if (touch.phase == TouchPhase.Began)
             {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                ray = Camera.main.ScreenPointToRay(touch.position);
 
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
@@ -77,6 +102,19 @@ public class InputHandler : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.CompareTag("Door"))
+                {
+                    tappedDoor = hit.collider.GetComponent<Door>();
+                }
+            }
+        }
+
 
         return tappedDoor;
     }

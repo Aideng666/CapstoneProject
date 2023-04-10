@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpdateName : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UpdateName : MonoBehaviour
         }
     }
 
+    //opens the name panel
     public void ShowNamePanel()
     {     
         if (PlayerPrefs.GetInt("hasSetName") == 0)
@@ -39,12 +41,11 @@ public class UpdateName : MonoBehaviour
         if (PlayerPrefs.GetInt("hasSetName") == 1)
         {
             editNamePanel.SetActive(false);
-            MenuAudio.StartSound();
-            LevelManager.Instance.LoadScene("Main");
-            hubCanvasObj.SetActive(false);
+            SceneManager.LoadScene("Main");
         }
     }
 
+    //Changes the users name
     public void UpdateUserName()
     {
         username = inputField.text;
@@ -65,6 +66,7 @@ public class UpdateName : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Makes sure the pplayer has a name set before entering the game
         if (inputField.text == "")
         {
             enterButton.interactable = false;
@@ -79,8 +81,6 @@ public class UpdateName : MonoBehaviour
 
     public void DeletePlayerPrefs()
     {
-        PlayerPrefs.DeleteKey("username");
-        PlayerPrefs.DeleteKey("hasSetName");
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("GradesUnlocked", 1);
     }

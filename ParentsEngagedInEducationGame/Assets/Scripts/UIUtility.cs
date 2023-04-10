@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIUtility : MonoBehaviour
 {
@@ -12,9 +13,14 @@ public class UIUtility : MonoBehaviour
     [SerializeField] CanvasGroup titleCanvasGroup;
     [SerializeField] CanvasGroup titleCanvasMainGroup;
 
+    //TEMP
+    [SerializeField] TextMeshProUGUI testText;
+
     Tween fadeTween;
     public float startFadeTime = 1f;
 
+
+    //Sets the fade based on the currect scene
     void Start()
     {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1))
@@ -25,6 +31,14 @@ public class UIUtility : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
         {
             StartCoroutine(LogoFade());
+        }
+    }
+
+    private void Update()
+    {
+        if (testText != null)
+        {
+            testText.text = QuestionReader.Instance.questionList.Count.ToString();
         }
     }
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievementType: 2
   name: Fast Learner
-  decription: Pass Grade 1
+  decription: Unlock Grade 1
   grade: 1
   achievementThreshold: 0

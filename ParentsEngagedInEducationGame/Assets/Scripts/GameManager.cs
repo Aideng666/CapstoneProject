@@ -21,15 +21,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void OnDestroy()
-    {
-        //print("Removed PlayerPrefs, THIS IS TEMPORARY");
-
-        //Temp
-        //PlayerPrefs.DeleteAll();
-        //PlayerPrefs.SetInt("GradesUnlocked", 1);
-    }
-
+    //Enters the classroom environment
     public void EnterClassroom(int grade)
     {
         hallwayEnvironment.gameObject.SetActive(false);
@@ -37,22 +29,26 @@ public class GameManager : MonoBehaviour
         achievementButton.transform.localScale = new Vector3(0f, 0f, 0f);
         classroomEnvironment.InitClassroom(grade);
 
+        //Play Classroom theme
         AudioManager.Instance.Play("Question");
         AudioManager.Instance.Loop("Question");
         currentGamestate = GameStates.Classroom;
     }
 
+    //Restarts the classroom grade from the start with a new random set of questions
     public void ReplayLevel(int grade)
     {
         classroomEnvironment.gameObject.SetActive(false);
         classroomEnvironment.gameObject.SetActive(true);
         classroomEnvironment.InitClassroom(grade);
 
+        //Play Classroom theme
         AudioManager.Instance.Play("Question");
         AudioManager.Instance.Loop("Question");
         currentGamestate = GameStates.Classroom;
     }
 
+    //Continues from the grade complete screen back to the hallway
     public void Continue()
     {
         classroomEnvironment.gameObject.SetActive(false);
@@ -60,6 +56,7 @@ public class GameManager : MonoBehaviour
         achievementButton.transform.localScale = new Vector3(0.71721f, 0.71721f, 0.71721f);
         Camera.main.GetComponent<CameraMovement>().ResetCamPos();
 
+        //Stop classroom theme and play hallway theme
         AudioManager.Instance.Stop("Question");
         AudioManager.Instance.Play("Hallway");
         AudioManager.Instance.Loop("Hallway");
