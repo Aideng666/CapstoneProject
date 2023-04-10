@@ -57,6 +57,7 @@ public class Classroom : MonoBehaviour
     float answerResultTweenDuration = 0.5f;
 
     int currentClassroomIndex;
+    int currentTeacherIndex;
 
     Camera cam;
 
@@ -96,21 +97,25 @@ public class Classroom : MonoBehaviour
         cam.transform.position = new Vector3(-2f, cam.transform.position.y, cam.transform.position.z);
 
         //Sets the correct classroom environment to be active
-        if (selectedGrade == 0 ) 
+        if (selectedGrade == 0) 
         {
             currentClassroomIndex = 0;
+            currentTeacherIndex = 0;
         }
         if (selectedGrade >= 1 && selectedGrade <= 3)
         {
             currentClassroomIndex = 1;
+            currentTeacherIndex = 0;
         }
         else if (selectedGrade >= 4 && selectedGrade <= 6)
         {
             currentClassroomIndex = 2;
+            currentTeacherIndex = 1;
         }
         else if (selectedGrade >= 7 && selectedGrade <= 8)
         {
             currentClassroomIndex = 3;
+            currentTeacherIndex = 2;
         }
 
         for (int i = 0; i < classrooms.Length; i++)
@@ -118,12 +123,23 @@ public class Classroom : MonoBehaviour
             if (currentClassroomIndex == i)
             {
                 classrooms[i].SetActive(true);
-                //teachers[i].SetActive(true);
             }
             else
             {
                 classrooms[i].SetActive(false);
-                //teachers[i].SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < teachers.Length; i++)
+        {
+            if (currentTeacherIndex == i)
+            {
+                teachers[i].SetActive(true);
+                teachers[i].transform.position = new Vector3(-2.5f, teachers[i].transform.position.y, teachers[i].transform.position.z);
+            }
+            else
+            {
+                teachers[i].SetActive(false);
             }
         }
 
@@ -229,7 +245,7 @@ public class Classroom : MonoBehaviour
                 correctAnswersThisAttempt++;
 
                 AudioManager.Instance.Play("Correct");
-                //teachers[currentClassroomIndex].GetComponent<Animator>().SetTrigger("Correct");
+                teachers[currentTeacherIndex].GetComponentInChildren<Animator>().SetTrigger("Correct");
                 StartCoroutine(PlayTeacherLearningTipPose());
 
                 PlayAnswerResultSequence();
@@ -241,7 +257,7 @@ public class Classroom : MonoBehaviour
                 answerResultText.GetComponent<TextMeshProUGUI>().text = "Incorrect";
 
                 AudioManager.Instance.Play("Incorrect");
-                //teachers[currentClassroomIndex].GetComponent<Animator>().SetTrigger("Incorrect");
+                teachers[currentTeacherIndex].GetComponentInChildren<Animator>().SetTrigger("Incorrect");
                 StartCoroutine(PlayTeacherLearningTipPose());
 
                 PlayAnswerResultSequence();
@@ -541,13 +557,13 @@ public class Classroom : MonoBehaviour
     {
         yield return new WaitForSeconds(answerResultDuration + (answerResultTweenDuration * 2));
 
-        //teachers[currentClassroomIndex].GetComponent<Animator>().SetTrigger("LearningTip");
+        teachers[currentTeacherIndex].GetComponentInChildren<Animator>().SetTrigger("LearningTip");
     }
 
     //Goes to the next questions
     public void ResumeFromLearningTip()
     {
-        //teachers[currentClassroomIndex].GetComponent<Animator>().SetTrigger("Question");
+        teachers[currentTeacherIndex].GetComponentInChildren<Animator>().SetTrigger("Question");
 
         learningPanel.transform.DOScale(0f, 0.5f).SetEase(Ease.OutSine);
         questionPanel.transform.DOScale(1f, 0f).SetEase(Ease.InSine);
