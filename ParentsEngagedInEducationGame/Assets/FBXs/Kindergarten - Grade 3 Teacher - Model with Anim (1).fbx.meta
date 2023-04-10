@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9465f61075aa20b49a6dbca0de0b7cbe
+guid: 25e1bcdabc6679b43b1d0832d6257c02
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,9 +33,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Main Rig.004|Correct Answer - Grade 4 - 6
-      takeName: Main Rig.004|Correct Answer - Grade 4 - 6
-      internalID: -8007136357978924508
+      name: Main Rig.003|Correct Answer - Kindergarten
+      takeName: Main Rig.003|Correct Answer - Kindergarten
+      internalID: 7072277725117759673
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -62,9 +62,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.004|Learning Tip - Grade 4 - 6
-      takeName: Main Rig.004|Learning Tip - Grade 4 - 6
-      internalID: -8670744495189270354
+      name: Main Rig.003|Kindergarten - Question
+      takeName: Main Rig.003|Kindergarten - Question
+      internalID: -1090222958374607638
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -91,11 +91,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.004|Question - Grade 4 - 6
-      takeName: Main Rig.004|Question - Grade 4 - 6
-      internalID: 5997042942574061054
+      name: Main Rig.003|Learning Tip - Kindergarten
+      takeName: Main Rig.003|Learning Tip - Kindergarten
+      internalID: 1830200587387617113
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -120,9 +120,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.004|Wrong Answer - Grade 4 - 6
-      takeName: Main Rig.004|Wrong Answer - Grade 4 - 6
-      internalID: -5219218613770555029
+      name: Main Rig.003|Wrong Answer - Kindergarten
+      takeName: Main Rig.003|Wrong Answer - Kindergarten
+      internalID: 5178023499240579369
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0

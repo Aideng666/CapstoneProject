@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 82e0cccbad4e39d43a049020b48ee7f0
+guid: 86fa95d5f292cc746936b23324d8a0b9
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Main Rig.003|Correct Answer - Kindergarten
-      takeName: Main Rig.003|Correct Answer - Kindergarten
-      internalID: 7072277725117759673
+      name: Question - Grade 7 - 8.001
+      takeName: Question - Grade 7 - 8.001
+      internalID: -5977566044416979040
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -62,11 +62,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.003|Kindergarten - Question
-      takeName: Main Rig.003|Kindergarten - Question
-      internalID: -1090222958374607638
+      name: Grade 7 - 8|Correct Answer - Grade 7 - 8
+      takeName: Grade 7 - 8|Correct Answer - Grade 7 - 8
+      internalID: -7209417291162358942
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -91,11 +91,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.003|Learning Tip - Kindergarten
-      takeName: Main Rig.003|Learning Tip - Kindergarten
-      internalID: 1830200587387617113
+      name: Grade 7 - 8|Learning Tip - Grade 7 - 8
+      takeName: Grade 7 - 8|Learning Tip - Grade 7 - 8
+      internalID: -5379055641340469128
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -120,11 +120,40 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Main Rig.003|Wrong Answer - Kindergarten
-      takeName: Main Rig.003|Wrong Answer - Kindergarten
-      internalID: 5178023499240579369
+      name: Grade 7 - 8|Question - Grade 7 - 8
+      takeName: Grade 7 - 8|Question - Grade 7 - 8
+      internalID: -3792393087617907305
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Grade 7 - 8|Worng Answer - Grade 7 - 8
+      takeName: Grade 7 - 8|Worng Answer - Grade 7 - 8
+      internalID: 43555868923105149
+      firstFrame: 0
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
